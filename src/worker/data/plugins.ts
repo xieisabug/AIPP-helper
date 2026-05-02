@@ -38,6 +38,7 @@ function makePlugin(params: {
     description: string;
     pluginTypes: string[];
     permissions: string[];
+    sha256: string;
     tags?: string[];
     isExperimental?: boolean;
     version?: string;
@@ -63,7 +64,7 @@ function makePlugin(params: {
         },
         dirs: [{ from: params.code, to: params.code }],
         sourceUrl: `${PLUGIN_SOURCE_BASE}/${params.code}`,
-        sha256: "sha256:...",
+        sha256: params.sha256,
     };
 }
 
@@ -76,6 +77,8 @@ export const plugins: Plugin[] = [
         pluginTypes: ["toolType", "applicationType"],
         permissions: ["bang.register"],
         tags: ["official", "bang", "tool"],
+        sha256:
+            "sha256:fcb18fcab2475a18aebda48440faa5ab6de066e3720c956a4a53774267aee3c0",
     }),
     makePlugin({
         code: "run-script-bang-plugin",
@@ -85,6 +88,8 @@ export const plugins: Plugin[] = [
         pluginTypes: ["toolType", "applicationType"],
         permissions: ["bang.register"],
         tags: ["official", "bang", "tool", "high-risk"],
+        sha256:
+            "sha256:6c70073de669f63f44ae3a17e1c4f32a72e4db9873435d27ad4a48bd523e54ee",
     }),
     makePlugin({
         code: "think-markdown-plugin",
@@ -93,6 +98,8 @@ export const plugins: Plugin[] = [
         pluginTypes: ["markdownType", "interfaceType"],
         permissions: ["markdown.register"],
         tags: ["official", "markdown"],
+        sha256:
+            "sha256:43057855ef04cee4ee88d91ef75ecdd13f45c11283a6c7b823bbbc976b9a9281",
     }),
     makePlugin({
         code: "hidden-first-turn-context-plugin",
@@ -106,6 +113,8 @@ export const plugins: Plugin[] = [
             "hook.chat.beforeModelRequest",
         ],
         tags: ["official", "assistant", "hook"],
+        sha256:
+            "sha256:abd92b54b46173d1d720e3150250b40b62798158d5e4f599af1e1c74a6a5ee84",
     }),
     makePlugin({
         code: "prompt-optimizer-plugin",
@@ -120,6 +129,8 @@ export const plugins: Plugin[] = [
             "assistant.prompt.write",
         ],
         tags: ["official", "assistant", "prompt"],
+        sha256:
+            "sha256:442192c040c034048f2401013c137283fc9c769bbcd14c28eee1a610e040716e",
     }),
     makePlugin({
         code: "usage-dashboard-plugin",
@@ -134,6 +145,8 @@ export const plugins: Plugin[] = [
             "plugin.storage",
         ],
         tags: ["official", "dashboard", "analytics"],
+        sha256:
+            "sha256:e4eec3cec7adeb35874f30a93aab277ef0c9ec08f33269f38d37e18a5ecff427",
     }),
     makePlugin({
         code: "benchmark-plugin",
@@ -144,6 +157,8 @@ export const plugins: Plugin[] = [
         permissions: [],
         tags: ["official", "benchmark", "experimental"],
         isExperimental: true,
+        sha256:
+            "sha256:09e62ae253798bc1f02e74b8800e332a2f3cecb81cb9b520f1b42dcfaad181f0",
     }),
     makePlugin({
         code: "guofeng-zhusha-theme-plugin",
@@ -152,5 +167,7 @@ export const plugins: Plugin[] = [
         pluginTypes: ["themeType", "interfaceType", "applicationType"],
         permissions: [],
         tags: ["official", "theme"],
+        sha256:
+            "sha256:e202fd12fd4032fb9c77b42be678878f4cfbf30d9c5be3b3e82ef39f85f54532",
     }),
 ];
