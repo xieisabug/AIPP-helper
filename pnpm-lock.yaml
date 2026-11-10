@@ -36,6 +36,9 @@ importers:
       '@vitejs/plugin-react':
         specifier: 5.1.1
         version: 5.1.1(vite@6.4.1(@types/node@24.10.1))
+      esbuild:
+        specifier: 0.25.12
+        version: 0.25.12
       eslint:
         specifier: 9.39.2
         version: 9.39.2
