@@ -16,6 +16,12 @@ test('catalog endpoint returns versioned applications and supports conditional c
     assert.ok(catalog.apps.some(app => app.connection.auth === 'fields'));
     const cached = await worker.request('https://helper.example/api/apps', { headers: { 'If-None-Match': response.headers.get('etag') } });
     assert.equal(cached.status, 304);
+    for (const value of [`W/${response.headers.get('etag')}`, `"another", W/${response.headers.get('etag')}`, '*']) {
+        const weak = await worker.request('https://helper.example/api/apps', { headers: { 'If-None-Match': value } });
+        assert.equal(weak.status, 304);
+    }
+    const stale = await worker.request('https://helper.example/api/apps', { headers: { 'If-None-Match': 'W/"old-version"' } });
+    assert.equal(stale.status, 200);
 });
 test('unknown app returns a JSON 404 instead of the SPA', async () => {
     const response = await worker.request('https://helper.example/api/apps/not-found');

@@ -6,7 +6,10 @@ export const appsApi = new Hono();
 appsApi.get("/", (c) => {
     c.header("Cache-Control", "public, max-age=300");
     c.header("ETag", `"apps-${catalog.version}"`);
-    if (c.req.header("If-None-Match") === `"apps-${catalog.version}"`) return c.body(null, 304);
+    const candidate = c.req.header("If-None-Match");
+    const etag = `"apps-${catalog.version}"`;
+    // Cloudflare may weaken ETags after content encoding. GET uses weak comparison.
+    if (candidate?.trim() === "*" || candidate?.split(",").some(value => value.trim().replace(/^W\//, "") === etag)) return c.body(null, 304);
     return c.json(catalog);
 });
 appsApi.get("/:id", (c) => {
