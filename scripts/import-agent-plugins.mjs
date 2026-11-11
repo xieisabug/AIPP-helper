@@ -1,4 +1,5 @@
-// Run from the helper root: node scripts/import-agent-plugins.mjs <export.json>
+// Requires Python 3 for ZIP packaging. Run: node scripts/import-agent-plugins.mjs <export.json> <repository.zip>
+import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {readFile,mkdir,writeFile} from 'node:fs/promises';
 const input=process.argv[2];const archiveInput=process.argv[3];if(!input || !archiveInput)throw new Error('Provide metadata exported with the AIPP package parser');
@@ -14,3 +15,5 @@ for(let offset=0,index=0;offset<bytes.length;offset+=15*1024*1024,index++){const
 const archive={parts,bytes:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex')};
 await writeFile('src/worker/data/agent-plugins.json',JSON.stringify({revision,archive,entries:previews.map(p=>({key:p.key,name:p.name,description:p.description,category:'效率',source:p.source}))},null,2));
 console.log(`Prepared ${previews.length} plugins at ${revision}; review and deploy helper with its static assets.`);
+
+execFileSync('python', ['scripts/package-agent-plugins.py', archiveInput, input], {stdio:'inherit'});

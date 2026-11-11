@@ -9,7 +9,7 @@ test('published catalog and Notion details are available without upstream fetch'
     const original=globalThis.fetch;globalThis.fetch=()=>{throw new Error('metadata must not fetch GitHub');};
     try {
         const res=await worker.request('https://helper.example/api/agent-plugins/catalog?repo=openai/plugins&ref=main',{},env);
-        assert.equal(res.status,200);const catalog=await res.json();assert.equal(catalog.entries.length,62);
+        assert.equal(res.status,200);const catalog=await res.json();assert.equal(catalog.entries.length,62);const notion=catalog.entries.find(p=>p.source.path==='plugins/notion');assert.equal(notion.skill_count,4);assert.equal(notion.connector_count,1);
         const detail=await worker.request('https://helper.example/api/agent-plugins/preview?repo=openai/plugins&ref=main&path=plugins/notion',{},env);
         assert.equal(detail.status,200);const preview=await detail.json();assert.equal(preview.skills.length,4);assert.match(preview.digest,/^[a-f0-9]{64}$/);assert.ok(preview.skills.every(s=>s.content));
         const app=await (await worker.request('https://helper.example/api/apps/notion',{},env)).json();assert.deepEqual(app.app.plugin_source,preview.source);
@@ -28,6 +28,8 @@ test('archive is served entirely from published assets without upstream network'
         const data=Buffer.from(await response.arrayBuffer());
         const {createHash}=await import('node:crypto');
         assert.equal(data.subarray(0,2).toString(),'PK');
+        assert.ok(data.length < 300000, 'Notion must not download the entire repository');
+        assert.equal(Number(response.headers.get('content-length')),data.length);
         assert.equal(createHash('sha256').update(data).digest('hex'),response.headers.get('x-aipp-sha256'));
     }finally{globalThis.fetch=original;}
 });

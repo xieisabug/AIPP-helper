@@ -10,7 +10,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/adobe"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/d90b345b687d59356308ae88-24c570f1da1febe47e9972552a3150daf0e20833dc1efb20b5a3931531c3df1b.zip",
+        "bytes": 91830,
+        "sha256": "24c570f1da1febe47e9972552a3150daf0e20833dc1efb20b5a3931531c3df1b"
+      },
+      "skill_count": 6,
+      "connector_count": 0
     },
     {
       "key": "849722110406ccb3cb64e42a",
@@ -21,7 +28,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/airtable"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/849722110406ccb3cb64e42a-8381c0383ef6e7c817b83bcd56ffe013551dd48e70fc406750e0ad11184b64d2.zip",
+        "bytes": 42675,
+        "sha256": "8381c0383ef6e7c817b83bcd56ffe013551dd48e70fc406750e0ad11184b64d2"
+      },
+      "skill_count": 3,
+      "connector_count": 1
     },
     {
       "key": "b26c480677b692dc20f9ac7c",
@@ -32,7 +46,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/atlassian-rovo"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/b26c480677b692dc20f9ac7c-a08fc6ff0c6ba057f8d02da3a783a3980ddb2e7e76b4c0bfb921fefe83496532.zip",
+        "bytes": 67228,
+        "sha256": "a08fc6ff0c6ba057f8d02da3a783a3980ddb2e7e76b4c0bfb921fefe83496532"
+      },
+      "skill_count": 0,
+      "connector_count": 1
     },
     {
       "key": "99ca1aae5175dd5af9bee41d",
@@ -43,7 +64,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/boltz-api-cli"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/99ca1aae5175dd5af9bee41d-24a2e381554322ccbd8d37a426a3ec8b5d1b34b6757ad95ce03f50878af9da77.zip",
+        "bytes": 133354,
+        "sha256": "24a2e381554322ccbd8d37a426a3ec8b5d1b34b6757ad95ce03f50878af9da77"
+      },
+      "skill_count": 8,
+      "connector_count": 0
     },
     {
       "key": "2660d6d5014323468a264f45",
@@ -54,7 +82,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/build-ios-apps"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/2660d6d5014323468a264f45-3e8f83cbb7cac34808bce29235e8c5045ef3faa8105a850b6632832b726ca0dd.zip",
+        "bytes": 152931,
+        "sha256": "3e8f83cbb7cac34808bce29235e8c5045ef3faa8105a850b6632832b726ca0dd"
+      },
+      "skill_count": 9,
+      "connector_count": 1
     },
     {
       "key": "4d3fc446e62edbfdc1c6fc13",
@@ -65,7 +100,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/build-macos-apps"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/4d3fc446e62edbfdc1c6fc13-9aad710817cd8c57f4848cf59d7385bc200c415bc1f5c43c0f5c8e788fd036e9.zip",
+        "bytes": 83537,
+        "sha256": "9aad710817cd8c57f4848cf59d7385bc200c415bc1f5c43c0f5c8e788fd036e9"
+      },
+      "skill_count": 11,
+      "connector_count": 0
     },
     {
       "key": "6550e06b3d6e9b2cfa403aac",
@@ -76,7 +118,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/build-web-apps"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/6550e06b3d6e9b2cfa403aac-9ebae66a117187dcc89751a36a5748bae9b28431b365311a54871b73ae64bbed.zip",
+        "bytes": 235381,
+        "sha256": "9ebae66a117187dcc89751a36a5748bae9b28431b365311a54871b73ae64bbed"
+      },
+      "skill_count": 6,
+      "connector_count": 0
     },
     {
       "key": "b7b5c99937ac681e608a68e5",
@@ -87,7 +136,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/build-web-data-visualization"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/b7b5c99937ac681e608a68e5-346a14f265b5c50d8ab61c9f3cd88ff2d5e17816817af3794893a1c71ffad0cf.zip",
+        "bytes": 384637,
+        "sha256": "346a14f265b5c50d8ab61c9f3cd88ff2d5e17816817af3794893a1c71ffad0cf"
+      },
+      "skill_count": 18,
+      "connector_count": 0
     },
     {
       "key": "c18699f36959965ce8397c3b",
@@ -98,7 +154,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/canva"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/c18699f36959965ce8397c3b-b9746989ceafe1dc985c354f78596c10ba0feecc944c55a03ed15ddab16376de.zip",
+        "bytes": 1172593,
+        "sha256": "b9746989ceafe1dc985c354f78596c10ba0feecc944c55a03ed15ddab16376de"
+      },
+      "skill_count": 8,
+      "connector_count": 1
     },
     {
       "key": "c8450ae1f9d0d07daa750d1b",
@@ -109,7 +172,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/chatcut"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/c8450ae1f9d0d07daa750d1b-85fbfd46966d85a7ad725c06533b70221fe45f9c45f61d49a6595ad3e0866d3e.zip",
+        "bytes": 194778,
+        "sha256": "85fbfd46966d85a7ad725c06533b70221fe45f9c45f61d49a6595ad3e0866d3e"
+      },
+      "skill_count": 1,
+      "connector_count": 0
     },
     {
       "key": "56b39b7717fb85625ad981f3",
@@ -120,7 +190,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/circleci"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/56b39b7717fb85625ad981f3-f3e2e881eb9b0f8b30e355c87260561863c1ce5335fc00a8459da983fb3a28b6.zip",
+        "bytes": 68494,
+        "sha256": "f3e2e881eb9b0f8b30e355c87260561863c1ce5335fc00a8459da983fb3a28b6"
+      },
+      "skill_count": 4,
+      "connector_count": 0
     },
     {
       "key": "06cdc5126975a8cf33483938",
@@ -131,7 +208,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/clickup"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/06cdc5126975a8cf33483938-a41761c0076351e05219dae656bd0592b8f8d129413af3492e44dfe8285aa030.zip",
+        "bytes": 86957,
+        "sha256": "a41761c0076351e05219dae656bd0592b8f8d129413af3492e44dfe8285aa030"
+      },
+      "skill_count": 0,
+      "connector_count": 1
     },
     {
       "key": "ec23ff547f9142d441c4cefb",
@@ -142,7 +226,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/cloudflare"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/ec23ff547f9142d441c4cefb-3bf670018efb8481f057f04cd6f41445999b21e67602516f3697b19cfa24aa84.zip",
+        "bytes": 796517,
+        "sha256": "3bf670018efb8481f057f04cd6f41445999b21e67602516f3697b19cfa24aa84"
+      },
+      "skill_count": 9,
+      "connector_count": 1
     },
     {
       "key": "034510f16bd4470a3811af74",
@@ -153,7 +244,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/coderabbit"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/034510f16bd4470a3811af74-66eca520d97b85ca22613d0ba35d1d0acb39fa97e24013d7b32e00e4109800ce.zip",
+        "bytes": 95983,
+        "sha256": "66eca520d97b85ca22613d0ba35d1d0acb39fa97e24013d7b32e00e4109800ce"
+      },
+      "skill_count": 1,
+      "connector_count": 0
     },
     {
       "key": "8fea08fcdb5a1175a6aaee93",
@@ -164,7 +262,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/codex-security"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/8fea08fcdb5a1175a6aaee93-b070294ecb0c1a42522a1ad0dfcbf7d3f96def3a3c2060de00c2dffdf42a36d9.zip",
+        "bytes": 2358236,
+        "sha256": "b070294ecb0c1a42522a1ad0dfcbf7d3f96def3a3c2060de00c2dffdf42a36d9"
+      },
+      "skill_count": 15,
+      "connector_count": 1
     },
     {
       "key": "6f5f89bb4be5ba98c75b6101",
@@ -175,7 +280,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/consensus"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/6f5f89bb4be5ba98c75b6101-1ba59eefbc973c02d20aa7b71ded8d78660c3d97966181546c18dbb04d641a66.zip",
+        "bytes": 26272,
+        "sha256": "1ba59eefbc973c02d20aa7b71ded8d78660c3d97966181546c18dbb04d641a66"
+      },
+      "skill_count": 0,
+      "connector_count": 1
     },
     {
       "key": "8087dff25122c4e727914014",
@@ -186,7 +298,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/creative-production"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/8087dff25122c4e727914014-9a837688f8af8334c19875641e1b33c7737409256b0924d6e1fe08e236c6a629.zip",
+        "bytes": 2869507,
+        "sha256": "9a837688f8af8334c19875641e1b33c7737409256b0924d6e1fe08e236c6a629"
+      },
+      "skill_count": 2,
+      "connector_count": 1
     },
     {
       "key": "2634d2785bbaf9f26e067acc",
@@ -197,7 +316,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/data-analytics"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/2634d2785bbaf9f26e067acc-637d9540622fb4d72d76d109a71eb4bfd8186c1f1c3d9bb27b0f34da776818e8.zip",
+        "bytes": 2647070,
+        "sha256": "637d9540622fb4d72d76d109a71eb4bfd8186c1f1c3d9bb27b0f34da776818e8"
+      },
+      "skill_count": 15,
+      "connector_count": 1
     },
     {
       "key": "9a8ed256aa5edee9440b5fad",
@@ -208,7 +334,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/datadog"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/9a8ed256aa5edee9440b5fad-55f71d83eb6c1380d83e3e1822db57951651b709432bc66af7a76f6d95d610ae.zip",
+        "bytes": 225414,
+        "sha256": "55f71d83eb6c1380d83e3e1822db57951651b709432bc66af7a76f6d95d610ae"
+      },
+      "skill_count": 0,
+      "connector_count": 1
     },
     {
       "key": "52cbfad8b427bea25b96cd95",
@@ -219,7 +352,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/dropbox"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/52cbfad8b427bea25b96cd95-79970ec692171526e167d941a4f4408a3e8b24d672557ea661c33eca2406fe5a.zip",
+        "bytes": 1568417,
+        "sha256": "79970ec692171526e167d941a4f4408a3e8b24d672557ea661c33eca2406fe5a"
+      },
+      "skill_count": 6,
+      "connector_count": 1
     },
     {
       "key": "46912cfb06496df2f3423d3c",
@@ -230,7 +370,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/expo"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/46912cfb06496df2f3423d3c-ba2b5cf4cb231bb5dcdc9f8338fcae70e4bc934f56c99aabcc3e24fc54effd53.zip",
+        "bytes": 152973,
+        "sha256": "ba2b5cf4cb231bb5dcdc9f8338fcae70e4bc934f56c99aabcc3e24fc54effd53"
+      },
+      "skill_count": 13,
+      "connector_count": 0
     },
     {
       "key": "d753d114ff2ca69658a73051",
@@ -241,7 +388,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/figma"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/d753d114ff2ca69658a73051-f47bf413e07bad928f776194998491272395d47ea6102134ad981dd5b02092d9.zip",
+        "bytes": 614772,
+        "sha256": "f47bf413e07bad928f776194998491272395d47ea6102134ad981dd5b02092d9"
+      },
+      "skill_count": 12,
+      "connector_count": 1
     },
     {
       "key": "53bf4a72bb44ccdd7378a3fe",
@@ -252,7 +406,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/game-studio"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/53bf4a72bb44ccdd7378a3fe-4611e10e2aee2f47299baf53b0c22e3ac1a78cf627eefab158e8ce7dbd3dc74a.zip",
+        "bytes": 83023,
+        "sha256": "4611e10e2aee2f47299baf53b0c22e3ac1a78cf627eefab158e8ce7dbd3dc74a"
+      },
+      "skill_count": 9,
+      "connector_count": 0
     },
     {
       "key": "3e2d538d0f46e434eab73d5a",
@@ -263,7 +424,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/github"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/3e2d538d0f46e434eab73d5a-283cee5636b49028c50a5e4aabc77b46d78b958261f535a9303e88dacca3ad31.zip",
+        "bytes": 63948,
+        "sha256": "283cee5636b49028c50a5e4aabc77b46d78b958261f535a9303e88dacca3ad31"
+      },
+      "skill_count": 0,
+      "connector_count": 1
     },
     {
       "key": "3aa5ad7217943b024183220c",
@@ -274,7 +442,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/gmail"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/3aa5ad7217943b024183220c-b9182502492383c4b016aac551975b684a0078b41df15d569d89b3ba2e66fbc0.zip",
+        "bytes": 67992,
+        "sha256": "b9182502492383c4b016aac551975b684a0078b41df15d569d89b3ba2e66fbc0"
+      },
+      "skill_count": 0,
+      "connector_count": 1
     },
     {
       "key": "0c84871d1c916600a64ec31b",
@@ -285,7 +460,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/google-calendar"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/0c84871d1c916600a64ec31b-cac26131491e3fd3d68461603e02b469853e9892cf069b539b1daba600f3183b.zip",
+        "bytes": 96234,
+        "sha256": "cac26131491e3fd3d68461603e02b469853e9892cf069b539b1daba600f3183b"
+      },
+      "skill_count": 0,
+      "connector_count": 1
     },
     {
       "key": "ae10b4e4ba233dfeb40439f3",
@@ -296,7 +478,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/google-drive"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/ae10b4e4ba233dfeb40439f3-1fca92f313f9e8ef65771d448084dbdd2f50049d77277f701d4f0c02288d04ad.zip",
+        "bytes": 609728,
+        "sha256": "1fca92f313f9e8ef65771d448084dbdd2f50049d77277f701d4f0c02288d04ad"
+      },
+      "skill_count": 5,
+      "connector_count": 1
     },
     {
       "key": "f0ce44e6e065d6b009ab37cf",
@@ -307,7 +496,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/granola"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/f0ce44e6e065d6b009ab37cf-502b119c8cb0cd82aff316b4154f7ff13094b8db56876e5404c8235187c8afcd.zip",
+        "bytes": 87741,
+        "sha256": "502b119c8cb0cd82aff316b4154f7ff13094b8db56876e5404c8235187c8afcd"
+      },
+      "skill_count": 0,
+      "connector_count": 1
     },
     {
       "key": "1b7f763ac56a40c9b003dd5c",
@@ -318,7 +514,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/higgsfield"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/1b7f763ac56a40c9b003dd5c-e7efd128a49a4bc8d36612c0182bb6d0e41dd3a4d94460f21d2f9783f4dbb91b.zip",
+        "bytes": 139077,
+        "sha256": "e7efd128a49a4bc8d36612c0182bb6d0e41dd3a4d94460f21d2f9783f4dbb91b"
+      },
+      "skill_count": 3,
+      "connector_count": 1
     },
     {
       "key": "75493cd13382a656f6c5a94e",
@@ -329,7 +532,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/hyperframes"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/75493cd13382a656f6c5a94e-bed8d8c5e8b6a8d149773f13317645a0e5e6509b1d506d2878df22604a8ebe2d.zip",
+        "bytes": 242663,
+        "sha256": "bed8d8c5e8b6a8d149773f13317645a0e5e6509b1d506d2878df22604a8ebe2d"
+      },
+      "skill_count": 5,
+      "connector_count": 0
     },
     {
       "key": "65bb082f1420d25d2597b9c9",
@@ -340,7 +550,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/life-science-research"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/65bb082f1420d25d2597b9c9-e1c1671dc3baabe461c29c2e3c4c45fa32bf08f1d114f836676f0dd3a427cf2a.zip",
+        "bytes": 338855,
+        "sha256": "e1c1671dc3baabe461c29c2e3c4c45fa32bf08f1d114f836676f0dd3a427cf2a"
+      },
+      "skill_count": 50,
+      "connector_count": 0
     },
     {
       "key": "40e00e765d204eca8530f6bf",
@@ -351,7 +568,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/linear"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/40e00e765d204eca8530f6bf-896e4fe16e13cd19933ba544d9de168518e3e1f8b5562a3f9725882e8665349a.zip",
+        "bytes": 53594,
+        "sha256": "896e4fe16e13cd19933ba544d9de168518e3e1f8b5562a3f9725882e8665349a"
+      },
+      "skill_count": 0,
+      "connector_count": 1
     },
     {
       "key": "876271202806a76929e46ae0",
@@ -362,7 +586,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/lovable"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/876271202806a76929e46ae0-f79e3ca91234662f40c1ec455f3c522213da25e969208b5a5401038e42dda9a5.zip",
+        "bytes": 25790,
+        "sha256": "f79e3ca91234662f40c1ec455f3c522213da25e969208b5a5401038e42dda9a5"
+      },
+      "skill_count": 0,
+      "connector_count": 0
     },
     {
       "key": "eaac9c585e6bf73a75a2d329",
@@ -373,7 +604,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/magicpath"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/eaac9c585e6bf73a75a2d329-a619129f57446a76d9ae5e82485fa18ed748f2e408a64cecfb95aa12a29d3007.zip",
+        "bytes": 53741,
+        "sha256": "a619129f57446a76d9ae5e82485fa18ed748f2e408a64cecfb95aa12a29d3007"
+      },
+      "skill_count": 1,
+      "connector_count": 0
     },
     {
       "key": "30b3da9043a525a5ff8f019c",
@@ -384,7 +622,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/mixpanel-headless"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/30b3da9043a525a5ff8f019c-57b03fde0a8828f4828120452cd4bf0ab42c200b5cde7674c83f919d876b4715.zip",
+        "bytes": 279829,
+        "sha256": "57b03fde0a8828f4828120452cd4bf0ab42c200b5cde7674c83f919d876b4715"
+      },
+      "skill_count": 4,
+      "connector_count": 0
     },
     {
       "key": "7e28307eb26796e713d249f7",
@@ -395,7 +640,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/monday-com"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/7e28307eb26796e713d249f7-87ba091370af0011cda2df5258b6ae1c4958d76e57c515ce03e8998cddab0d3a.zip",
+        "bytes": 39057,
+        "sha256": "87ba091370af0011cda2df5258b6ae1c4958d76e57c515ce03e8998cddab0d3a"
+      },
+      "skill_count": 0,
+      "connector_count": 1
     },
     {
       "key": "0bbd3f6d4f2ad0a7e830b67f",
@@ -406,7 +658,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/ngs-analysis"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/0bbd3f6d4f2ad0a7e830b67f-0ee603270871aa0191684e46b2e71219069c90699062cae6d78b994c20ac05e4.zip",
+        "bytes": 374008,
+        "sha256": "0ee603270871aa0191684e46b2e71219069c90699062cae6d78b994c20ac05e4"
+      },
+      "skill_count": 18,
+      "connector_count": 0
     },
     {
       "key": "85c5668a15b74665acc097d3",
@@ -417,7 +676,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/notion"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/85c5668a15b74665acc097d3-91f9869094f587e213d4b6d3e32164387eae17471ce83b94f4a9688258cf9ce4.zip",
+        "bytes": 189664,
+        "sha256": "91f9869094f587e213d4b6d3e32164387eae17471ce83b94f4a9688258cf9ce4"
+      },
+      "skill_count": 4,
+      "connector_count": 1
     },
     {
       "key": "0ff50f6c93c9396508546b29",
@@ -428,7 +694,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/nvidia"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/0ff50f6c93c9396508546b29-1b047f0e81f96695dc35806eec293f3388d69f41c4ca551d30bfa3e19c2ea14e.zip",
+        "bytes": 1438389,
+        "sha256": "1b047f0e81f96695dc35806eec293f3388d69f41c4ca551d30bfa3e19c2ea14e"
+      },
+      "skill_count": 12,
+      "connector_count": 0
     },
     {
       "key": "5c283081c845828033651666",
@@ -439,7 +712,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/openai-ads-conversions"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/5c283081c845828033651666-0a4f2255576fd1fe1103ca648a35ba7f39a12d507d0b50ba80d04f084f001d4d.zip",
+        "bytes": 61031,
+        "sha256": "0a4f2255576fd1fe1103ca648a35ba7f39a12d507d0b50ba80d04f084f001d4d"
+      },
+      "skill_count": 1,
+      "connector_count": 0
     },
     {
       "key": "2ba2369c2bf18ab1430203ab",
@@ -450,7 +730,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/openai-developers"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/2ba2369c2bf18ab1430203ab-02a6b75fc46353d7d1a2ba3bd0b8a878d6747b6d0093f170d6da0cec105bf813.zip",
+        "bytes": 124567,
+        "sha256": "02a6b75fc46353d7d1a2ba3bd0b8a878d6747b6d0093f170d6da0cec105bf813"
+      },
+      "skill_count": 5,
+      "connector_count": 2
     },
     {
       "key": "bfd3299c4fa97cd5f3763bdf",
@@ -461,7 +748,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/outlook-calendar"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/bfd3299c4fa97cd5f3763bdf-c8d78ea80aae0a837582b00056fb85247694bad8eccf116913eb08e193fd57a7.zip",
+        "bytes": 49516,
+        "sha256": "c8d78ea80aae0a837582b00056fb85247694bad8eccf116913eb08e193fd57a7"
+      },
+      "skill_count": 0,
+      "connector_count": 0
     },
     {
       "key": "e56715b1d63963fd64c1f107",
@@ -472,7 +766,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/outlook-email"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/e56715b1d63963fd64c1f107-d08129b3a3330d66d9ccabf4b948eec5041de338358090c64db3b155493a2c07.zip",
+        "bytes": 49446,
+        "sha256": "d08129b3a3330d66d9ccabf4b948eec5041de338358090c64db3b155493a2c07"
+      },
+      "skill_count": 0,
+      "connector_count": 0
     },
     {
       "key": "f45f3717d38c2345b12fb7f2",
@@ -483,7 +784,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/plugin-eval"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/f45f3717d38c2345b12fb7f2-55ba4e0c6adcdb899941731db8c7ec6badf18302982a89eceeb4b2075b77bc92.zip",
+        "bytes": 132101,
+        "sha256": "55ba4e0c6adcdb899941731db8c7ec6badf18302982a89eceeb4b2075b77bc92"
+      },
+      "skill_count": 5,
+      "connector_count": 0
     },
     {
       "key": "f763980ce2e8847bdac5c091",
@@ -494,7 +802,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/posthog"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/f763980ce2e8847bdac5c091-b0df68600d7efa663841bbf9bbf8e4edada8180d1b3059fbd5f7b3f8118a3f54.zip",
+        "bytes": 195906,
+        "sha256": "b0df68600d7efa663841bbf9bbf8e4edada8180d1b3059fbd5f7b3f8118a3f54"
+      },
+      "skill_count": 1,
+      "connector_count": 1
     },
     {
       "key": "71d57e9e859f7b3e1c80c399",
@@ -505,7 +820,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/product-design"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/71d57e9e859f7b3e1c80c399-5b246160ef13882fdd658f525f30d51fb3eedd3c5a648fe671e80bfa77c59db2.zip",
+        "bytes": 926390,
+        "sha256": "5b246160ef13882fdd658f525f30d51fb3eedd3c5a648fe671e80bfa77c59db2"
+      },
+      "skill_count": 10,
+      "connector_count": 0
     },
     {
       "key": "deda11553c20351fc41de576",
@@ -516,7 +838,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/public-equity-investing"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/deda11553c20351fc41de576-57674648da539ed0ce5e3f3001c98c40d2a24e7b2c81f7f12efe0249f8bdf3d5.zip",
+        "bytes": 1735098,
+        "sha256": "57674648da539ed0ce5e3f3001c98c40d2a24e7b2c81f7f12efe0249f8bdf3d5"
+      },
+      "skill_count": 23,
+      "connector_count": 0
     },
     {
       "key": "bd84fcb548c794328d1423ea",
@@ -527,7 +856,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/remotion"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/bd84fcb548c794328d1423ea-35050954785f631fcd1160f50a62a0c5a3c4e69e42d91e871bbd27ac63065624.zip",
+        "bytes": 1045990,
+        "sha256": "35050954785f631fcd1160f50a62a0c5a3c4e69e42d91e871bbd27ac63065624"
+      },
+      "skill_count": 12,
+      "connector_count": 0
     },
     {
       "key": "4ba4fe7575817bb80dc61a32",
@@ -538,7 +874,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/sentry"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/4ba4fe7575817bb80dc61a32-198493398c698eb299331502dff6eaf958c12806526fe8b22a5a7cdb794f44bc.zip",
+        "bytes": 41075,
+        "sha256": "198493398c698eb299331502dff6eaf958c12806526fe8b22a5a7cdb794f44bc"
+      },
+      "skill_count": 1,
+      "connector_count": 1
     },
     {
       "key": "0ff96bba5e02795015bf43f5",
@@ -549,7 +892,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/sharepoint"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/0ff96bba5e02795015bf43f5-3307bd2049b045536da0bff48b739d8e07ea2d4b335f2c517ece4a19babc8bcb.zip",
+        "bytes": 47535,
+        "sha256": "3307bd2049b045536da0bff48b739d8e07ea2d4b335f2c517ece4a19babc8bcb"
+      },
+      "skill_count": 0,
+      "connector_count": 0
     },
     {
       "key": "1769b4676fee61f79e4a306d",
@@ -560,7 +910,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/shopify"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/1769b4676fee61f79e4a306d-01e8ad0d92f3335fc535cb9f0322dfc0fecf9a2679b68ff8cb4d100b23bc4221.zip",
+        "bytes": 2403728,
+        "sha256": "01e8ad0d92f3335fc535cb9f0322dfc0fecf9a2679b68ff8cb4d100b23bc4221"
+      },
+      "skill_count": 20,
+      "connector_count": 1
     },
     {
       "key": "ef3ae69faa771d60789587af",
@@ -571,7 +928,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/slack"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/ef3ae69faa771d60789587af-56fce133935e99835d7455bc02a83c5eea16753a1f4e8525bbc27da784e48023.zip",
+        "bytes": 104441,
+        "sha256": "56fce133935e99835d7455bc02a83c5eea16753a1f4e8525bbc27da784e48023"
+      },
+      "skill_count": 0,
+      "connector_count": 1
     },
     {
       "key": "327496dbc1b3c4d69dc29f6e",
@@ -582,7 +946,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/stripe"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/327496dbc1b3c4d69dc29f6e-c57f5b6d0d3a709c2faa896a7bb81a33015c5e75e4e7eb16e679961e5948c8d7.zip",
+        "bytes": 139501,
+        "sha256": "c57f5b6d0d3a709c2faa896a7bb81a33015c5e75e4e7eb16e679961e5948c8d7"
+      },
+      "skill_count": 7,
+      "connector_count": 1
     },
     {
       "key": "1684e3bbcc8c1a7d6bc825dd",
@@ -593,7 +964,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/supabase"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/1684e3bbcc8c1a7d6bc825dd-124d06002704093b22227821fe415ed983578738484ffd024b7e7641c13fdd54.zip",
+        "bytes": 85272,
+        "sha256": "124d06002704093b22227821fe415ed983578738484ffd024b7e7641c13fdd54"
+      },
+      "skill_count": 2,
+      "connector_count": 1
     },
     {
       "key": "a24531591101bc37562fb770",
@@ -604,7 +982,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/superpowers"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/a24531591101bc37562fb770-91004039951ece79635ee4073b7aa7f905276f4248109c8a8fda1e837346ea25.zip",
+        "bytes": 267200,
+        "sha256": "91004039951ece79635ee4073b7aa7f905276f4248109c8a8fda1e837346ea25"
+      },
+      "skill_count": 14,
+      "connector_count": 0
     },
     {
       "key": "9a766916d02cec40ab4195fd",
@@ -615,7 +1000,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/teams"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/9a766916d02cec40ab4195fd-0ceb9fb1f6734331ed592b8e2beaa5c8e3f5e94b101b792925fc0759874f487a.zip",
+        "bytes": 45022,
+        "sha256": "0ceb9fb1f6734331ed592b8e2beaa5c8e3f5e94b101b792925fc0759874f487a"
+      },
+      "skill_count": 0,
+      "connector_count": 0
     },
     {
       "key": "3e802d615cbe38dc55b31e74",
@@ -626,7 +1018,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/temporal"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/3e802d615cbe38dc55b31e74-1697a89da18c5767fc6ced89005ffac06aa9758c1815091c31e5def00c65093f.zip",
+        "bytes": 642314,
+        "sha256": "1697a89da18c5767fc6ced89005ffac06aa9758c1815091c31e5def00c65093f"
+      },
+      "skill_count": 4,
+      "connector_count": 0
     },
     {
       "key": "6f9368377ee52f6ccb4798b1",
@@ -637,7 +1036,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/test-android-apps"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/6f9368377ee52f6ccb4798b1-8a181d488e09795e721873eacbbfa7d34ae6c8f2efcbaf8fa1be7a5d3972e15b.zip",
+        "bytes": 126279,
+        "sha256": "8a181d488e09795e721873eacbbfa7d34ae6c8f2efcbaf8fa1be7a5d3972e15b"
+      },
+      "skill_count": 2,
+      "connector_count": 0
     },
     {
       "key": "b6794015645ff8ee4487ec78",
@@ -648,7 +1054,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/twilio-developer-kit"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/b6794015645ff8ee4487ec78-32387811a48cfaf85168e7ea8146f7acc0132dd107bb722a3a34b569647b5adb.zip",
+        "bytes": 309017,
+        "sha256": "32387811a48cfaf85168e7ea8146f7acc0132dd107bb722a3a34b569647b5adb"
+      },
+      "skill_count": 55,
+      "connector_count": 0
     },
     {
       "key": "b8cdc747be25e8ad346508f3",
@@ -659,7 +1072,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/vercel"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/b8cdc747be25e8ad346508f3-1563e4d0afe7fb50c978b301a501ba4931e24a4bdd700b8a9a1f1e18466d80ed.zip",
+        "bytes": 563534,
+        "sha256": "1563e4d0afe7fb50c978b301a501ba4931e24a4bdd700b8a9a1f1e18466d80ed"
+      },
+      "skill_count": 54,
+      "connector_count": 1
     },
     {
       "key": "ebb275bcff59dc06985a5302",
@@ -670,7 +1090,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/zoom"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/ebb275bcff59dc06985a5302-e71d0bc46f286b87a6ad602711ce21752c3ab00d6301146d057638a0db4ec943.zip",
+        "bytes": 3467008,
+        "sha256": "e71d0bc46f286b87a6ad602711ce21752c3ab00d6301146d057638a0db4ec943"
+      },
+      "skill_count": 27,
+      "connector_count": 1
     },
     {
       "key": "230ed5582de88e274e0651e8",
@@ -681,7 +1108,14 @@
         "repo": "openai/plugins",
         "git_ref": "main",
         "path": "plugins/zotero"
-      }
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/230ed5582de88e274e0651e8-4279e2fb24a4bd5c3817fc9aed6177264e58839e861d3abd048cf617fcbdbefd.zip",
+        "bytes": 57428,
+        "sha256": "4279e2fb24a4bd5c3817fc9aed6177264e58839e861d3abd048cf617fcbdbefd"
+      },
+      "skill_count": 1,
+      "connector_count": 0
     }
   ],
   "archive": {
