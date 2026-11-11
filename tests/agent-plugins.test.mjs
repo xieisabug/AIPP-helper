@@ -20,8 +20,14 @@ test('archive rejects arbitrary sources and revisions before contacting upstream
         const response=await worker.request(`https://helper.example/api/agent-plugins/archive?${query}`,{},env);assert.ok([404,409].includes(response.status));
     }
 });
-test('archive streams through helper without redirecting the desktop', async () => {
-    const original=globalThis.fetch;
-    globalThis.fetch=async (url,options)=>{assert.equal(options.redirect,'manual');assert.equal(String(url),'https://codeload.github.com/openai/plugins/zip/d420d13051bffe4543ed39e30fa46b87148e47dd');return new Response('zip-body');};
-    try {const response=await worker.request('https://helper.example/api/agent-plugins/archive?repo=openai/plugins&ref=main&path=plugins/notion&revision=d420d13051bffe4543ed39e30fa46b87148e47dd',{},env);assert.equal(response.status,200);assert.equal(response.headers.get('location'),null);assert.equal(await response.text(),'zip-body');}finally{globalThis.fetch=original;}
+test('archive is served entirely from published assets without upstream network', async () => {
+    const original=globalThis.fetch;globalThis.fetch=async()=>{throw new Error('No upstream fetch permitted');};
+    try {
+        const response=await worker.request('https://helper.example/api/agent-plugins/archive?repo=openai/plugins&ref=main&path=plugins/notion&revision=d420d13051bffe4543ed39e30fa46b87148e47dd',{},env);
+        assert.equal(response.status,200);assert.equal(response.headers.get('location'),null);
+        const data=Buffer.from(await response.arrayBuffer());
+        const {createHash}=await import('node:crypto');
+        assert.equal(data.subarray(0,2).toString(),'PK');
+        assert.equal(createHash('sha256').update(data).digest('hex'),response.headers.get('x-aipp-sha256'));
+    }finally{globalThis.fetch=original;}
 });

@@ -52,10 +52,12 @@ Windows Credential Manager / macOS Keychain / Linux Secret Service 使用 keyrin
 
 ## Agent 插件目录（客户端不访问 GitHub）
 
-普通目录沿用 `/api/apps`，`plugin_source` 关联完整 Agent 插件。新增 `/api/agent-plugins/catalog`、`/preview`、`/archive`。catalog/preview 直接读取随发布的 JSON，无需访问 GitHub；archive 仅流式代理已发布 repo/ref/path/commit，不开放任意 URL 代理，也不重定向桌面客户端。详情 JSON 在 public/agent-plugins，必须随 Worker 静态资源一起发布。
+普通目录沿用 `/api/apps`，`plugin_source` 关联完整 Agent 插件。新增 `/api/agent-plugins/catalog`、`/preview`、`/archive`。catalog/preview 直接读取随发布的 JSON，无需访问 GitHub；archive 仅返回已发布 repo/ref/path/commit 的静态归档分块，不开放任意 URL 代理，也不重定向桌面客户端。详情 JSON 在 public/agent-plugins，必须随 Worker 静态资源一起发布。
 
 当前预解析版本：openai/plugins @ d420d13051bffe4543ed39e30fa46b87148e47dd，62 包。Notion 实际4个技能，与 ChatGPT 托管目录并非同一发布集合。上游许可证声明保留在各详情 manifest；不执行技能正文。client_secret 从展示元数据移除。原始安装包由客户端解包并重新校验摘要。
 
-维护流程：在 AIPP 使用与客户端相同的 bundles 解析器，从固定 ZIP 导出元数据（显式维护命令 `AIPP_PLUGIN_TEST_ARCHIVE=<zip>`、`AIPP_PLUGIN_EXPORT=<output.json>`，`cargo test --manifest-path src-tauri/Cargo.toml --lib test_export_helper_plugin_catalog -- --ignored`；当前导出器固定这一提交，升级提交需同步来源与夹具）。在 helper 根目录执行 `node scripts/import-agent-plugins.mjs <output.json>`，审核新增能力和来源，然后运行 `node --test tests/apps.test.mjs tests/agent-plugins.test.mjs`、`npm run build`，发布完整 Worker 与 assets。`apps.json` 中的服务配置与插件关联单独审核，不会被导入脚本覆盖。
+维护流程：在 AIPP 使用与客户端相同的 bundles 解析器，从固定 ZIP 导出元数据（显式维护命令 `AIPP_PLUGIN_TEST_ARCHIVE=<zip>`、`AIPP_PLUGIN_EXPORT=<output.json>`，`cargo test --manifest-path src-tauri/Cargo.toml --lib test_export_helper_plugin_catalog -- --ignored`；当前导出器固定这一提交，升级提交需同步来源与夹具）。在 helper 根目录执行 `node scripts/import-agent-plugins.mjs <output.json> <verified.zip>`，审核新增能力和来源，然后运行 `node --test tests/apps.test.mjs tests/agent-plugins.test.mjs`、`npm run build`，发布完整 Worker 与 assets。`apps.json` 中的服务配置与插件关联单独审核，不会被导入脚本覆盖。
 
 发布应从已提交源码构建；工作区存在未提交改动时，用提交快照构建，避免混入其他任务。
+
+安装包以小于25MiB的分块随helper静态资源发布，Worker按顺序流式返回原ZIP并附带SHA-256。目录、详情和下载均不依赖运行时访问GitHub。

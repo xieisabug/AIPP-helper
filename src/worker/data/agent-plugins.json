@@ -683,5 +683,13 @@
         "path": "plugins/zotero"
       }
     }
-  ]
+  ],
+  "archive": {
+    "parts": [
+      "/agent-plugin-archives/d420d13051bffe4543ed39e30fa46b87148e47dd.0.bin",
+      "/agent-plugin-archives/d420d13051bffe4543ed39e30fa46b87148e47dd.1.bin"
+    ],
+    "bytes": 30065038,
+    "sha256": "58b057cb8b9756cfc9ad3e5e7823357b8f5b24c7fc594632d95d76027eaced06"
+  }
 }
