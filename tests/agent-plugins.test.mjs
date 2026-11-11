@@ -22,6 +22,6 @@ test('archive rejects arbitrary sources and revisions before contacting upstream
 });
 test('archive streams through helper without redirecting the desktop', async () => {
     const original=globalThis.fetch;
-    globalThis.fetch=async url=>{assert.equal(String(url),'https://codeload.github.com/openai/plugins/zip/d420d13051bffe4543ed39e30fa46b87148e47dd');return new Response('zip-body');};
+    globalThis.fetch=async (url,options)=>{assert.equal(options.redirect,'manual');assert.equal(String(url),'https://codeload.github.com/openai/plugins/zip/d420d13051bffe4543ed39e30fa46b87148e47dd');return new Response('zip-body');};
     try {const response=await worker.request('https://helper.example/api/agent-plugins/archive?repo=openai/plugins&ref=main&path=plugins/notion&revision=d420d13051bffe4543ed39e30fa46b87148e47dd',{},env);assert.equal(response.status,200);assert.equal(response.headers.get('location'),null);assert.equal(await response.text(),'zip-body');}finally{globalThis.fetch=original;}
 });

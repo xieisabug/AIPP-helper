@@ -27,7 +27,7 @@ agentPluginsApi.get("/archive", async c => {
     if (c.req.query("revision") !== catalog.revision) return c.json({error:"plugin_version_changed",message:"请刷新详情后重新安装"},409);
     // Only the curated repository and immutable revision can reach upstream.
     // Stream the body through helper: never redirect the desktop to GitHub.
-    const upstream = await fetch(`https://codeload.github.com/${entry.source.repo}/zip/${catalog.revision}`, {redirect:"error",headers:{"User-Agent":"AIPP-helper"},cf:{cacheEverything:true,cacheTtl:86400}});
+    const upstream = await fetch(`https://codeload.github.com/${entry.source.repo}/zip/${catalog.revision}`, {redirect:"manual",headers:{"User-Agent":"AIPP-helper"},cf:{cacheEverything:true,cacheTtl:86400}});
     if (!upstream.ok) return c.json({error:"plugin_archive_unavailable",status:upstream.status},502);
     return new Response(upstream.body,{headers:{"Content-Type":"application/zip","Cache-Control":"public, max-age=86400", "X-AIPP-Revision":catalog.revision}});
 });
