@@ -10,6 +10,10 @@ test('published catalog and Notion details are available without upstream fetch'
     try {
         const res=await worker.request('https://helper.example/api/agent-plugins/catalog?repo=openai/plugins&ref=main',{},env);
         assert.equal(res.status,200);const catalog=await res.json();assert.equal(catalog.entries.length,62);const notion=catalog.entries.find(p=>p.source.path==='plugins/notion');assert.equal(notion.skill_count,4);assert.equal(notion.connector_count,1);
+        for (const field of ['icon','icon_dark','icon_small']) {
+            assert.ok(notion[field].startsWith('https://aipp-helper.xiejingyang.com/agent-plugin-icons/'));
+            const image=await env.ASSETS.fetch(new Request(notion[field]));assert.equal(image.status,200);assert.ok((await image.arrayBuffer()).byteLength>0);
+        }
         const detail=await worker.request('https://helper.example/api/agent-plugins/preview?repo=openai/plugins&ref=main&path=plugins/notion',{},env);
         assert.equal(detail.status,200);const preview=await detail.json();assert.equal(preview.skills.length,4);assert.match(preview.digest,/^[a-f0-9]{64}$/);assert.ok(preview.skills.every(s=>s.content));
         const app=await (await worker.request('https://helper.example/api/apps/notion',{},env)).json();assert.deepEqual(app.app.plugin_source,preview.source);

@@ -36,6 +36,22 @@ with zipfile.ZipFile(archive_path) as archive:
         entry["archive"] = {"path": path, "bytes": len(data), "sha256": digest}
         entry["skill_count"] = sum(s.get("kind") != "command" for s in preview["skills"])
         entry["connector_count"] = len(preview["servers"])
+        interface = preview.get("manifest", {}).get("interface", {})
+        for field, source_field in [("icon", "logo"), ("icon_dark", "logoDark"), ("icon_small", "composerIcon")]:
+            entry[field] = None
+            relative = interface.get(source_field, "").removeprefix("./")
+            extension = Path(relative).suffix.lower()
+            if not relative or ".." in relative.split("/") or extension not in (".png", ".svg", ".jpg", ".jpeg", ".webp"):
+                continue
+            suffix = "/" + preview["source"]["path"] + "/" + relative
+            matches = [i for i in archive.infolist() if i.filename.endswith(suffix)]
+            if len(matches) != 1 or matches[0].file_size > 1024 * 1024:
+                continue
+            image = archive.read(matches[0])
+            icon_path = "/agent-plugin-icons/" + hashlib.sha256(image).hexdigest() + extension
+            Path("public/agent-plugin-icons").mkdir(exist_ok=True)
+            Path("public" + icon_path).write_bytes(image)
+            entry[field] = "https://aipp-helper.xiejingyang.com" + icon_path
         print(preview["name"], len(data))
 catalog_path.write_text(json.dumps(catalog, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 

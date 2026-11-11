@@ -17,7 +17,10 @@
         "sha256": "70d67a5ceb5d57b8ec12f352fd2ff3d8bccf03dacb2da3847dc1a5e02f7ff2e4"
       },
       "skill_count": 6,
-      "connector_count": 0
+      "connector_count": 0,
+      "icon": null,
+      "icon_dark": null,
+      "icon_small": null
     },
     {
       "key": "849722110406ccb3cb64e42a",
@@ -35,7 +38,10 @@
         "sha256": "3928efa13e1dbb03c901bf0fb357e60d50ceae051fa1fd687e2eb257a4c167f9"
       },
       "skill_count": 3,
-      "connector_count": 1
+      "connector_count": 1,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/96fd36205f1a420a5289b833b9427af71237b004c54474a3ad30492865979103.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/1875d18bf33291f53d2c78e9e9485551ab45d998a5cef8ad25c966f518e57d45.svg"
     },
     {
       "key": "b26c480677b692dc20f9ac7c",
@@ -53,7 +59,10 @@
         "sha256": "fd797f1865c5dd661a700e3b5de1300ee005df563bd1a9330c373bffc9525523"
       },
       "skill_count": 0,
-      "connector_count": 1
+      "connector_count": 1,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/7205fb2631152725e0aedd16534a020a0bd89a2c1acfc726a2b3fd5b52838722.png",
+      "icon_dark": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/eaee0ebb74d0d0958b5c56df9afa80ebe7f76ff3c46ba9d54333bb15c8bd7c2a.png",
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/83d4e0c0b61edf7bd50a51a937b4d1abf72616a3366921c879748937806a7f55.png"
     },
     {
       "key": "99ca1aae5175dd5af9bee41d",
@@ -71,7 +80,10 @@
         "sha256": "96bbf8e464945dd769a67c0ba89312adb75df9db9df096125052b26e359f8b88"
       },
       "skill_count": 8,
-      "connector_count": 0
+      "connector_count": 0,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/740df6167e01959f2b1cadbcabb6e3d63e9da654d193f29f9d582fe2df02c1c2.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/740df6167e01959f2b1cadbcabb6e3d63e9da654d193f29f9d582fe2df02c1c2.png"
     },
     {
       "key": "2660d6d5014323468a264f45",
@@ -89,7 +101,10 @@
         "sha256": "a787d78d5931cb30007e22832e40a26ba4ee4bcdb5c1098f888a9ea5758a0e50"
       },
       "skill_count": 9,
-      "connector_count": 1
+      "connector_count": 1,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/d5389b5252eb373894508c6a8b1f65d8a7837b2672c3955276ee8cdd75780e4d.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/259e81a36bdab4c6a14d8783918a9fdc2138aa9b787eed3f6f3dd566e9630c21.svg"
     },
     {
       "key": "4d3fc446e62edbfdc1c6fc13",
@@ -107,7 +122,10 @@
         "sha256": "484c012f8a1478aff18bd2745942683f12007f4c8b91db7b4d40a9cf7b4ba48f"
       },
       "skill_count": 11,
-      "connector_count": 0
+      "connector_count": 0,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/d5389b5252eb373894508c6a8b1f65d8a7837b2672c3955276ee8cdd75780e4d.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/b70b97ab0afbf614452cd52a07de2c7d32c9dcb1e2f642ae410ef1b44caa25c6.svg"
     },
     {
       "key": "6550e06b3d6e9b2cfa403aac",
@@ -125,7 +143,10 @@
         "sha256": "cecc10f9747b980f8af279ffdfee2300b6459c96739e2e6696bf1bcc34aa6f38"
       },
       "skill_count": 6,
-      "connector_count": 0
+      "connector_count": 0,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/d83c4aebc93b4d894973ef6891e2135709e0ec4a91cdf51f1af7c9f9075f632a.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/4e86903c559333574b27cfcd1972d6866932881436c268b468a6745a68eacc3e.svg"
     },
     {
       "key": "b7b5c99937ac681e608a68e5",
@@ -143,7 +164,10 @@
         "sha256": "d15bb5a80fa59db111bfffcdc3cb63f0a3dd175abb74ebd5c843a61dd7422edc"
       },
       "skill_count": 18,
-      "connector_count": 0
+      "connector_count": 0,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/98cb142b8fcff83824dd96eb86b66796546b583099947a1dd85588e3ab586a72.svg",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/38e6f859e1a39bc665d1fa209bcbfa3d8ad2aaf94d369f176c7dc04228034c51.svg"
     },
     {
       "key": "c18699f36959965ce8397c3b",
@@ -161,7 +185,10 @@
         "sha256": "59018174d93a3d8918422288592ab84350889b3943e357d1e2bcc08da3a2ec22"
       },
       "skill_count": 8,
-      "connector_count": 1
+      "connector_count": 1,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/afb54276bf45167125048872621a14156c03034484519d81b5160cb73c2d7c20.png",
+      "icon_dark": null,
+      "icon_small": null
     },
     {
       "key": "c8450ae1f9d0d07daa750d1b",
@@ -179,7 +206,10 @@
         "sha256": "e2e51df933b44dc244b31f743a86d7fe02ba2acda8a0ddf08beec03f84a4d53c"
       },
       "skill_count": 1,
-      "connector_count": 0
+      "connector_count": 0,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/521cc2088a18d6d38211e34dcf816a52ad8cfd06a0583ace65f6307d49f0b26e.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/521cc2088a18d6d38211e34dcf816a52ad8cfd06a0583ace65f6307d49f0b26e.png"
     },
     {
       "key": "56b39b7717fb85625ad981f3",
@@ -197,7 +227,10 @@
         "sha256": "1c15ecc12aa2e8cd827959ff8832debd45f077cf56b0e42b1a77d963d0cb33fb"
       },
       "skill_count": 4,
-      "connector_count": 0
+      "connector_count": 0,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/2cfb69f15521888cedce9adf3c6554976f2b8d780b48414068c25b3da57d5d6c.png",
+      "icon_dark": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/90c627e6cd18e245e0337d9ed5e33b543bfa8e697f13be35c6c7e89b69922396.png",
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/f6f1e503cc44ad969e50c1c0f762ebc92dc4dd08f18514fbafae0159377a9248.svg"
     },
     {
       "key": "06cdc5126975a8cf33483938",
@@ -215,7 +248,10 @@
         "sha256": "c34ac3aaeb87190eef349e43be2b338c27cbf65d8a0787e504033f5d4297da1d"
       },
       "skill_count": 0,
-      "connector_count": 1
+      "connector_count": 1,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/218b96eecc8b8039227db1f6edbf6c64dfaaffc08dd2c6465f6a4a355e9d2248.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/218b96eecc8b8039227db1f6edbf6c64dfaaffc08dd2c6465f6a4a355e9d2248.png"
     },
     {
       "key": "ec23ff547f9142d441c4cefb",
@@ -233,7 +269,10 @@
         "sha256": "8d7054880cbf10221695ac3eb54ca21720aebcd020c0682b07020b1210e086c9"
       },
       "skill_count": 9,
-      "connector_count": 1
+      "connector_count": 1,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/ccef528d73dfe224cfb4817bcb7e15d63922421249d688031ff48c5eef2a2189.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/48f68d56ac6c83734e8aa64af35fa3f6a0613a9a2293158153db1402be104f17.svg"
     },
     {
       "key": "034510f16bd4470a3811af74",
@@ -251,7 +290,10 @@
         "sha256": "91756bae77aeb95df008026c2d93ac0cfdcd617586a4df130a4f10b442d3608c"
       },
       "skill_count": 1,
-      "connector_count": 0
+      "connector_count": 0,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/d985c31648830e07899c7b28c92f29e021bcfb230a64b6b07cc48031ecdd741d.png",
+      "icon_dark": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/9df4118b6c9c4a163dec67485090ad783b6e06bc4241c52d6ce470702e7c3012.png",
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/9f0fd676b07e89d3602f3c78d8dbfe94b4087b72569e4db13c8eeaaf983503db.png"
     },
     {
       "key": "8fea08fcdb5a1175a6aaee93",
@@ -269,7 +311,10 @@
         "sha256": "5e177985e9aa6fe86facd57fbd982581083b789ea84cabf55a457286e271e8d4"
       },
       "skill_count": 15,
-      "connector_count": 1
+      "connector_count": 1,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/9b9c2b09b2fa064611fb62307d321d5c2ea70cf0789f7ce34cdb0fc0d9190b3a.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/9b9c2b09b2fa064611fb62307d321d5c2ea70cf0789f7ce34cdb0fc0d9190b3a.png"
     },
     {
       "key": "6f5f89bb4be5ba98c75b6101",
@@ -287,7 +332,10 @@
         "sha256": "d12314b8318ce14d86203c55299603c99ee0b55ad06f0c02b059f59581cb56a0"
       },
       "skill_count": 0,
-      "connector_count": 1
+      "connector_count": 1,
+      "icon": null,
+      "icon_dark": null,
+      "icon_small": null
     },
     {
       "key": "8087dff25122c4e727914014",
@@ -305,7 +353,10 @@
         "sha256": "61e056a993b8cf739e1d486bbbd60c6dd20e3f78a3a43c5bf6871c0d86c868c9"
       },
       "skill_count": 2,
-      "connector_count": 1
+      "connector_count": 1,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/86aa0eec7dfe1379b699a3ac05421f1b9447752634817c44105eeab583c1ce97.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/858191a6e39f9e03880f71c03945cfc586363b22af236960cc3667e16654495b.svg"
     },
     {
       "key": "2634d2785bbaf9f26e067acc",
@@ -323,7 +374,10 @@
         "sha256": "3b0c58718ea9062563657ef887a63b4d171660fc6f73f9c8fc3afd0387e0cbc2"
       },
       "skill_count": 15,
-      "connector_count": 1
+      "connector_count": 1,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/43494b72f2b1ca063b775ba114130ae85d378bf3b3f6257a2e0e44e4830863a1.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/89b5a1673d5d696db1fb98bd1668367e70f986df658e734c3a01e2e971484e64.svg"
     },
     {
       "key": "9a8ed256aa5edee9440b5fad",
@@ -341,7 +395,10 @@
         "sha256": "6915e16365f420f8189101569204577fcfc9f25312f1945850ca7f1ff14251b9"
       },
       "skill_count": 0,
-      "connector_count": 1
+      "connector_count": 1,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/68b0dd3f7a70a6f5ef1d4ca3b2676939e4be1a3b9cca44771e836da3c6a49910.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/cb4076b5247582608933db2e6f9ad66deeb49951dfd97ad77ac91b317dad6e8f.png"
     },
     {
       "key": "52cbfad8b427bea25b96cd95",
@@ -359,7 +416,10 @@
         "sha256": "2457cc2ce771199c4985a2844128459a715a593e6a663097c6be1fea0c4e5913"
       },
       "skill_count": 6,
-      "connector_count": 1
+      "connector_count": 1,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/d543e555eb1c376f21c2b1d08d4fc76e3b348ab6b3ccf10ccc682f8dc2cbe273.png",
+      "icon_dark": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/6b07b94b46e3cfeb2191233050126b4c2215117d3f47ef3ff86440fa5be57987.png",
+      "icon_small": null
     },
     {
       "key": "46912cfb06496df2f3423d3c",
@@ -377,7 +437,10 @@
         "sha256": "a9b6c1624390934f2b3aa3c8d3060753efe1098e2c859efad96d064387eeae68"
       },
       "skill_count": 13,
-      "connector_count": 0
+      "connector_count": 0,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/8a0da01fdd368341cb7d5103c6435d7b94a8a09521da6c65d57be34e97c4cb2a.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/8a0da01fdd368341cb7d5103c6435d7b94a8a09521da6c65d57be34e97c4cb2a.png"
     },
     {
       "key": "d753d114ff2ca69658a73051",
@@ -395,7 +458,10 @@
         "sha256": "48627e71e9ff5540341dec3280ba4d1abd7c60954ff93f2b6d0128c30a25334d"
       },
       "skill_count": 12,
-      "connector_count": 1
+      "connector_count": 1,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/a971e2841f6f8edf8b9c6e0b0c4904658f8f466d4cd0a1fc07d1c6f6db4e110f.png",
+      "icon_dark": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/a971e2841f6f8edf8b9c6e0b0c4904658f8f466d4cd0a1fc07d1c6f6db4e110f.png",
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/a971e2841f6f8edf8b9c6e0b0c4904658f8f466d4cd0a1fc07d1c6f6db4e110f.png"
     },
     {
       "key": "53bf4a72bb44ccdd7378a3fe",
@@ -413,7 +479,10 @@
         "sha256": "5c390b7238dfe0f31077653933b04065cc43b92e498b056ce286a3b8f9e98e33"
       },
       "skill_count": 9,
-      "connector_count": 0
+      "connector_count": 0,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/5b3b083e4acc72b2d905e08b99dff08b811c1140aeb25adfc878a278e6dff20e.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/8a1c309bf1d37f8f70361263ca09e44c196d41673d7c036fbebb9a698db4243f.svg"
     },
     {
       "key": "3e2d538d0f46e434eab73d5a",
@@ -431,7 +500,10 @@
         "sha256": "50fb4356b75f7a846aba7966880dc30d4df47d0abd1331f45fef6aca7c05999d"
       },
       "skill_count": 0,
-      "connector_count": 1
+      "connector_count": 1,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/07e4d8c81c906dc6fffa42f2686f446724c86c2079b23aa6c77ab9dab782fdea.png",
+      "icon_dark": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/9352c02c11e4b5c63e8990f6d8b973f551d25284186d3faeb8d7d0186d89c919.png",
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/ee05e92d373d4d84f4612af3c1090ef67698d421bbe30896a4ed5a00cb86a069.svg"
     },
     {
       "key": "3aa5ad7217943b024183220c",
@@ -449,7 +521,10 @@
         "sha256": "914638637f74e4fb64c783930e0bbfc2e4ae23f1536d045b747b0fa19d184789"
       },
       "skill_count": 0,
-      "connector_count": 1
+      "connector_count": 1,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/94b90b1c5fca7defb96588f4d7032af87f9514c895cc9f2f3846d829ca9c7cba.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/94b90b1c5fca7defb96588f4d7032af87f9514c895cc9f2f3846d829ca9c7cba.png"
     },
     {
       "key": "0c84871d1c916600a64ec31b",
@@ -467,7 +542,10 @@
         "sha256": "19c3b0b5084eca97a2f2c077947c43aea5bf0928a6c06d03ebf7ae84cb5c3896"
       },
       "skill_count": 0,
-      "connector_count": 1
+      "connector_count": 1,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/57529d8fa96aa62e995d5cf45df9b4835f6121bff93bb28eeb24bf3e4bc2bbc4.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/8f9cb22e47684c0d709a33ee6694d6c991136a75156cf6faf82ed007e430696c.png"
     },
     {
       "key": "ae10b4e4ba233dfeb40439f3",
@@ -485,7 +563,10 @@
         "sha256": "8fb8169c6166a60289e34cbc0f4d57822bae88295d09eb3606b2335d551c2143"
       },
       "skill_count": 5,
-      "connector_count": 1
+      "connector_count": 1,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/585b2c8a695f8167559e9177e6aa9a73b0347a238e21b82df0f669b819670c6c.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/585b2c8a695f8167559e9177e6aa9a73b0347a238e21b82df0f669b819670c6c.png"
     },
     {
       "key": "f0ce44e6e065d6b009ab37cf",
@@ -503,7 +584,10 @@
         "sha256": "ff16cd71ae892b03db773030181753d56e3a6e534dc5394381776214f29b9b66"
       },
       "skill_count": 0,
-      "connector_count": 1
+      "connector_count": 1,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/1360b28dec57099b071790a9d709cc9f2c1cc3039c543ae7e39e51b06802bdd0.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/15cb8a06539f9b524056e1b13ed3cefbef3fddad7ac1f692e3e8ab4d9702a3ec.png"
     },
     {
       "key": "1b7f763ac56a40c9b003dd5c",
@@ -521,7 +605,10 @@
         "sha256": "ea13ac1ff9fb716178424866a18ef69a47ccd2df08270e909cbdcf74629aa86d"
       },
       "skill_count": 3,
-      "connector_count": 1
+      "connector_count": 1,
+      "icon": null,
+      "icon_dark": null,
+      "icon_small": null
     },
     {
       "key": "75493cd13382a656f6c5a94e",
@@ -539,7 +626,10 @@
         "sha256": "306f0a1f40d092d3f1b807a77579e05853f4a9189008187610b870e2f231815a"
       },
       "skill_count": 5,
-      "connector_count": 0
+      "connector_count": 0,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/0328eb84e11871561739d8541bc30d4bdca81ceae09730be779e5c38ee8b7c60.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/cc97812c2f8b56feb96854141c609cdda17d64502d01da7ad7c0e5649bf8472e.png"
     },
     {
       "key": "65bb082f1420d25d2597b9c9",
@@ -557,7 +647,10 @@
         "sha256": "02e66fd493030e4ffde24b8d15d3865e6576295d290b8a8581c7198d7a78e269"
       },
       "skill_count": 50,
-      "connector_count": 0
+      "connector_count": 0,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/02ad1294721616472a6a58783a8e0a3b16fb858acb87eae8921f2ca231e40717.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/02ad1294721616472a6a58783a8e0a3b16fb858acb87eae8921f2ca231e40717.png"
     },
     {
       "key": "40e00e765d204eca8530f6bf",
@@ -575,7 +668,10 @@
         "sha256": "8f611ecb42c04d8fc191e0ef3add1b0fa8cde2c76f6b968bac14af8e143156d1"
       },
       "skill_count": 0,
-      "connector_count": 1
+      "connector_count": 1,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/c5114902ad243dbb36ebd4e250f318871bfafd152d346b7ffea027124133b879.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/6699a52fa24d4b802674d0178fd2c4aba9db3a80dde33c7dea9ef963fa96a3ab.svg"
     },
     {
       "key": "876271202806a76929e46ae0",
@@ -593,7 +689,10 @@
         "sha256": "557ef2e50d460df743dfb10e939fdb7b3faa3857f1aebb990df1217eb6ff1ae5"
       },
       "skill_count": 0,
-      "connector_count": 0
+      "connector_count": 0,
+      "icon": null,
+      "icon_dark": null,
+      "icon_small": null
     },
     {
       "key": "eaac9c585e6bf73a75a2d329",
@@ -611,7 +710,10 @@
         "sha256": "ab198672de8e8369473dbc8862d5b158027348b017053c0ad7d4fd2d4ee8a4e6"
       },
       "skill_count": 1,
-      "connector_count": 0
+      "connector_count": 0,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/d3c261c132e56841924c7db046eb3958036f0dc29fb6066235d4c2e9a4ed3668.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/d3c261c132e56841924c7db046eb3958036f0dc29fb6066235d4c2e9a4ed3668.png"
     },
     {
       "key": "30b3da9043a525a5ff8f019c",
@@ -629,7 +731,10 @@
         "sha256": "455b44660c279d402c450e83b93eb208ec67bdcbb0c0a36a2c0cc8e9ddafa0d1"
       },
       "skill_count": 4,
-      "connector_count": 0
+      "connector_count": 0,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/3ebcb85818875354ca119b5651b1eee0467fa50d3ddf4243104dada9381ed8c2.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/1c3816789a9149e2e94f384e9364c044b3e226939a3232b702eb1f0c0a3406de.png"
     },
     {
       "key": "7e28307eb26796e713d249f7",
@@ -647,7 +752,10 @@
         "sha256": "d86758cc9a70f64cfcc8a00fa9082a1f1129c3a4ee8774fb6c5b31075b8b1821"
       },
       "skill_count": 0,
-      "connector_count": 1
+      "connector_count": 1,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/72b2fddc2db8d7490fdf98f015e97291ded5b60d891a26c7b5fab858764593eb.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/55473eab42c39459a29a569fcf491cf29dfb937cf9266cf23450e00b7766a698.png"
     },
     {
       "key": "0bbd3f6d4f2ad0a7e830b67f",
@@ -665,7 +773,10 @@
         "sha256": "053491834f8a11676ad342e062497cdcbf80308da75df7c28407ef129f72bd5e"
       },
       "skill_count": 18,
-      "connector_count": 0
+      "connector_count": 0,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/de2f5931b97d9b2ce6325208dd514c69ee9bf13201af635d8fb17345a5ef4737.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/de2f5931b97d9b2ce6325208dd514c69ee9bf13201af635d8fb17345a5ef4737.png"
     },
     {
       "key": "85c5668a15b74665acc097d3",
@@ -683,7 +794,10 @@
         "sha256": "c3fe03bff70d8eb44fd42bdbc7d3689a78fe75bdbf582a1db6f080638d0e85c8"
       },
       "skill_count": 4,
-      "connector_count": 1
+      "connector_count": 1,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/e20b9668553aeb46b55a366d0a8eddd9051b5ac55207ab067ed347029a53434e.png",
+      "icon_dark": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/014ab1e20210938aea95d5b118eba970d7f4955068c9acc47223eb51ed79f74c.png",
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/ab9820a943b724f710617509ef605d8b3f2303e89654762b61b546d618fb322a.svg"
     },
     {
       "key": "0ff50f6c93c9396508546b29",
@@ -701,7 +815,10 @@
         "sha256": "12377bbe0462845798704be18cd85af1ed131cb884177c3fc063997a2c4eae67"
       },
       "skill_count": 12,
-      "connector_count": 0
+      "connector_count": 0,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/df380ee7463646f242f3da851f1754f31fc1d9dafb65fcb9ebe55c6c19fb6bf3.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/df380ee7463646f242f3da851f1754f31fc1d9dafb65fcb9ebe55c6c19fb6bf3.png"
     },
     {
       "key": "5c283081c845828033651666",
@@ -719,7 +836,10 @@
         "sha256": "934d5706d89b283f3e9a09313bc52e16e7e746bf0b30ec85303f67849128d346"
       },
       "skill_count": 1,
-      "connector_count": 0
+      "connector_count": 0,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/50a4d42fae4d94cce0112e31637d88570d4890b7d9eef903dc1f9b4b3afe6a1e.svg",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/50a4d42fae4d94cce0112e31637d88570d4890b7d9eef903dc1f9b4b3afe6a1e.svg"
     },
     {
       "key": "2ba2369c2bf18ab1430203ab",
@@ -737,7 +857,10 @@
         "sha256": "30d025e447dceea10739b3034d8985ce84ecf52cd2d00f717ef11e9dc34b2985"
       },
       "skill_count": 5,
-      "connector_count": 2
+      "connector_count": 2,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/776310bcb0f0f191c616f31a13fcb8de8cc94d920c77625c271b3a034199ac43.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/776310bcb0f0f191c616f31a13fcb8de8cc94d920c77625c271b3a034199ac43.png"
     },
     {
       "key": "bfd3299c4fa97cd5f3763bdf",
@@ -755,7 +878,10 @@
         "sha256": "1fe990ca7ef663edc521fdd84747b22f0923ca3bb7ea4af7499ceae60ba26676"
       },
       "skill_count": 0,
-      "connector_count": 0
+      "connector_count": 0,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/5335d7747d4a58b3a99ece47d142a127fbc4a5acec2e335fab6d17b42f4ec16d.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/5335d7747d4a58b3a99ece47d142a127fbc4a5acec2e335fab6d17b42f4ec16d.png"
     },
     {
       "key": "e56715b1d63963fd64c1f107",
@@ -773,7 +899,10 @@
         "sha256": "97dc23448e5fd3d60555084993dc17d7624309d00889152c3c7a2967de50c5e7"
       },
       "skill_count": 0,
-      "connector_count": 0
+      "connector_count": 0,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/5335d7747d4a58b3a99ece47d142a127fbc4a5acec2e335fab6d17b42f4ec16d.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/5335d7747d4a58b3a99ece47d142a127fbc4a5acec2e335fab6d17b42f4ec16d.png"
     },
     {
       "key": "f45f3717d38c2345b12fb7f2",
@@ -791,7 +920,10 @@
         "sha256": "71f3654bb3fbe81e47fdc0eb325cbd724a14c9654dabf1ccc7a5bc61cf4dc162"
       },
       "skill_count": 5,
-      "connector_count": 0
+      "connector_count": 0,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/380b1c2dfbc55538d7ea0ad1fa86a3aab8e8ccf53d07cbd42f47e9a1a2fad9d5.svg",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/380b1c2dfbc55538d7ea0ad1fa86a3aab8e8ccf53d07cbd42f47e9a1a2fad9d5.svg"
     },
     {
       "key": "f763980ce2e8847bdac5c091",
@@ -809,7 +941,10 @@
         "sha256": "4c76ff03f0223707c923ba23a3278274f586e79aaf6c06bba116eb3dca827c18"
       },
       "skill_count": 1,
-      "connector_count": 1
+      "connector_count": 1,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/9a9a8b10a1e479a848af0f1987e059c377ac0ad60b1d32c5799515e79e052bc8.png",
+      "icon_dark": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/9a9a8b10a1e479a848af0f1987e059c377ac0ad60b1d32c5799515e79e052bc8.png",
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/8d826173ed9686261f5454f1c14e60faa8823b6bafded68888c2fad9deb0ee46.png"
     },
     {
       "key": "71d57e9e859f7b3e1c80c399",
@@ -827,7 +962,10 @@
         "sha256": "96f1421bc681f25cb85c1e6578342b96d8932f285a7f668b6f63b6b9e7ffb564"
       },
       "skill_count": 10,
-      "connector_count": 0
+      "connector_count": 0,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/a1f718f71e727e6573b5810fee5ea33c887d1161203037746dfcdf856df2db3d.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/e4c32b6524634b9bbcf80035f15933486a8d338decbf6cdc50c87e74529ee215.svg"
     },
     {
       "key": "deda11553c20351fc41de576",
@@ -845,7 +983,10 @@
         "sha256": "0f3e452efe446b0f4ff49195488800fca0bd33b0afda70badaa6c8ae7037f846"
       },
       "skill_count": 23,
-      "connector_count": 0
+      "connector_count": 0,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/dc1a228daed9bbcd5ce9266f79353f2ff40558e5cda9af41407bd812d29f9014.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/40fcafca29860ee978612445f272562d0e15a3c5a41ef7b67074e62d9ab49a7c.svg"
     },
     {
       "key": "bd84fcb548c794328d1423ea",
@@ -863,7 +1004,10 @@
         "sha256": "189982509a78ee52a8d32eb9d7bb935801a4155522177ddafac291c38e006259"
       },
       "skill_count": 12,
-      "connector_count": 0
+      "connector_count": 0,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/d8a7965be77f75b74ef010a18f581b77d43770e9e9961b669636a14a860660eb.png",
+      "icon_dark": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/15ba8180bd1103e36852adc59caf7912274c2831d25283110079bf67b252b60f.png",
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/c4acc0c249be250d94ce6c8d4413679bd24f0104580f677f87aff97a6fb4bc4d.svg"
     },
     {
       "key": "4ba4fe7575817bb80dc61a32",
@@ -881,7 +1025,10 @@
         "sha256": "0c5b8c48722b1a508956553a09fd8d8285b1cbf3e09c00ec14ed4133524fa252"
       },
       "skill_count": 1,
-      "connector_count": 1
+      "connector_count": 1,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/b61e0534635a275cf56f7dad26ac7cc36504b7bd9a60c95791d6e72634129fb1.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/f1de8efc906c03b583b4d74560b003175c8a3d9ea5950d891ce3142fec11ca99.svg"
     },
     {
       "key": "0ff96bba5e02795015bf43f5",
@@ -899,7 +1046,10 @@
         "sha256": "b7f99fc87a94eebdbca2d9715edc550569da32e3d6a71aab2686406fdc8dff6a"
       },
       "skill_count": 0,
-      "connector_count": 0
+      "connector_count": 0,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/29baa18ad6db89408509eb925ce6ba5fe50676387de34fdb0372f068f8869343.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/29baa18ad6db89408509eb925ce6ba5fe50676387de34fdb0372f068f8869343.png"
     },
     {
       "key": "1769b4676fee61f79e4a306d",
@@ -917,7 +1067,10 @@
         "sha256": "ee1b6cfcb04014f3a6a3572d3cb31623a47e2434a6c68875088b6c274974133d"
       },
       "skill_count": 20,
-      "connector_count": 1
+      "connector_count": 1,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/c450cd06ca1b37d51f8f6aa90fa2bdb1c54411ca4d562cdaf27bef6f895446e2.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/a7993e5bd1c0550e179a273b20cd0879326a0a03c74456b0fe309e462ea61cc0.svg"
     },
     {
       "key": "ef3ae69faa771d60789587af",
@@ -935,7 +1088,10 @@
         "sha256": "bcc89885b35414409b48794e97c28e35eb086ec3d6a5d264accd3e2df471ce98"
       },
       "skill_count": 0,
-      "connector_count": 1
+      "connector_count": 1,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/22860d9a3bdf29402f53345ae9bc8ee0cd057c652eda418ef8433ff0c363fb02.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/22860d9a3bdf29402f53345ae9bc8ee0cd057c652eda418ef8433ff0c363fb02.png"
     },
     {
       "key": "327496dbc1b3c4d69dc29f6e",
@@ -953,7 +1109,10 @@
         "sha256": "ccfa765785487bd01260a46e3dd29faba201b3c287417cfaa721b93a343be9b3"
       },
       "skill_count": 7,
-      "connector_count": 1
+      "connector_count": 1,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/8034d1975f2ff4408cb399089eb6c4b575a7ebe267063c2074327e64a710732c.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/8034d1975f2ff4408cb399089eb6c4b575a7ebe267063c2074327e64a710732c.png"
     },
     {
       "key": "1684e3bbcc8c1a7d6bc825dd",
@@ -971,7 +1130,10 @@
         "sha256": "efd88fc2a44a405bad47d230cd53a278251dc1d42313678f5ad0447a81ccf201"
       },
       "skill_count": 2,
-      "connector_count": 1
+      "connector_count": 1,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/3fba9515ad8fc71691380d71f2f414285176a077c09eb2e55e170fe5c1c720a7.png",
+      "icon_dark": null,
+      "icon_small": null
     },
     {
       "key": "a24531591101bc37562fb770",
@@ -989,7 +1151,10 @@
         "sha256": "203a1babbf490e288e757741813eb8ce66a2c89525ad1582def0afc2e6f95e39"
       },
       "skill_count": 14,
-      "connector_count": 0
+      "connector_count": 0,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/b7477eb39b5109617fe37e51dd65d8bdd8dff6c40fda49adfbc21eec445777ee.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/54a632d9ee6197ccbc10d43d42217e23d08375bea63ba8eb4b6af757c1535038.svg"
     },
     {
       "key": "9a766916d02cec40ab4195fd",
@@ -1007,7 +1172,10 @@
         "sha256": "258271ecd4d99085bc67db3571650375981e570bd35cafa6c2c587e2790f6c92"
       },
       "skill_count": 0,
-      "connector_count": 0
+      "connector_count": 0,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/982be6162f987a43a75a220ef890ddf048d657d013141b423598649d44a0b8a8.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/982be6162f987a43a75a220ef890ddf048d657d013141b423598649d44a0b8a8.png"
     },
     {
       "key": "3e802d615cbe38dc55b31e74",
@@ -1025,7 +1193,10 @@
         "sha256": "a6cf7c029724f76ebc960c5dd2f6c7b5d1e149668d35563ad3ae263b9139680a"
       },
       "skill_count": 4,
-      "connector_count": 0
+      "connector_count": 0,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/3327f51e319e1f3071d953887cfa9b86b9369a519975cae357a56e0fcda72b58.svg",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/3327f51e319e1f3071d953887cfa9b86b9369a519975cae357a56e0fcda72b58.svg"
     },
     {
       "key": "6f9368377ee52f6ccb4798b1",
@@ -1043,7 +1214,10 @@
         "sha256": "6324fc4e3ff71b52e177d07d73ab84e70577039234c280a03767edfa88f0bd79"
       },
       "skill_count": 2,
-      "connector_count": 0
+      "connector_count": 0,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/3e9984bfb849473e25a31b2df5b030209f27f76c0a5754008aa0460599ee34b4.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/5d3932c17c9320ff877842f6684dadb9c914d3621c3c538bbef4aa5481d8b21e.svg"
     },
     {
       "key": "b6794015645ff8ee4487ec78",
@@ -1061,7 +1235,10 @@
         "sha256": "211e2ba7377bed7249174f3afb22359d3533fd4f99846f916773dc6656e77f88"
       },
       "skill_count": 55,
-      "connector_count": 0
+      "connector_count": 0,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/bf7334b5a3d8ff2a15f7a8e7bd07457bac16deb37195646c6b2141412d723ba7.svg",
+      "icon_dark": null,
+      "icon_small": null
     },
     {
       "key": "b8cdc747be25e8ad346508f3",
@@ -1079,7 +1256,10 @@
         "sha256": "3ec57c38b8cfbf3bdc45a5203346f0f8a7cb89f04c1c4f614df598126f0fc3ee"
       },
       "skill_count": 54,
-      "connector_count": 1
+      "connector_count": 1,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/3e4a7d38560781583cbe7356c4e538f22fbf222fd490551cbc61c00ebdf4475c.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/3e4a7d38560781583cbe7356c4e538f22fbf222fd490551cbc61c00ebdf4475c.png"
     },
     {
       "key": "ebb275bcff59dc06985a5302",
@@ -1097,7 +1277,10 @@
         "sha256": "d9fa28294882684bf8886c5833e5da0a6a2c012e062f2c15cbbbe32cb48b60c0"
       },
       "skill_count": 27,
-      "connector_count": 1
+      "connector_count": 1,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/41efa89aafc51c7e09fdfc48e35447df365e72dc67618d28b29613f1b269ab8d.jpg",
+      "icon_dark": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/41efa89aafc51c7e09fdfc48e35447df365e72dc67618d28b29613f1b269ab8d.jpg",
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/ba0020881d310a57d0dd54f79ff75f9d2ff4008c7a01b9bb714a73b2a24c6de3.svg"
     },
     {
       "key": "230ed5582de88e274e0651e8",
@@ -1115,7 +1298,10 @@
         "sha256": "158d9dcf294650e026974645e50759222e75b8554b7e13b2c02e6f318d2e9762"
       },
       "skill_count": 1,
-      "connector_count": 0
+      "connector_count": 0,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/7ac4579b4a075173126862ebf70243ff0a447ffe843e7fbdf16ea2681f4fff13.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/7ac4579b4a075173126862ebf70243ff0a447ffe843e7fbdf16ea2681f4fff13.png"
     }
   ],
   "archive": {
