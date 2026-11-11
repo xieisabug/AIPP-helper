@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { skills } from "./data/skills";
 import { plugins } from "./data/plugins";
 import { appsApi } from "./apps";
+import { agentPluginsApi } from "./agent-plugins";
 
 type AppEnv = {
 	Bindings: Env & {
@@ -16,6 +17,7 @@ app.get("/api/", (c) => c.json({ name: "Cloudflare" }));
 app.get("/api/skills", (c) => c.json(skills));
 app.get("/api/plugins", (c) => c.json(plugins));
 app.route("/api/apps", appsApi);
+app.route("/api/agent-plugins", agentPluginsApi);
 
 // SPA fallback - 其他所有路由返回 index.html
 app.all("*", async (c) => {

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "version": "2026-11-10.1",
+  "version": "2026-11-11.1",
   "apps": [
     {
       "id": "notion",
@@ -12,10 +12,27 @@
       "icon": "notebook",
       "homepage": "https://developers.notion.com/guides/mcp/get-started-with-mcp",
       "notice": "通过浏览器授权 Notion 工作空间；访问范围、费用与配额由 Notion 决定。连接不会自动授权所有助手。",
-      "platforms": ["windows", "macos", "linux"],
-      "connection": { "transport": "http", "url": "https://mcp.notion.com/mcp", "auth": "oauth", "scopes": ["default"] },
+      "platforms": [
+        "windows",
+        "macos",
+        "linux"
+      ],
+      "connection": {
+        "transport": "http",
+        "url": "https://mcp.notion.com/mcp",
+        "auth": "oauth",
+        "scopes": [
+          "default"
+        ],
+        "oauth_resource": "https://mcp.notion.com"
+      },
       "fields": [],
-      "skill_ids": []
+      "skill_ids": [],
+      "plugin_source": {
+        "repo": "openai/plugins",
+        "git_ref": "main",
+        "path": "plugins/notion"
+      }
     },
     {
       "id": "github",
@@ -27,12 +44,35 @@
       "icon": "github",
       "homepage": "https://github.com/github/github-mcp-server",
       "notice": "本条目使用你主动提供的 GitHub Personal Access Token。令牌权限和组织策略决定可用资源；浏览器 OAuth 需要另行注册 AIPP 客户端，当前条目不提供。",
-      "platforms": ["windows", "macos", "linux"],
-      "connection": { "transport": "http", "url": "https://api.githubcopilot.com/mcp/", "auth": "fields", "scopes": [] },
-      "fields": [
-        { "key": "token", "label": "Personal Access Token", "kind": "password", "required": true, "secret": true, "help": "使用只覆盖所需仓库和操作的令牌。令牌保存在本机系统安全存储中。", "header": "Authorization", "prefix": "Bearer " }
+      "platforms": [
+        "windows",
+        "macos",
+        "linux"
       ],
-      "skill_ids": []
+      "connection": {
+        "transport": "http",
+        "url": "https://api.githubcopilot.com/mcp/",
+        "auth": "fields",
+        "scopes": []
+      },
+      "fields": [
+        {
+          "key": "token",
+          "label": "Personal Access Token",
+          "kind": "password",
+          "required": true,
+          "secret": true,
+          "help": "使用只覆盖所需仓库和操作的令牌。令牌保存在本机系统安全存储中。",
+          "header": "Authorization",
+          "prefix": "Bearer "
+        }
+      ],
+      "skill_ids": [],
+      "plugin_source": {
+        "repo": "openai/plugins",
+        "git_ref": "main",
+        "path": "plugins/github"
+      }
     }
   ]
 }
