@@ -22,7 +22,10 @@ with zipfile.ZipFile(archive_path) as archive:
                 relative = parts[1]
                 dependency = len(relative.split("/")) == 3 and relative.startswith("plugins/") and relative.endswith(("/.app.json", "/.mcp.json"))
                 if relative.startswith(preview["source"]["path"] + "/") or dependency:
-                    target.writestr(copy.copy(entry), archive.read(entry), compress_type=zipfile.ZIP_DEFLATED)
+                    copied = copy.copy(entry)
+                    target.writestr(copied, archive.read(entry), compress_type=zipfile.ZIP_DEFLATED)
+                    # zipfile supplies 0600 for zero attributes; restore the upstream metadata.
+                    copied.external_attr = entry.external_attr
         data = output.getvalue()
         digest = hashlib.sha256(data).hexdigest()
         path = f"/agent-plugin-archives/{preview['key']}-{digest}.zip"
