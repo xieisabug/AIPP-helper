@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "version": "2026-11-15.1",
+  "version": "2026-11-15.2",
   "apps": [
     {
       "id": "notion",
@@ -76,7 +76,8 @@
     },
     {
       "id": "runway",
-      "version": "1",
+      "version": "2",
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/runway.png",
       "name": "Runway",
       "description": "在对话中使用 Runway 生成图片和视频。",
       "publisher": "Runway",

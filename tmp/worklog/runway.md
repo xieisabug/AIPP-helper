@@ -2,3 +2,5 @@
 
 2026-11-15：按 AIPP 的请求格式验证了生产端点的资源与授权服务器发现、动态公共客户端注册、随机 loopback 回调地址以及授权页。授权页返回 HTTP 200，包含 Connect Runway 和登录入口。目录使用 api:read_write。真实账号回调、换取令牌和工具调用尚待验证。
 已更新 helper 清单、目录说明与列表/详情/旧缓存测试；目录及插件测试 8/8 通过，生产构建通过。待真实账号验收后发布。
+
+图标来自 runwayml/runway-mcp-plugin 提交 f56e77a713796c0667f266aa4b183f1e226230ea 的 assets/logo.png，附上游 LICENSE。目录版本更新为 2026-11-15.2。

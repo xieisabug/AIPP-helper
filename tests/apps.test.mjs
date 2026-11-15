@@ -30,6 +30,9 @@ test('Runway is discoverable with public-client OAuth when refreshing the pre-Ru
     assert.equal(list.status, 200);
     const runway = (await list.json()).apps.find(app => app.id === 'runway');
     assert.ok(runway);
+    assert.equal(runway.icon, 'https://aipp-helper.xiejingyang.com/agent-plugin-icons/runway.png');
+    const logo = await readFile('public' + new URL(runway.icon).pathname);
+    assert.equal(logo.subarray(0, 8).toString('hex'), '89504e470d0a1a0a');
     const detail = await worker.request('https://helper.example/api/apps/runway');
     assert.equal(detail.status, 200);
     assert.deepEqual((await detail.json()).app, runway);
