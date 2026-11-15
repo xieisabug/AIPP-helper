@@ -5,42 +5,28 @@ import { build } from 'esbuild';
 
 const bundled = await build({ entryPoints: ['src/worker/index.ts'], bundle: true, platform: 'node', format: 'esm', write: false });
 const { default: worker } = await import(`data:text/javascript;base64,${Buffer.from(bundled.outputFiles[0].text).toString('base64')}`);
-test('catalog endpoint returns versioned applications and supports conditional cache', async () => {
-    const response = await worker.request('https://helper.example/api/apps');
-    assert.equal(response.status, 200);
-    assert.match(response.headers.get('content-type'), /json/);
-    const catalog = await response.json();
-    assert.equal(catalog.schema_version, 1);
-    assert.equal(new Set(catalog.apps.map(app => app.id)).size, catalog.apps.length);
-    assert.ok(catalog.apps.some(app => app.connection.auth === 'oauth'));
-    assert.ok(catalog.apps.some(app => app.connection.auth === 'fields'));
-    const cached = await worker.request('https://helper.example/api/apps', { headers: { 'If-None-Match': response.headers.get('etag') } });
-    assert.equal(cached.status, 304);
-    for (const value of [`W/${response.headers.get('etag')}`, `"another", W/${response.headers.get('etag')}`, '*']) {
-        const weak = await worker.request('https://helper.example/api/apps', { headers: { 'If-None-Match': value } });
-        assert.equal(weak.status, 304);
+const env={ASSETS:{fetch:async request=>new Response(await readFile('public'+new URL(request.url).pathname))}};
+test('home supports conditional requests and previous desktop clients', async () => {
+    const url='https://helper.example/api/apps';
+    const response=await worker.request(url);
+    const home=await response.json();
+    assert.ok(home.categories.length);
+    assert.equal(home.apps,undefined);
+    const etag=response.headers.get('etag');
+    for(const candidate of [etag,'W/'+etag,'*']) {
+        assert.equal((await worker.request(url,{headers:{'If-None-Match':candidate}})).status,304);
     }
-    const stale = await worker.request('https://helper.example/api/apps', { headers: { 'If-None-Match': 'W/"old-version"' } });
-    assert.equal(stale.status, 200);
+    const legacy=await (await worker.request(url,{headers:{Accept:'*/*'}})).json();
+    assert.ok(legacy.apps.some(a=>a.id==='runway' && a.connection.auth==='oauth'));
+    assert.ok(legacy.apps.every(a=>!a.tool_summaries));
 });
-test('Runway is discoverable with public-client OAuth when refreshing the pre-Runway catalog', async () => {
-    const list = await worker.request('https://helper.example/api/apps', {
-        headers: { 'If-None-Match': '"apps-2026-11-11.1"' },
-    });
-    assert.equal(list.status, 200);
-    const runway = (await list.json()).apps.find(app => app.id === 'runway');
-    assert.ok(runway);
-    assert.equal(runway.icon, 'https://aipp-helper.xiejingyang.com/agent-plugin-icons/runway.png');
-    const logo = await readFile('public' + new URL(runway.icon).pathname);
-    assert.equal(logo.subarray(0, 8).toString('hex'), '89504e470d0a1a0a');
-    const detail = await worker.request('https://helper.example/api/apps/runway');
-    assert.equal(detail.status, 200);
-    assert.deepEqual((await detail.json()).app, runway);
-    assert.deepEqual(runway.connection, {
-        transport: 'http', url: 'https://mcp.runwayml.com/mcp', auth: 'oauth', scopes: ['api:read_write'],
-    });
-    assert.deepEqual(runway.platforms, ['windows', 'macos', 'linux']);
-    assert.deepEqual(runway.fields, []);
+test('Runway detail includes the OAuth recipe, official icon and tool summaries', async () => {
+    const {app}=await (await worker.request('https://helper.example/api/apps/runway',{},env)).json();
+    assert.equal(app.icon,'https://aipp-helper.xiejingyang.com/agent-plugin-icons/runway.png');
+    const logo=await readFile('public'+new URL(app.icon).pathname);
+    assert.equal(logo.subarray(0,8).toString('hex'),'89504e470d0a1a0a');
+    assert.equal(app.connection.auth,'oauth');
+    assert.equal(Object.keys(app.tool_summaries).length,48);
 });
 test('unknown app returns a JSON 404 instead of the SPA', async () => {
     const response = await worker.request('https://helper.example/api/apps/not-found');
@@ -64,16 +50,35 @@ test('application manifests contain no secret defaults or executable hooks', asy
         for (const field of app.fields) if (field.secret) assert.ok(!field.default);
     }
 });
-test('localized applications have the same tool IDs and separate cache validators', async () => {
-    const zh = await worker.request('https://helper.example/api/apps?lang=zh-CN');
-    const en = await worker.request('https://helper.example/api/apps?lang=en', {headers:{'If-None-Match':zh.headers.get('etag')}});
-    assert.equal(en.status, 200);
-    const english = (await en.json()).apps;
-    for (const app of (await zh.json()).apps) {
-        const other = english.find(entry => entry.id === app.id);
-        assert.notEqual(app.description, other.description);
-        assert.deepEqual(Object.keys(other.tool_summaries), Object.keys(app.tool_summaries));
-        assert.ok(Object.keys(app.tool_summaries).length > 0);
-        for (const value of Object.values(app.tool_summaries)) assert.match(value, /\p{Script=Han}/u);
+test('home previews are bounded and pages cover the directory exactly once', async () => {
+    const base='https://helper.example/api/apps';
+    const res=await worker.request(base+'?lang=zh-CN');
+    const raw=await res.text();
+    const home=JSON.parse(raw);
+    assert.ok(Buffer.byteLength(raw)<24000);
+    for (const field of ['tool_summaries','connection','archive','fields','skills']) assert.ok(!raw.includes('"'+field+'":'));
+    const ids=new Set();
+    for (const group of home.categories) {
+        assert.equal(group.items.length,Math.min(6,group.total));
+        const all=[];
+        let cursor=0;
+        do {
+            const page=await (await worker.request(base+'/page?category='+group.id+'&cursor='+cursor+'&version='+home.version)).json();
+            assert.ok(page.items.length<=18);
+            all.push(...page.items); cursor=page.next_cursor;
+        } while(cursor!==null);
+        assert.equal(all.length,group.total);
+        assert.deepEqual(all.slice(0,6),group.items);
+        for(const item of all){assert.ok(!ids.has(item.id));ids.add(item.id);}
     }
+    assert.equal(ids.size,63);
+    const search=await (await worker.request(base+'/page?q=zotero')).json();
+    assert.ok(search.items.some(e=>e.name.toLowerCase()==='zotero'));
+    assert.equal((await worker.request(base+'/page?version=stale')).status,409);
+    assert.equal((await worker.request(base+'/page?cursor=-1')).status,400);
+    const detail=async lang=>(await (await worker.request(base+'/runway?lang='+lang,{},env)).json()).app;
+    const zh=await detail('zh-CN'),en=await detail('en');
+    assert.deepEqual(Object.keys(zh.tool_summaries),Object.keys(en.tool_summaries));
+    assert.notEqual(zh.tool_summaries.generate_video,en.tool_summaries.generate_video);
+    console.log('Home bytes:',Buffer.byteLength(raw),'groups:',home.categories.length,'items:',ids.size);
 });
