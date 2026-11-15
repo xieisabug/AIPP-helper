@@ -64,3 +64,16 @@ test('application manifests contain no secret defaults or executable hooks', asy
         for (const field of app.fields) if (field.secret) assert.ok(!field.default);
     }
 });
+test('localized applications have the same tool IDs and separate cache validators', async () => {
+    const zh = await worker.request('https://helper.example/api/apps?lang=zh-CN');
+    const en = await worker.request('https://helper.example/api/apps?lang=en', {headers:{'If-None-Match':zh.headers.get('etag')}});
+    assert.equal(en.status, 200);
+    const english = (await en.json()).apps;
+    for (const app of (await zh.json()).apps) {
+        const other = english.find(entry => entry.id === app.id);
+        assert.notEqual(app.description, other.description);
+        assert.deepEqual(Object.keys(other.tool_summaries), Object.keys(app.tool_summaries));
+        assert.ok(Object.keys(app.tool_summaries).length > 0);
+        for (const value of Object.values(app.tool_summaries)) assert.match(value, /\p{Script=Han}/u);
+    }
+});

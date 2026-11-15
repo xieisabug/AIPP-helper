@@ -37,3 +37,14 @@ test('archive is served entirely from published assets without upstream network'
         assert.equal(createHash('sha256').update(data).digest('hex'),response.headers.get('x-aipp-sha256'));
     }finally{globalThis.fetch=original;}
 });
+test('Chinese catalog descriptions cover every plugin and only change preview descriptions', async () => {
+    const base = 'https://helper.example/api/agent-plugins';
+    const catalog = await (await worker.request(base+'/catalog?lang=zh-CN',{},env)).json();
+    for (const entry of catalog.entries) {
+        assert.match(entry.description, /\p{Script=Han}/u);
+        const url = base+'/preview?'+new URLSearchParams({repo:entry.source.repo,ref:entry.source.git_ref,path:entry.source.path});
+        const original = await (await worker.request(url,{},env)).json();
+        const translated = await (await worker.request(url+'&lang=zh-CN',{},env)).json();
+        assert.deepEqual(translated, {...original, description:entry.description});
+    }
+});

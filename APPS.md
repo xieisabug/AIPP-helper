@@ -62,3 +62,7 @@ Windows Credential Manager / macOS Keychain / Linux Secret Service 使用 keyrin
 发布应从已提交源码构建；工作区存在未提交改动时，用提交快照构建，避免混入其他任务。
 
 安装包以小于25MiB的分块随helper静态资源发布，Worker按顺序流式返回原ZIP并附带SHA-256。目录、详情和下载均不依赖运行时访问GitHub。
+
+### 目录语言和工具摘要
+
+`/api/apps` 及应用详情支持 `?lang=zh-CN`（默认）和 `?lang=en`。每个应用可携带 `tool_summaries`，键为 MCP 工具的原始名称，值为当前语言的摘要。工具权限、参数和实际能力由连接返回。插件目录与预览通过 `?lang=zh-CN` 获取中文介绍，默认返回原文。技能文件和安装归档沿用原内容。
