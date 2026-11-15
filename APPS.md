@@ -34,9 +34,10 @@ Windows Credential Manager / macOS Keychain / Linux Secret Service 使用 keyrin
 
 断开先停用连接、取消等待中的授权。若 OAuth 元数据声明 revocation_endpoint，依次撤销刷新令牌和访问令牌，再删除本机凭据；撤销失败保留凭据供重试并显示具体失败，用户可明确选择仅删除本机凭据。未提供撤销端点或 PAT 连接只清理本机，提示去服务商账户设置撤销。断开不回滚已执行操作。普通分享、跨端迁移以及任意 shell 凭据隔离仍属于后续凭据需求，不能宣称已覆盖 #298–302。
 
-## 首批描述
+## 应用目录条目
 
 - Notion：官方 HTTP MCP，浏览器 OAuth；无客户端注册信息时动态注册。
+- Runway：连接官方创作 MCP，通过浏览器登录并授权 `api:read_write`。服务支持公共客户端动态注册和 S256 PKCE，OAuth resource 与 MCP 地址相同。生成和重新生成都会消耗 Runway 账号积分。
 - GitHub：官方 HTTP MCP，用户主动提供 PAT 的独立接入方式。未配置 AIPP 的 OAuth 应用，因此不展示浏览器登录，也不把 PAT 当 OAuth 失败后的自动降级。
 
 服务端发布前客户端可能收到旧 SPA HTML 或接口错误，会显示目录加载失败，不能显示虚假的外部应用或连接成功。服务端目录与客户端可以分别发布；helper 发布须验证既有 Skills/Plugins 接口，不能夹带工作区未提交的无关改动。

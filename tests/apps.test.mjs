@@ -23,6 +23,22 @@ test('catalog endpoint returns versioned applications and supports conditional c
     const stale = await worker.request('https://helper.example/api/apps', { headers: { 'If-None-Match': 'W/"old-version"' } });
     assert.equal(stale.status, 200);
 });
+test('Runway is discoverable with public-client OAuth when refreshing the pre-Runway catalog', async () => {
+    const list = await worker.request('https://helper.example/api/apps', {
+        headers: { 'If-None-Match': '"apps-2026-11-11.1"' },
+    });
+    assert.equal(list.status, 200);
+    const runway = (await list.json()).apps.find(app => app.id === 'runway');
+    assert.ok(runway);
+    const detail = await worker.request('https://helper.example/api/apps/runway');
+    assert.equal(detail.status, 200);
+    assert.deepEqual((await detail.json()).app, runway);
+    assert.deepEqual(runway.connection, {
+        transport: 'http', url: 'https://mcp.runwayml.com/mcp', auth: 'oauth', scopes: ['api:read_write'],
+    });
+    assert.deepEqual(runway.platforms, ['windows', 'macos', 'linux']);
+    assert.deepEqual(runway.fields, []);
+});
 test('unknown app returns a JSON 404 instead of the SPA', async () => {
     const response = await worker.request('https://helper.example/api/apps/not-found');
     assert.equal(response.status, 404);

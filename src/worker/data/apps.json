@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "version": "2026-11-11.1",
+  "version": "2026-11-15.1",
   "apps": [
     {
       "id": "notion",
@@ -73,6 +73,25 @@
         "git_ref": "main",
         "path": "plugins/github"
       }
+    },
+    {
+      "id": "runway",
+      "version": "1",
+      "name": "Runway",
+      "description": "在对话中使用 Runway 生成图片和视频。",
+      "publisher": "Runway",
+      "category": "创意工具",
+      "homepage": "https://mcp.runwayml.com/",
+      "notice": "通过浏览器登录 Runway。生成图片或视频会消耗当前 Runway 账号的积分，重试和重新生成也会单独计费。",
+      "platforms": ["windows", "macos", "linux"],
+      "connection": {
+        "transport": "http",
+        "url": "https://mcp.runwayml.com/mcp",
+        "auth": "oauth",
+        "scopes": ["api:read_write"]
+      },
+      "fields": [],
+      "skill_ids": []
     }
   ]
 }
