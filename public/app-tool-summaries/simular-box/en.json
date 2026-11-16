@@ -1,0 +1,9 @@
+{
+  "box_status": "Check the cloud computer’s status.",
+  "browser_navigate": "Open a URL in the cloud browser.",
+  "browser_snapshot": "Inspect the page and its interactive elements.",
+  "gui_plan": "Perform a sequence of desktop actions.",
+  "shell": "Run a command on the cloud computer.",
+  "read_file": "Read a text file on the cloud computer.",
+  "screenshot": "Capture the cloud computer’s screen."
+}

@@ -1,0 +1,9 @@
+{
+  "box_status": "查看云电脑状态。",
+  "browser_navigate": "在云电脑的浏览器中打开网址。",
+  "browser_snapshot": "读取网页结构及可交互元素。",
+  "gui_plan": "执行一组桌面操作。",
+  "shell": "在云电脑上运行命令。",
+  "read_file": "读取云电脑中的文本文件。",
+  "screenshot": "查看云电脑的屏幕截图。"
+}

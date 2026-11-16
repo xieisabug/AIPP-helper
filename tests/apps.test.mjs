@@ -28,6 +28,24 @@ test('Runway detail includes the OAuth recipe, official icon and tool summaries'
     assert.equal(app.connection.auth,'oauth');
     assert.equal(Object.keys(app.tool_summaries).length,48);
 });
+test('Simular Box is discoverable and links its OAuth connection to the pinned desktop skill', async () => {
+    const base = 'https://helper.example/api';
+    const get = async path => (await worker.request(base + path, {}, env)).json();
+    const {items} = await get('/apps/page?category=development&scope=native&q=simular');
+    assert.deepEqual(items.map(item => item.id), ['simular-box']);
+    const {app} = await get('/apps/simular-box');
+    assert.deepEqual(app.connection, {
+        transport: 'http', url: 'https://mcp.box.simular.ai/mcp', auth: 'oauth', scopes: ['boxes', 'connect'],
+    });
+    const english = (await get('/apps/simular-box?lang=en')).app;
+    assert.deepEqual(Object.keys(app.tool_summaries), Object.keys(english.tool_summaries));
+    assert.notEqual(app.tool_summaries.shell, english.tool_summaries.shell);
+    assert.deepEqual(app.skill_ids, ['simular-box']);
+    const skill = (await get('/skills')).find(skill => skill.id === app.skill_ids[0]);
+    assert.equal(skill.source.repo, 'simular-ai/box-plugin');
+    assert.match(skill.source.ref, /^[a-f0-9]{40}$/);
+    assert.deepEqual(skill.dirs, [{from: 'claude/skills/box', to: 'box'}]);
+});
 test('unknown app returns a JSON 404 instead of the SPA', async () => {
     const response = await worker.request('https://helper.example/api/apps/not-found');
     assert.equal(response.status, 404);
@@ -71,7 +89,7 @@ test('home previews are bounded and pages cover the directory exactly once', asy
         assert.deepEqual(all.slice(0,6),group.items);
         for(const item of all){assert.ok(!ids.has(item.id));ids.add(item.id);}
     }
-    assert.equal(ids.size,63);
+    assert.equal(ids.size,64);
     const search=await (await worker.request(base+'/page?q=zotero')).json();
     assert.ok(search.items.some(e=>e.name.toLowerCase()==='zotero'));
     assert.equal((await worker.request(base+'/page?version=stale')).status,409);

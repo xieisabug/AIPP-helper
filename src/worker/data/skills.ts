@@ -6,6 +6,7 @@ export interface Skill {
     source: {
         type: "zip" | "github";
         repo?: string;
+        ref?: string;
         url?: string;
     };
     dirs?: {
@@ -15,6 +16,18 @@ export interface Skill {
 }
 
 export const skills: Skill[] = [
+    {
+        id: "simular-box",
+        name: "Simular Box",
+        description: "Simular 官方技能，指导助手选择云电脑的浏览器、桌面或文件工具，并在需要登录时请用户接管。",
+        version: "2500c46",
+        source: {
+            type: "github",
+            repo: "simular-ai/box-plugin",
+            ref: "2500c46b5bca1d6cda1af20c4d66381bb74c03ee",
+        },
+        dirs: [{ from: "claude/skills/box", to: "box" }],
+    },
     {
         id: "aipp-skills",
         name: "AIPP Skills",
