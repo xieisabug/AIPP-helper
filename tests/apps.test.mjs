@@ -40,11 +40,19 @@ test('Simular Box is discoverable and links its OAuth connection to the pinned d
     const english = (await get('/apps/simular-box?lang=en')).app;
     assert.deepEqual(Object.keys(app.tool_summaries), Object.keys(english.tool_summaries));
     assert.notEqual(app.tool_summaries.shell, english.tool_summaries.shell);
-    assert.deepEqual(app.skill_ids, ['simular-box']);
-    const skill = (await get('/skills')).find(skill => skill.id === app.skill_ids[0]);
-    assert.equal(skill.source.repo, 'simular-ai/box-plugin');
-    assert.match(skill.source.ref, /^[a-f0-9]{40}$/);
-    assert.deepEqual(skill.dirs, [{from: 'claude/skills/box', to: 'box'}]);
+    assert.deepEqual(app.skill_ids, []);
+    const source = app.plugin_source;
+    const params = new URLSearchParams({repo: source.repo, ref: source.git_ref, path: source.path});
+    const preview = await get('/agent-plugins/preview?' + params);
+    assert.equal(preview.revision, '2500c46b5bca1d6cda1af20c4d66381bb74c03ee');
+    assert.deepEqual(preview.skills.map(s => s.name), ['box', 'get-started']);
+    assert.equal(preview.servers[0].config.url, app.connection.url);
+    const archive = await worker.request(base + '/agent-plugins/archive?' + params + '&revision=' + preview.revision, {}, env);
+    assert.equal(archive.status, 200);
+    assert.equal(archive.headers.get('x-aipp-revision'), preview.revision);
+    assert.ok(app.icon.startsWith('https://aipp-helper.xiejingyang.com/agent-plugin-icons/'));
+    const logo = await readFile('public' + new URL(app.icon).pathname);
+    assert.equal(logo.subarray(0,8).toString('hex'), '89504e470d0a1a0a');
 });
 test('unknown app returns a JSON 404 instead of the SPA', async () => {
     const response = await worker.request('https://helper.example/api/apps/not-found');

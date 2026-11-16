@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "version": "2026-11-16.1",
+  "version": "2026-11-16.2",
   "apps": [
     {
       "id": "notion",
@@ -96,12 +96,12 @@
     },
     {
       "id": "simular-box",
-      "version": "1",
+      "version": "2",
       "name": "Simular Box",
       "description": "让 AI 使用独立的云端 Linux 电脑，操作 Chrome 和桌面应用、运行命令、读写文件。",
       "publisher": "Simular",
       "category": "开发工具",
-      "icon": "https://box.simular.ai/box-favicon.svg",
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/388ca3dba9866edd98fab9dd300ab5be8b3478b8fc7ba4b72620af3a65229873.png",
       "homepage": "https://box.simular.ai/",
       "notice": "连接时在浏览器登录 Simular。可在 box.simular.ai/box 查看或接管桌面。模型调用消耗账号积分，电脑连续休眠 14 天后会连同文件和存档一起删除。",
       "platforms": ["windows", "macos", "linux"],
@@ -112,7 +112,8 @@
         "scopes": ["boxes", "connect"]
       },
       "fields": [],
-      "skill_ids": ["simular-box"]
+      "skill_ids": [],
+      "plugin_source": {"repo": "simular-ai/box-plugin", "git_ref": "main", "path": "openai"}
     }
   ]
 }

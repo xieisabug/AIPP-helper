@@ -1,0 +1,26 @@
+{
+  "revision": "2500c46b5bca1d6cda1af20c4d66381bb74c03ee",
+  "entries": [
+    {
+      "key": "a578660a6b7aa132a38deacb",
+      "name": "Simular Box",
+      "description": "Give your AI a computer of its own: a cloud Linux desktop with Chrome and a shell, driven over MCP, while your own computer stays free.",
+      "category": "开发工具",
+      "source": {
+        "repo": "simular-ai/box-plugin",
+        "git_ref": "main",
+        "path": "openai"
+      },
+      "archive": {
+        "path": "/agent-plugin-archives/a578660a6b7aa132a38deacb-094af09fa8fb98c2970996e4da6bf01d82a4a46ec7c7ebdb0f0e0e73925d1f53.zip",
+        "bytes": 30592,
+        "sha256": "094af09fa8fb98c2970996e4da6bf01d82a4a46ec7c7ebdb0f0e0e73925d1f53"
+      },
+      "skill_count": 2,
+      "connector_count": 1,
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/388ca3dba9866edd98fab9dd300ab5be8b3478b8fc7ba4b72620af3a65229873.png",
+      "icon_dark": null,
+      "icon_small": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/388ca3dba9866edd98fab9dd300ab5be8b3478b8fc7ba4b72620af3a65229873.png"
+    }
+  ]
+}
