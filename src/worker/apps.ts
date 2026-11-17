@@ -6,7 +6,7 @@ import translations from "./data/plugin-descriptions.zh-CN.json";
 const groups = [
     ["productivity", "效率与协作", "Productivity", "notion airtable atlassian-rovo clickup dropbox gmail google-calendar google-drive granola linear monday-com outlook-calendar outlook-email sharepoint slack teams zoom"],
     ["development", "开发工具", "Developer tools", "github simular-box build-ios-apps build-macos-apps build-web-apps circleci cloudflare coderabbit codex-security datadog expo lovable nvidia openai-developers plugin-eval sentry supabase superpowers temporal test-android-apps twilio-developer-kit vercel"],
-    ["creative", "设计与创作", "Design and media", "runway adobe canva chatcut creative-production figma game-studio higgsfield hyperframes magicpath product-design remotion"],
+    ["creative", "设计与创作", "Design and media", "runway gamma adobe canva chatcut creative-production figma game-studio higgsfield hyperframes magicpath product-design remotion"],
     ["research", "数据与研究", "Data and research", "boltz-api-cli build-web-data-visualization consensus data-analytics life-science-research mixpanel-headless ngs-analysis posthog public-equity-investing zotero"],
     ["commerce", "商务与营销", "Commerce", "openai-ads-conversions shopify stripe"],
     ["other", "其他", "Other", ""],
@@ -17,6 +17,7 @@ const english: Record<string, string> = {
     notion: "Search, read, and edit pages in your Notion workspace.",
     github: "Explore repositories and manage issues and pull requests.",
     "simular-box": "Give your AI a cloud Linux desktop to use Chrome and desktop apps, run commands, and work with files.",
+    gamma: "Generate images, presentations, documents, and webpages with Gamma workspace credits. Export to PDF, PPTX, or PNG.",
     runway: "Generate images and videos with Runway in your conversation.",
 };
 type Lang = "zh-CN" | "en";
@@ -92,6 +93,7 @@ appsApi.get("/:id", async c => {
         notion:"Authorize your workspace in the browser. Notion determines permissions, billing, and quotas.",
         github:"Connect with a personal access token. Its permissions and organization policies determine the available resources.",
         "simular-box": "Sign in to Simular in your browser. Watch or take over at box.simular.ai/box. Model calls use account credits. After 14 consecutive days asleep, the computer, files and saves are deleted.",
+        gamma: "Gamma must approve the AIPP desktop redirect URI before connection. Choose a workspace when signing in. Generation and editing use its credits. Exporting is free.",
         runway:"Sign in to Runway in your browser. Generations, retries and regenerations consume credits."
     };
     if (headers(c,version+":"+entry.id+":"+language)) return c.body(null,304);

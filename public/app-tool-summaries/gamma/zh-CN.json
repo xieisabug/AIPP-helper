@@ -1,0 +1,8 @@
+{
+  "generate_image": "生成独立图片。",
+  "get_image_generation_status": "查询生成进度并获取图片链接。",
+  "generate": "生成演示文稿、文档、网页或社交内容。",
+  "get_generation_status": "查询生成进度并获取作品链接。",
+  "export_gamma": "导出 PDF、PPTX 或逐页 PNG 压缩包。",
+  "get_export_status": "查询导出进度并获取下载链接。"
+}

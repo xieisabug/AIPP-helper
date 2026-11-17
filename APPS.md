@@ -36,6 +36,8 @@ Windows Credential Manager / macOS Keychain / Linux Secret Service 使用 keyrin
 
 ## 应用目录条目
 
+- Gamma 使用官方 MCP，按所选工作区额度生成图片和文件。Gamma 需先放行 AIPP 的 `http://127.0.0.1:<动态端口>/oauth/callback`。登记入口见 [Gamma MCP 文档](https://developers.gamma.app/mcp/gamma-mcp-server#connect-your-own-agent-or-mcp-client)。
+
 - Notion：官方 HTTP MCP，浏览器 OAuth；无客户端注册信息时动态注册。
 - Runway：连接官方创作 MCP，通过浏览器登录并授权 `api:read_write`。服务支持公共客户端动态注册和 S256 PKCE，OAuth resource 与 MCP 地址相同。生成和重新生成都会消耗 Runway 账号积分。
 - GitHub：官方 HTTP MCP，用户主动提供 PAT 的独立接入方式。未配置 AIPP 的 OAuth 应用，因此不展示浏览器登录，也不把 PAT 当 OAuth 失败后的自动降级。

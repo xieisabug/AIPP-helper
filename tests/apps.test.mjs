@@ -54,6 +54,21 @@ test('Simular Box is discoverable and links its OAuth connection to the pinned d
     const logo = await readFile('public' + new URL(app.icon).pathname);
     assert.equal(logo.subarray(0,8).toString('hex'), '89504e470d0a1a0a');
 });
+test('Gamma is discoverable with workspace OAuth and image export tools', async () => {
+    const base = 'https://helper.example/api/apps';
+    const page = await (await worker.request(base + '/page?scope=native&category=creative&q=gamma')).json();
+    assert.deepEqual(page.items.map(item => item.id), ['gamma']);
+    for (const lang of ['zh-CN', 'en']) {
+        const {app} = await (await worker.request(base + '/gamma?lang=' + lang, {}, env)).json();
+        assert.equal(app.connection.url, 'https://mcp.gamma.app/mcp');
+        assert.equal(app.connection.oauth_resource, 'https://mcp.gamma.app');
+        assert.deepEqual(app.connection.scopes, ['generate', 'gamma:read']);
+        assert.equal(app.connection.auth, 'oauth');
+        assert.deepEqual(app.skill_ids, []);
+        assert.equal(app.plugin_source, undefined);
+        assert.ok(app.tool_summaries.generate_image && app.tool_summaries.export_gamma);
+    }
+});
 test('unknown app returns a JSON 404 instead of the SPA', async () => {
     const response = await worker.request('https://helper.example/api/apps/not-found');
     assert.equal(response.status, 404);
@@ -97,7 +112,7 @@ test('home previews are bounded and pages cover the directory exactly once', asy
         assert.deepEqual(all.slice(0,6),group.items);
         for(const item of all){assert.ok(!ids.has(item.id));ids.add(item.id);}
     }
-    assert.equal(ids.size,64);
+    assert.equal(ids.size,65);
     const search=await (await worker.request(base+'/page?q=zotero')).json();
     assert.ok(search.items.some(e=>e.name.toLowerCase()==='zotero'));
     assert.equal((await worker.request(base+'/page?version=stale')).status,409);
