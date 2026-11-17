@@ -57,7 +57,7 @@ test('Simular Box is discoverable and links its OAuth connection to the pinned d
 test('Gamma is discoverable with workspace OAuth and image export tools', async () => {
     const base = 'https://helper.example/api/apps';
     const page = await (await worker.request(base + '/page?scope=native&category=creative&q=gamma')).json();
-    assert.deepEqual(page.items.map(item => item.id), ['gamma']);
+    assert.deepEqual(page.items.map(item => item.id).sort(), ['gamma', 'gamma-api']);
     for (const lang of ['zh-CN', 'en']) {
         const {app} = await (await worker.request(base + '/gamma?lang=' + lang, {}, env)).json();
         assert.equal(app.connection.url, 'https://mcp.gamma.app/mcp');
@@ -85,7 +85,7 @@ test('application manifests contain no secret defaults or executable hooks', asy
     const catalog = JSON.parse(await readFile('src/worker/data/apps.json', 'utf8'));
     for (const app of catalog.apps) {
         assert.equal(new URL(app.connection.url).protocol, 'https:');
-        assert.equal(app.connection.transport, 'http');
+        assert.ok(['http', 'http_api'].includes(app.connection.transport));
         assert.equal(app.connection.command, undefined);
         assert.ok(app.platforms.length);
         for (const field of app.fields) if (field.secret) assert.ok(!field.default);
@@ -112,7 +112,7 @@ test('home previews are bounded and pages cover the directory exactly once', asy
         assert.deepEqual(all.slice(0,6),group.items);
         for(const item of all){assert.ok(!ids.has(item.id));ids.add(item.id);}
     }
-    assert.equal(ids.size,65);
+    assert.equal(ids.size,66);
     const search=await (await worker.request(base+'/page?q=zotero')).json();
     assert.ok(search.items.some(e=>e.name.toLowerCase()==='zotero'));
     assert.equal((await worker.request(base+'/page?version=stale')).status,409);
@@ -122,4 +122,47 @@ test('home previews are bounded and pages cover the directory exactly once', asy
     assert.deepEqual(Object.keys(zh.tool_summaries),Object.keys(en.tool_summaries));
     assert.notEqual(zh.tool_summaries.generate_video,en.tool_summaries.generate_video);
     console.log('Home bytes:',Buffer.byteLength(raw),'groups:',home.categories.length,'items:',ids.size);
+});
+
+test('Gamma API key detail publishes complete REST operations and keeps credentials client-side', async () => {
+    const base = 'https://helper.example/api/apps';
+    const zh = (await (await worker.request(base + '/gamma-api', {}, env)).json()).app;
+    const en = (await (await worker.request(base + '/gamma-api?lang=en', {}, env)).json()).app;
+    assert.equal(zh.connection.url, 'https://public-api.gamma.app');
+    assert.equal(zh.connection.transport, 'http_api');
+    assert.equal(zh.connection.auth, 'fields');
+    assert.equal(zh.fields[0].header, 'X-API-KEY');
+    assert.equal(zh.fields[0].secret, true);
+    const api = zh.connection.http_api;
+    assert.equal(api.key_url, 'https://gamma.app/settings/api-keys');
+    assert.equal(api.probe, 'get_me');
+    const cases = JSON.parse(await readFile('tests/fixtures/gamma-api-cases.json', 'utf8'));
+    const names = api.tools.map(t => t.name).sort();
+    assert.equal(names.length, 26);
+    assert.deepEqual(names, [...new Set(cases.map(c => c.tool))].sort());
+    assert.deepEqual(names, Object.keys(zh.tool_summaries).sort());
+    assert.deepEqual(names, Object.keys(en.tool_summaries).sort());
+    for (const c of cases) {
+        const op = api.tools.find(t => t.name === c.tool);
+        const path = op.path.replace(/\{(\w+)\}/g, (_, key) => encodeURIComponent(c.args[key]));
+        assert.equal(op.method + ' ' + path, c.wire.split('?')[0]);
+        for (const key of op.input_schema.required ?? []) assert.ok(key in c.args);
+    }
+    const image = cases.find(c => c.tool === 'create_image_generation').reply;
+    const imageResult = cases.find(c => c.tool === 'get_image_generation_status' && c.args.id === image.imageGenerationId).reply;
+    assert.equal(imageResult.status, 'completed');
+    assert.match(imageResult.image.url, /\.png$/);
+    const generation = cases.find(c => c.tool === 'create_generation').reply;
+    const deck = cases.find(c => c.tool === 'get_generation_status' && c.args.id === generation.generationId).reply;
+    assert.equal(deck.status, 'completed');
+    for (const format of ['pptx', 'pdf']) {
+        const job = cases.find(c => c.tool === 'export_gamma' && c.args.gammaId === deck.gammaId && c.args.body.exportAs === format).reply;
+        const file = cases.find(c => c.tool === 'get_export_status' && c.args.id === job.exportId).reply;
+        assert.equal(file.status, 'completed');
+        assert.ok(file.exportUrl.endsWith('.' + format));
+    }
+    assert.deepEqual(en.connection, zh.connection);
+    const old = await (await worker.request(base, {headers:{Accept:'*/*'}})).json();
+    assert.ok(!old.apps.some(a => a.id === 'gamma-api'));
+    assert.ok(old.apps.some(a => a.id === 'gamma'));
 });

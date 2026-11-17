@@ -70,3 +70,11 @@ Windows Credential Manager / macOS Keychain / Linux Secret Service 使用 keyrin
 - `GET /api/apps?lang=zh-CN` 返回版本和分类。每类含稳定标识、名称、总数及最多 6 张卡片。默认中文；支持英文。首页支持 ETag 和 304，客户端先显示本地缓存，5 分钟后后台验证。
 - `GET /api/apps/page?category=development&cursor=0&version=…` 每页最多 18 张卡片。使用返回的 `next_cursor` 继续；为空表示结束。可传 `q` 跨全目录搜索，或传 `scope=native` 只浏览可连接应用。版本变化返回 409，客户端刷新后从第一页加载。
 - `GET /api/apps/:id?lang=zh-CN` 返回单个应用的连接定义和 `tool_summaries`。摘要按应用和语言存为静态资源，首页及分页无需读取。工具权限和实际能力仍由连接返回。旧桌面客户端请求裸路径时保留有界的兼容清单。
+
+### 声明式 HTTP 应用
+
+连接类型 `http_api` 的详情从 `public/app-http-definitions/<id>.json` 加载版本、密钥创建地址、无参数 GET 探测工具和操作清单。首页只发布卡片。旧版兼容清单保留原有 MCP 应用。操作的输入 schema 与路径参数、查询、指定的自定义请求头、JSON 或 Base64 二进制请求体对应。客户端保存安装快照并直接请求服务商。
+
+Gamma · API Key 覆盖 [官方 REST 索引](https://developers.gamma.app/llms.txt) 的 26 项操作，连接用 GET /me。出图、生成演示文稿和导出分别提交与查状态，完成后提供文件链接。删除要求工作区管理员权限。每次修改公开定义时应递增应用版本和目录版本。
+
+回归用例在 `tests/fixtures/gamma-api-cases.json`，独立维护每项操作的 HTTP 方法、路径、参数与模拟响应。跨仓库验证时，将已发布详情中的 app 和该文件的数组组装为 `{"app": ..., "cases": [...]}`，设置 `AIPP_HTTP_APP_CONTRACT` 为这个临时 JSON 文件的绝对路径，在 AIPP 运行 `cargo test --manifest-path src-tauri/Cargo.toml --lib mcp::apps::declarative::tests -- --include-ignored`。该测试仅向本机模拟服务发送虚构密钥。

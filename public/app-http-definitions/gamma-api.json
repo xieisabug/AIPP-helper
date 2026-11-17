@@ -1,0 +1,2078 @@
+{
+  "version": 1,
+  "key_url": "https://gamma.app/settings/api-keys",
+  "probe": "get_me",
+  "tools": [
+    {
+      "name": "get_me",
+      "description": "Get the current user, workspace, plan and remaining credits.",
+      "method": "GET",
+      "path": "/v1.0/me",
+      "input_schema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "archive_gamma",
+      "description": "Archive a Gamma. Archives a Gamma document. The operation is idempotent - archiving an already archived Gamma succeeds.",
+      "method": "POST",
+      "path": "/v1.0/gammas/{gammaId}/archive",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "gammaId": {
+            "type": "string",
+            "description": "The unique ID of the Gamma to archive"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "gammaId"
+        ]
+      }
+    },
+    {
+      "name": "archive_image",
+      "description": "Archive a media item. Removes an item you created (such as a generated image) from the workspace media library. The operation is idempotent - archiving an already archived item succeeds. The underlying file is not deleted: existing URLs continue to work.",
+      "method": "POST",
+      "path": "/v1.0/images/media/{savedMediaId}/archive",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "savedMediaId": {
+            "type": "string",
+            "description": "The media library identifier of the item to archive, as returned in `image.savedMediaId` by the image generation status endpoint"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "savedMediaId"
+        ]
+      }
+    },
+    {
+      "name": "create_agent_generation",
+      "description": "Create agent generation. Creates an asynchronous generation job run by the Gamma agent. `prompt` is the only required field. Guidance fields (`numCards`, `additionalInstructions`) are soft targets; `numCards` must not exceed the card maximum for the workspace plan. To work from your own files, such as a presentation to import, store each with `POST /v1.0/uploads` and list them in `files`. A `folderId` or `sharingOptions` setting that a workspace admin restricts is ignored and reported in `warnings`. Returns a `gen_`-prefixed generation ID to poll with `GET /v1.0/agent/generations/{generationId}`.",
+      "method": "POST",
+      "path": "/v1.0/agent/generations",
+      "body": "json",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "type": "object",
+            "properties": {
+              "themeId": {
+                "type": "string",
+                "description": "Optional saved theme to apply, using an `id` from `GET /v1.0/themes`. The theme is applied on Gamma's Standard Brand Base design for the requested `format`. Cannot be combined with `templateId`: a template or gamma keeps its own look.",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "numCards": {
+                "type": "integer",
+                "description": "Target number of cards, capped at the plan's maximum (10 on free plans,\n100 on paid plans); a higher value is rejected with 400. Within the cap\nit is a soft target: the agent may deviate by a card or two, and the\nresult is not validated against it.",
+                "minimum": 1,
+                "maximum": 100
+              },
+              "sourceUrls": {
+                "description": "Up to 10 http or https URLs the agent reads as source material. A link the prompt depends on, such as a Google Slides deck to import or a report to build the deck from, is required: when it cannot be read, the agent creates no gamma and the generation fails with an explanation. A link given only as background is skipped when it cannot be read.",
+                "maxItems": 10,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              },
+              "files": {
+                "description": "Files stored with `POST /v1.0/uploads`, as the `{ uploadId, filename }` that route returned. The agent works from them beside the prompt; a .pptx or .pdf is imported with its own layout. Add `purpose: 'import'` to import that file faithfully as the new presentation; at most one file can have it. At most 50 files and 250 MiB in total. Each upload can be attached to one generation; to retry, upload the file again.",
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "uploadId": {
+                      "type": "string",
+                      "description": "Id returned by `POST /v1.0/uploads`."
+                    },
+                    "filename": {
+                      "type": "string",
+                      "description": "Filename returned by `POST /v1.0/uploads`."
+                    },
+                    "purpose": {
+                      "type": "string",
+                      "description": "Omit to give the agent the file as ordinary source material.",
+                      "enum": [
+                        "import"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "uploadId",
+                    "filename"
+                  ]
+                }
+              },
+              "prompt": {
+                "type": "string",
+                "description": "The brief: what to generate. The only required field.",
+                "maxLength": 400000
+              },
+              "title": {
+                "type": "string",
+                "description": "Title for the generated Gamma.\nWhen set, it is the Gamma's saved title, whatever heading the agent writes.\nWhen omitted, the title is derived from the content.",
+                "minLength": 1,
+                "maxLength": 500
+              },
+              "folderId": {
+                "type": "string",
+                "description": "Folder to place the generated Gamma in, within the caller's workspace.\nUse an `id` from `GET /v1.0/folders`."
+              },
+              "sharingOptions": {
+                "description": "Access settings for the generated Gamma.",
+                "allOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "workspaceAccess": {
+                        "description": "Default access level for workspace members",
+                        "enum": [
+                          "comment",
+                          "edit",
+                          "fullAccess",
+                          "noAccess",
+                          "view"
+                        ],
+                        "type": "string"
+                      },
+                      "externalAccess": {
+                        "description": "Access level for external users (via shared link)",
+                        "enum": [
+                          "comment",
+                          "edit",
+                          "noAccess",
+                          "view"
+                        ],
+                        "type": "string"
+                      },
+                      "emailOptions": {
+                        "description": "Email sharing configuration",
+                        "allOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "access": {
+                                "description": "Permission level for email recipients",
+                                "enum": [
+                                  "comment",
+                                  "edit",
+                                  "fullAccess",
+                                  "view"
+                                ],
+                                "type": "string"
+                              },
+                              "recipients": {
+                                "description": "Email addresses to share with",
+                                "minItems": 1,
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "format": "email"
+                                }
+                              }
+                            },
+                            "required": [
+                              "recipients"
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              },
+              "format": {
+                "type": "string",
+                "description": "Output format. Defaults to \"presentation\" when omitted. `webpage` is\nnot supported by the agent engine and is rejected.",
+                "enum": [
+                  "document",
+                  "presentation",
+                  "social"
+                ]
+              },
+              "templateId": {
+                "type": "string",
+                "description": "Optional starting point: the id of an accessible workspace template, of\na regular gamma in the workspace, or of an official\nGamma template (the `exploreTemplates[].id` returned by\n`GET /v1.0/templates/search`). The selection works the way picking the\nsame template or gamma in the Gamma app does: the prompt decides how the\nsource is used, from filling its layouts with new content to borrowing\nonly its look or moving its content onto a new design, and the source\nitself stays unchanged. An official template id names the currently\npublished copy: it survives routine\nupdates but can change when Gamma rebuilds or reintroduces the template,\nso rediscover it through the search endpoint if a saved id stops being\naccepted. Unknown, unauthorized, other-workspace, archived and retired\nids are all rejected with the same 400; no other template is substituted\nfor a rejected id.",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "quality": {
+                "type": "string",
+                "description": "Quality preset: \"lite\", \"standard\", or \"max\" — the same presets the\nGamma app offers. `max` requires a plan that includes it and can use more\ncredits. Omitting the field uses the API default, capped at what the\nplan includes.",
+                "enum": [
+                  "lite",
+                  "max",
+                  "standard"
+                ]
+              },
+              "additionalInstructions": {
+                "type": "string",
+                "description": "Guidance: extra direction for the generation (tone, audience,\nlanguage, style). Treated as guidance the agent aims to follow, not\na constraint the output is validated against.",
+                "minLength": 0,
+                "maxLength": 5000
+              },
+              "exportAs": {
+                "type": "string",
+                "description": "Export the finished gamma after a successful generation as a PDF, PPTX,\nor PNG zip. Export failure is reported as a warning on the generation,\nnever as a failed generation.",
+                "enum": [
+                  "pdf",
+                  "png",
+                  "pptx"
+                ]
+              },
+              "disableConnectors": {
+                "type": "boolean",
+                "description": "Opt this run out of workspace connector access (e.g. Notion, Slack)."
+              }
+            },
+            "required": [
+              "prompt"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "body"
+        ]
+      }
+    },
+    {
+      "name": "create_from_template_generation",
+      "description": "Create generation from template. Creates an asynchronous generation job from a template Gamma with variable substitution.",
+      "method": "POST",
+      "path": "/v1.0/generations/from-template",
+      "body": "json",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "type": "object",
+            "properties": {
+              "exportAs": {
+                "description": "Export format for automatic export after generation",
+                "enum": [
+                  "pdf",
+                  "png",
+                  "pptx"
+                ],
+                "type": "string"
+              },
+              "prompt": {
+                "type": "string",
+                "description": "Text prompt describing what to generate",
+                "minLength": 1,
+                "maxLength": 400000
+              },
+              "title": {
+                "type": "string",
+                "description": "Custom title for the generated Gamma. If not provided, a title will be automatically generated from the content.",
+                "minLength": 1,
+                "maxLength": 500
+              },
+              "gammaId": {
+                "type": "string",
+                "description": "The File ID of the gamma to be used as a template. The File must contain exactly one Page."
+              },
+              "themeId": {
+                "type": "string",
+                "description": "Theme ID to apply to the generated Gamma"
+              },
+              "imageOptions": {
+                "description": "Image generation options",
+                "allOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "model": {
+                        "description": "AI model for image generation",
+                        "allOf": [
+                          {
+                            "type": "string",
+                            "enum": [
+                              "dall-e-3",
+                              "flux-1-pro",
+                              "flux-1-quick",
+                              "flux-1-ultra",
+                              "flux-2-flex",
+                              "flux-2-klein",
+                              "flux-2-max",
+                              "flux-2-pro",
+                              "flux-kontext-fast",
+                              "flux-kontext-max",
+                              "flux-kontext-pro",
+                              "gemini-2.5-flash-image",
+                              "gemini-3-pro-image",
+                              "gemini-3-pro-image-hd",
+                              "gemini-3.1-flash-image",
+                              "gemini-3.1-flash-image-hd",
+                              "gemini-3.1-flash-image-mini",
+                              "gpt-image-1-high",
+                              "gpt-image-1-medium",
+                              "gpt-image-1-mini-high",
+                              "gpt-image-1-mini-low",
+                              "gpt-image-1-mini-medium",
+                              "gpt-image-2",
+                              "gpt-image-2-hd",
+                              "gpt-image-2-mini",
+                              "ideogram-v3",
+                              "ideogram-v3-quality",
+                              "ideogram-v3-turbo",
+                              "leonardo-motion-2",
+                              "leonardo-motion-2-fast",
+                              "leonardo-phoenix",
+                              "recraft-v3",
+                              "recraft-v3-svg",
+                              "recraft-v4",
+                              "recraft-v4-pro",
+                              "recraft-v4-svg",
+                              "veo-3.1",
+                              "veo-3.1-fast"
+                            ],
+                            "description": "AI model to use for image generation"
+                          }
+                        ]
+                      },
+                      "style": {
+                        "type": "string",
+                        "description": "Style description for images",
+                        "minLength": 0,
+                        "maxLength": 5000
+                      }
+                    }
+                  }
+                ]
+              },
+              "sharingOptions": {
+                "description": "Sharing and permissions options",
+                "allOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "workspaceAccess": {
+                        "description": "Default access level for workspace members",
+                        "enum": [
+                          "comment",
+                          "edit",
+                          "fullAccess",
+                          "noAccess",
+                          "view"
+                        ],
+                        "type": "string"
+                      },
+                      "externalAccess": {
+                        "description": "Access level for external users (via shared link)",
+                        "enum": [
+                          "comment",
+                          "edit",
+                          "noAccess",
+                          "view"
+                        ],
+                        "type": "string"
+                      },
+                      "emailOptions": {
+                        "description": "Email sharing configuration",
+                        "allOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "access": {
+                                "description": "Permission level for email recipients",
+                                "enum": [
+                                  "comment",
+                                  "edit",
+                                  "fullAccess",
+                                  "view"
+                                ],
+                                "type": "string"
+                              },
+                              "recipients": {
+                                "description": "Email addresses to share with",
+                                "minItems": 1,
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "format": "email"
+                                }
+                              }
+                            },
+                            "required": [
+                              "recipients"
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              },
+              "folderId": {
+                "type": "string",
+                "description": "Folder to place the generated Gamma in."
+              },
+              "folderIds": {
+                "description": "Folder to place the generated Gamma in. Accepts at most 1 folder ID.\nIgnored when folderId is provided.",
+                "deprecated": true,
+                "maxItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "prompt",
+              "gammaId"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "body"
+        ]
+      }
+    },
+    {
+      "name": "create_generation",
+      "description": "Create async generation. Creates an asynchronous generation job. Provide either `inputText` for a single-page File, or a `pages` array to generate a multi-page File (optionally published as a Gamma site via `publish`). Returns a generation ID that can be used to poll for status.",
+      "method": "POST",
+      "path": "/v1.0/generations",
+      "body": "json",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "type": "object",
+            "properties": {
+              "textMode": {
+                "description": "How to interpret the input text",
+                "enum": [
+                  "condense",
+                  "generate",
+                  "preserve"
+                ],
+                "type": "string"
+              },
+              "pages": {
+                "description": "Generate multiple pages in a single File. When provided, takes precedence over the top-level per-page fields (`inputText`, `textMode`, `numCards`, `format`, `additionalInstructions`, `cardSplit`, `textOptions`, `imageOptions`). File-level options (theme, sharing, folders, card dimensions, export, publish) still apply to all pages. Up to 50 pages per request.",
+                "minItems": 1,
+                "maxItems": 50,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "textMode": {
+                      "description": "How to interpret this page's input text",
+                      "enum": [
+                        "condense",
+                        "generate",
+                        "preserve"
+                      ],
+                      "type": "string"
+                    },
+                    "format": {
+                      "description": "Output format for this page",
+                      "enum": [
+                        "document",
+                        "presentation",
+                        "social",
+                        "webpage"
+                      ],
+                      "type": "string"
+                    },
+                    "cardSplit": {
+                      "description": "How to split content across cards for this page",
+                      "enum": [
+                        "auto",
+                        "inputTextBreaks"
+                      ],
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Custom title for this page. If not provided, a title will be\nautomatically generated from the content.",
+                      "minLength": 1,
+                      "maxLength": 500
+                    },
+                    "inputText": {
+                      "type": "string",
+                      "description": "The text content to generate from (topic, outline, or full content)",
+                      "minLength": 1,
+                      "maxLength": 400000
+                    },
+                    "additionalInstructions": {
+                      "type": "string",
+                      "description": "Additional instructions for the AI for this page",
+                      "minLength": 0,
+                      "maxLength": 5000
+                    },
+                    "numCards": {
+                      "type": "number",
+                      "description": "Target number of cards for this page",
+                      "minimum": 1
+                    },
+                    "path": {
+                      "type": "string",
+                      "description": "URL slug for this page within the published site. When omitted,\nGamma derives a slug from the generated title and disambiguates\ncollisions. Honored for additional pages (pages 2..N); the first\npage is the File's main page and its path is implicit.",
+                      "minLength": 1,
+                      "maxLength": 500
+                    },
+                    "textOptions": {
+                      "description": "Text generation options for this page",
+                      "allOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "amount": {
+                              "description": "Controls the amount of text generated per card",
+                              "enum": [
+                                "brief",
+                                "detailed",
+                                "extensive",
+                                "medium"
+                              ],
+                              "type": "string"
+                            },
+                            "language": {
+                              "description": "Language code for the generated content",
+                              "enum": [
+                                "af",
+                                "ar",
+                                "ar-sa",
+                                "bg",
+                                "bn",
+                                "bs",
+                                "ca",
+                                "cs",
+                                "cy",
+                                "da",
+                                "de",
+                                "el",
+                                "en",
+                                "en-gb",
+                                "en-in",
+                                "es",
+                                "es-419",
+                                "es-es",
+                                "es-mx",
+                                "et",
+                                "fa",
+                                "fi",
+                                "fr",
+                                "gu",
+                                "ha",
+                                "he",
+                                "hi",
+                                "hr",
+                                "hu",
+                                "id",
+                                "is",
+                                "it",
+                                "ja",
+                                "ja-da",
+                                "kk",
+                                "kn",
+                                "ko",
+                                "lt",
+                                "lv",
+                                "mk",
+                                "ml",
+                                "mr",
+                                "ms",
+                                "nb",
+                                "nl",
+                                "pl",
+                                "pt-br",
+                                "pt-pt",
+                                "ro",
+                                "ru",
+                                "sl",
+                                "sq",
+                                "sr",
+                                "sv",
+                                "sw",
+                                "ta",
+                                "te",
+                                "th",
+                                "tl",
+                                "tr",
+                                "uk",
+                                "ur",
+                                "uz",
+                                "vi",
+                                "yo",
+                                "zh-cn",
+                                "zh-tw"
+                              ],
+                              "type": "string"
+                            },
+                            "tone": {
+                              "type": "string",
+                              "description": "The tone or writing style for the generated text",
+                              "minLength": 0,
+                              "maxLength": 500
+                            },
+                            "audience": {
+                              "type": "string",
+                              "description": "The target audience for the content",
+                              "minLength": 0,
+                              "maxLength": 500
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "imageOptions": {
+                      "description": "Image generation and selection options for this page",
+                      "allOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "model": {
+                              "description": "AI model to use for image generation",
+                              "allOf": [
+                                {
+                                  "type": "string",
+                                  "enum": [
+                                    "dall-e-3",
+                                    "flux-1-pro",
+                                    "flux-1-quick",
+                                    "flux-1-ultra",
+                                    "flux-2-flex",
+                                    "flux-2-klein",
+                                    "flux-2-max",
+                                    "flux-2-pro",
+                                    "flux-kontext-fast",
+                                    "flux-kontext-max",
+                                    "flux-kontext-pro",
+                                    "gemini-2.5-flash-image",
+                                    "gemini-3-pro-image",
+                                    "gemini-3-pro-image-hd",
+                                    "gemini-3.1-flash-image",
+                                    "gemini-3.1-flash-image-hd",
+                                    "gemini-3.1-flash-image-mini",
+                                    "gpt-image-1-high",
+                                    "gpt-image-1-medium",
+                                    "gpt-image-1-mini-high",
+                                    "gpt-image-1-mini-low",
+                                    "gpt-image-1-mini-medium",
+                                    "gpt-image-2",
+                                    "gpt-image-2-hd",
+                                    "gpt-image-2-mini",
+                                    "ideogram-v3",
+                                    "ideogram-v3-quality",
+                                    "ideogram-v3-turbo",
+                                    "leonardo-motion-2",
+                                    "leonardo-motion-2-fast",
+                                    "leonardo-phoenix",
+                                    "recraft-v3",
+                                    "recraft-v3-svg",
+                                    "recraft-v4",
+                                    "recraft-v4-pro",
+                                    "recraft-v4-svg",
+                                    "veo-3.1",
+                                    "veo-3.1-fast"
+                                  ],
+                                  "description": "AI model to use for image generation"
+                                }
+                              ]
+                            },
+                            "source": {
+                              "description": "Source for images: AI-generated or web search",
+                              "enum": [
+                                "aiGenerated",
+                                "giphy",
+                                "noImages",
+                                "pexels",
+                                "pictographic",
+                                "placeholder",
+                                "themeAccent",
+                                "webAllImages",
+                                "webFreeToUse",
+                                "webFreeToUseCommercially"
+                              ],
+                              "type": "string"
+                            },
+                            "style": {
+                              "type": "string",
+                              "description": "Style description for AI-generated images",
+                              "minLength": 0,
+                              "maxLength": 5000
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "inputText"
+                  ]
+                }
+              },
+              "format": {
+                "description": "Output format for the generated Gamma",
+                "enum": [
+                  "document",
+                  "presentation",
+                  "social",
+                  "webpage"
+                ],
+                "type": "string"
+              },
+              "cardSplit": {
+                "description": "How to split content across cards",
+                "enum": [
+                  "auto",
+                  "inputTextBreaks"
+                ],
+                "type": "string"
+              },
+              "exportAs": {
+                "description": "Export format for automatic export after generation",
+                "enum": [
+                  "pdf",
+                  "png",
+                  "pptx"
+                ],
+                "type": "string"
+              },
+              "inputText": {
+                "type": "string",
+                "description": "The text content to generate from (topic, outline, or full content)",
+                "minLength": 1,
+                "maxLength": 400000
+              },
+              "title": {
+                "type": "string",
+                "description": "Custom title for the generated Gamma. If not provided, a title will be automatically generated from the content.",
+                "minLength": 1,
+                "maxLength": 500
+              },
+              "additionalInstructions": {
+                "type": "string",
+                "description": "Additional instructions for the AI",
+                "minLength": 0,
+                "maxLength": 5000
+              },
+              "publish": {
+                "type": "boolean",
+                "description": "If true, publishes the generated File as a Gamma site after all\npages succeed. Applies to multi-page (`pages`) requests."
+              },
+              "numCards": {
+                "type": "number",
+                "description": "Target number of cards/slides to generate",
+                "minimum": 1
+              },
+              "themeId": {
+                "type": "string",
+                "description": "Theme ID to apply (from /themes endpoint)"
+              },
+              "textOptions": {
+                "description": "Text generation options",
+                "allOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "amount": {
+                        "description": "Controls the amount of text generated per card",
+                        "enum": [
+                          "brief",
+                          "detailed",
+                          "extensive",
+                          "medium"
+                        ],
+                        "type": "string"
+                      },
+                      "language": {
+                        "description": "Language code for the generated content",
+                        "enum": [
+                          "af",
+                          "ar",
+                          "ar-sa",
+                          "bg",
+                          "bn",
+                          "bs",
+                          "ca",
+                          "cs",
+                          "cy",
+                          "da",
+                          "de",
+                          "el",
+                          "en",
+                          "en-gb",
+                          "en-in",
+                          "es",
+                          "es-419",
+                          "es-es",
+                          "es-mx",
+                          "et",
+                          "fa",
+                          "fi",
+                          "fr",
+                          "gu",
+                          "ha",
+                          "he",
+                          "hi",
+                          "hr",
+                          "hu",
+                          "id",
+                          "is",
+                          "it",
+                          "ja",
+                          "ja-da",
+                          "kk",
+                          "kn",
+                          "ko",
+                          "lt",
+                          "lv",
+                          "mk",
+                          "ml",
+                          "mr",
+                          "ms",
+                          "nb",
+                          "nl",
+                          "pl",
+                          "pt-br",
+                          "pt-pt",
+                          "ro",
+                          "ru",
+                          "sl",
+                          "sq",
+                          "sr",
+                          "sv",
+                          "sw",
+                          "ta",
+                          "te",
+                          "th",
+                          "tl",
+                          "tr",
+                          "uk",
+                          "ur",
+                          "uz",
+                          "vi",
+                          "yo",
+                          "zh-cn",
+                          "zh-tw"
+                        ],
+                        "type": "string"
+                      },
+                      "tone": {
+                        "type": "string",
+                        "description": "The tone or writing style for the generated text",
+                        "minLength": 0,
+                        "maxLength": 500
+                      },
+                      "audience": {
+                        "type": "string",
+                        "description": "The target audience for the content",
+                        "minLength": 0,
+                        "maxLength": 500
+                      }
+                    }
+                  }
+                ]
+              },
+              "imageOptions": {
+                "description": "Image generation and selection options",
+                "allOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "model": {
+                        "description": "AI model to use for image generation",
+                        "allOf": [
+                          {
+                            "type": "string",
+                            "enum": [
+                              "dall-e-3",
+                              "flux-1-pro",
+                              "flux-1-quick",
+                              "flux-1-ultra",
+                              "flux-2-flex",
+                              "flux-2-klein",
+                              "flux-2-max",
+                              "flux-2-pro",
+                              "flux-kontext-fast",
+                              "flux-kontext-max",
+                              "flux-kontext-pro",
+                              "gemini-2.5-flash-image",
+                              "gemini-3-pro-image",
+                              "gemini-3-pro-image-hd",
+                              "gemini-3.1-flash-image",
+                              "gemini-3.1-flash-image-hd",
+                              "gemini-3.1-flash-image-mini",
+                              "gpt-image-1-high",
+                              "gpt-image-1-medium",
+                              "gpt-image-1-mini-high",
+                              "gpt-image-1-mini-low",
+                              "gpt-image-1-mini-medium",
+                              "gpt-image-2",
+                              "gpt-image-2-hd",
+                              "gpt-image-2-mini",
+                              "ideogram-v3",
+                              "ideogram-v3-quality",
+                              "ideogram-v3-turbo",
+                              "leonardo-motion-2",
+                              "leonardo-motion-2-fast",
+                              "leonardo-phoenix",
+                              "recraft-v3",
+                              "recraft-v3-svg",
+                              "recraft-v4",
+                              "recraft-v4-pro",
+                              "recraft-v4-svg",
+                              "veo-3.1",
+                              "veo-3.1-fast"
+                            ],
+                            "description": "AI model to use for image generation"
+                          }
+                        ]
+                      },
+                      "source": {
+                        "description": "Source for images: AI-generated or web search",
+                        "enum": [
+                          "aiGenerated",
+                          "giphy",
+                          "noImages",
+                          "pexels",
+                          "pictographic",
+                          "placeholder",
+                          "themeAccent",
+                          "webAllImages",
+                          "webFreeToUse",
+                          "webFreeToUseCommercially"
+                        ],
+                        "type": "string"
+                      },
+                      "style": {
+                        "type": "string",
+                        "description": "Style description for AI-generated images",
+                        "minLength": 0,
+                        "maxLength": 5000
+                      }
+                    }
+                  }
+                ]
+              },
+              "cardOptions": {
+                "description": "Card dimensions and layout options",
+                "allOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "dimensions": {
+                        "description": "Card aspect ratio/dimensions",
+                        "enum": [
+                          "16x9",
+                          "1x1",
+                          "4x3",
+                          "4x5",
+                          "9x16",
+                          "a4",
+                          "fluid",
+                          "letter",
+                          "pageless"
+                        ],
+                        "type": "string"
+                      },
+                      "headerFooter": {
+                        "description": "Header and footer configuration",
+                        "allOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "topLeft": {
+                                "description": "Element in top-left position",
+                                "allOf": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string",
+                                        "description": "Type of element to display",
+                                        "enum": [
+                                          "cardNumber",
+                                          "image",
+                                          "text"
+                                        ]
+                                      },
+                                      "source": {
+                                        "type": "string",
+                                        "description": "Image source type (required when type is \"image\")",
+                                        "enum": [
+                                          "custom",
+                                          "themeLogo"
+                                        ]
+                                      },
+                                      "src": {
+                                        "type": "string",
+                                        "description": "Custom image URL (required when source is \"custom\")",
+                                        "format": "uri",
+                                        "minLength": 1,
+                                        "maxLength": 2048
+                                      },
+                                      "value": {
+                                        "type": "string",
+                                        "description": "Text content (required when type is \"text\")",
+                                        "minLength": 1,
+                                        "maxLength": 500
+                                      },
+                                      "size": {
+                                        "type": "string",
+                                        "description": "Size of the image element",
+                                        "enum": [
+                                          "lg",
+                                          "md",
+                                          "sm",
+                                          "xl"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "type"
+                                    ]
+                                  }
+                                ]
+                              },
+                              "topCenter": {
+                                "description": "Element in top-center position",
+                                "allOf": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string",
+                                        "description": "Type of element to display",
+                                        "enum": [
+                                          "cardNumber",
+                                          "image",
+                                          "text"
+                                        ]
+                                      },
+                                      "source": {
+                                        "type": "string",
+                                        "description": "Image source type (required when type is \"image\")",
+                                        "enum": [
+                                          "custom",
+                                          "themeLogo"
+                                        ]
+                                      },
+                                      "src": {
+                                        "type": "string",
+                                        "description": "Custom image URL (required when source is \"custom\")",
+                                        "format": "uri",
+                                        "minLength": 1,
+                                        "maxLength": 2048
+                                      },
+                                      "value": {
+                                        "type": "string",
+                                        "description": "Text content (required when type is \"text\")",
+                                        "minLength": 1,
+                                        "maxLength": 500
+                                      },
+                                      "size": {
+                                        "type": "string",
+                                        "description": "Size of the image element",
+                                        "enum": [
+                                          "lg",
+                                          "md",
+                                          "sm",
+                                          "xl"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "type"
+                                    ]
+                                  }
+                                ]
+                              },
+                              "topRight": {
+                                "description": "Element in top-right position",
+                                "allOf": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string",
+                                        "description": "Type of element to display",
+                                        "enum": [
+                                          "cardNumber",
+                                          "image",
+                                          "text"
+                                        ]
+                                      },
+                                      "source": {
+                                        "type": "string",
+                                        "description": "Image source type (required when type is \"image\")",
+                                        "enum": [
+                                          "custom",
+                                          "themeLogo"
+                                        ]
+                                      },
+                                      "src": {
+                                        "type": "string",
+                                        "description": "Custom image URL (required when source is \"custom\")",
+                                        "format": "uri",
+                                        "minLength": 1,
+                                        "maxLength": 2048
+                                      },
+                                      "value": {
+                                        "type": "string",
+                                        "description": "Text content (required when type is \"text\")",
+                                        "minLength": 1,
+                                        "maxLength": 500
+                                      },
+                                      "size": {
+                                        "type": "string",
+                                        "description": "Size of the image element",
+                                        "enum": [
+                                          "lg",
+                                          "md",
+                                          "sm",
+                                          "xl"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "type"
+                                    ]
+                                  }
+                                ]
+                              },
+                              "bottomLeft": {
+                                "description": "Element in bottom-left position",
+                                "allOf": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string",
+                                        "description": "Type of element to display",
+                                        "enum": [
+                                          "cardNumber",
+                                          "image",
+                                          "text"
+                                        ]
+                                      },
+                                      "source": {
+                                        "type": "string",
+                                        "description": "Image source type (required when type is \"image\")",
+                                        "enum": [
+                                          "custom",
+                                          "themeLogo"
+                                        ]
+                                      },
+                                      "src": {
+                                        "type": "string",
+                                        "description": "Custom image URL (required when source is \"custom\")",
+                                        "format": "uri",
+                                        "minLength": 1,
+                                        "maxLength": 2048
+                                      },
+                                      "value": {
+                                        "type": "string",
+                                        "description": "Text content (required when type is \"text\")",
+                                        "minLength": 1,
+                                        "maxLength": 500
+                                      },
+                                      "size": {
+                                        "type": "string",
+                                        "description": "Size of the image element",
+                                        "enum": [
+                                          "lg",
+                                          "md",
+                                          "sm",
+                                          "xl"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "type"
+                                    ]
+                                  }
+                                ]
+                              },
+                              "bottomCenter": {
+                                "description": "Element in bottom-center position",
+                                "allOf": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string",
+                                        "description": "Type of element to display",
+                                        "enum": [
+                                          "cardNumber",
+                                          "image",
+                                          "text"
+                                        ]
+                                      },
+                                      "source": {
+                                        "type": "string",
+                                        "description": "Image source type (required when type is \"image\")",
+                                        "enum": [
+                                          "custom",
+                                          "themeLogo"
+                                        ]
+                                      },
+                                      "src": {
+                                        "type": "string",
+                                        "description": "Custom image URL (required when source is \"custom\")",
+                                        "format": "uri",
+                                        "minLength": 1,
+                                        "maxLength": 2048
+                                      },
+                                      "value": {
+                                        "type": "string",
+                                        "description": "Text content (required when type is \"text\")",
+                                        "minLength": 1,
+                                        "maxLength": 500
+                                      },
+                                      "size": {
+                                        "type": "string",
+                                        "description": "Size of the image element",
+                                        "enum": [
+                                          "lg",
+                                          "md",
+                                          "sm",
+                                          "xl"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "type"
+                                    ]
+                                  }
+                                ]
+                              },
+                              "bottomRight": {
+                                "description": "Element in bottom-right position",
+                                "allOf": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "type": {
+                                        "type": "string",
+                                        "description": "Type of element to display",
+                                        "enum": [
+                                          "cardNumber",
+                                          "image",
+                                          "text"
+                                        ]
+                                      },
+                                      "source": {
+                                        "type": "string",
+                                        "description": "Image source type (required when type is \"image\")",
+                                        "enum": [
+                                          "custom",
+                                          "themeLogo"
+                                        ]
+                                      },
+                                      "src": {
+                                        "type": "string",
+                                        "description": "Custom image URL (required when source is \"custom\")",
+                                        "format": "uri",
+                                        "minLength": 1,
+                                        "maxLength": 2048
+                                      },
+                                      "value": {
+                                        "type": "string",
+                                        "description": "Text content (required when type is \"text\")",
+                                        "minLength": 1,
+                                        "maxLength": 500
+                                      },
+                                      "size": {
+                                        "type": "string",
+                                        "description": "Size of the image element",
+                                        "enum": [
+                                          "lg",
+                                          "md",
+                                          "sm",
+                                          "xl"
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "type"
+                                    ]
+                                  }
+                                ]
+                              },
+                              "hideFromFirstCard": {
+                                "type": "boolean",
+                                "description": "Hide header/footer from the first card (title card)"
+                              },
+                              "hideFromLastCard": {
+                                "type": "boolean",
+                                "description": "Hide header/footer from the last card"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              },
+              "sharingOptions": {
+                "description": "Sharing and permissions options",
+                "allOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "workspaceAccess": {
+                        "description": "Default access level for workspace members",
+                        "enum": [
+                          "comment",
+                          "edit",
+                          "fullAccess",
+                          "noAccess",
+                          "view"
+                        ],
+                        "type": "string"
+                      },
+                      "externalAccess": {
+                        "description": "Access level for external users (via shared link)",
+                        "enum": [
+                          "comment",
+                          "edit",
+                          "noAccess",
+                          "view"
+                        ],
+                        "type": "string"
+                      },
+                      "emailOptions": {
+                        "description": "Email sharing configuration",
+                        "allOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "access": {
+                                "description": "Permission level for email recipients",
+                                "enum": [
+                                  "comment",
+                                  "edit",
+                                  "fullAccess",
+                                  "view"
+                                ],
+                                "type": "string"
+                              },
+                              "recipients": {
+                                "description": "Email addresses to share with",
+                                "minItems": 1,
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "format": "email"
+                                }
+                              }
+                            },
+                            "required": [
+                              "recipients"
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              },
+              "folderId": {
+                "type": "string",
+                "description": "Folder to place the generated Gamma in."
+              },
+              "folderIds": {
+                "description": "Folder to place the generated Gamma in. Accepts at most 1 folder ID.\nIgnored when folderId is provided.",
+                "deprecated": true,
+                "maxItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "body"
+        ]
+      }
+    },
+    {
+      "name": "create_image_generation",
+      "description": "Create async image generation. Creates an asynchronous image generation job that produces one standalone on-brand image. Returns an image generation ID that can be used to poll for status. If `themeId` is provided but does not exist or is not accessible to your workspace, the request fails with 400.",
+      "method": "POST",
+      "path": "/v1.0/images",
+      "body": "json",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "description": "Visual style of the generated images. Defaults to \"illustration\".\nSkipped when referenceImages are present — references take precedence\nand style comes from the prompt.",
+                "enum": [
+                  "abstract",
+                  "illustration",
+                  "photo",
+                  "scene"
+                ],
+                "type": "string",
+                "default": "illustration"
+              },
+              "sizePreset": {
+                "description": "Output size preset (sets the aspect ratio; exact pixel dimensions are\nmodel-determined). Defaults to \"social-square\" (1:1).",
+                "enum": [
+                  "banner",
+                  "slide",
+                  "social-portrait",
+                  "social-square",
+                  "story"
+                ],
+                "type": "string",
+                "default": "social-square"
+              },
+              "referenceImages": {
+                "description": "Reference images with subject semantics (\"put this character or product\nin the scene\"), each either a `url` or an upload's `uploadId` and\n`filename`. Maximum 4. When present, they take precedence over `type` and\n`themeId`.",
+                "maxItems": 4,
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string",
+                      "description": "HTTPS URL of the reference image. The server fetches, validates, and\nrehosts the image before generation.",
+                      "format": "uri",
+                      "pattern": "^https://"
+                    },
+                    "role": {
+                      "type": "string",
+                      "description": "How the reference influences generation. `subject` places the pictured\ncharacter or product into the generated scene.",
+                      "enum": [
+                        "subject"
+                      ]
+                    },
+                    "uploadId": {
+                      "type": "string",
+                      "description": "Id returned by `POST /v1.0/uploads`, for an image uploaded by the same\nuser and workspace: JPEG, PNG, WebP, GIF, or AVIF, at most 20 MB and 25\nmegapixels (all frames together for an animated image). An upload that no\nagent generation attached expires two days after it was created."
+                    },
+                    "filename": {
+                      "type": "string",
+                      "description": "Filename returned by `POST /v1.0/uploads`, with `uploadId`."
+                    }
+                  }
+                }
+              },
+              "prompt": {
+                "type": "string",
+                "description": "Description of the image to generate. Background treatments (\"on white\",\n\"contained in a circle\") go here.",
+                "maxLength": 5000,
+                "pattern": "\\S"
+              },
+              "themeId": {
+                "type": "string",
+                "description": "Theme to brand the images with. Defaults to the workspace default theme.\nApplied for all types except `\"scene\"`, whose curated style ignores theme\ncolors (a `theme_ignored_for_type` warning is returned if you supply\n`themeId` for `scene`). Also ignored when referenceImages are present —\nreferences drive the look."
+              }
+            },
+            "required": [
+              "prompt"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "body"
+        ]
+      }
+    },
+    {
+      "name": "create_upload",
+      "description": "Upload a file. Stores one file for `files` on `POST /v1.0/agent/generations`. Send the raw bytes as `application/octet-stream` with a `Content-Length` header; chunked and content-encoded bodies are rejected. Files can be up to 250 MiB, and images up to 50 megapixels. Each upload can be attached to one generation. An upload that is never attached expires two days after it was created.",
+      "method": "POST",
+      "path": "/v1.0/uploads",
+      "query": [
+        "mimeType"
+      ],
+      "headers": [
+        "x-harness-upload-name"
+      ],
+      "body": "base64",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "mimeType": {
+            "enum": [
+              "application/javascript",
+              "application/json",
+              "application/pdf",
+              "application/vnd.ms-excel",
+              "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+              "application/vnd.openxmlformats-officedocument.presentationml.template",
+              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+              "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+              "application/xml",
+              "font/otf",
+              "font/ttf",
+              "image/avif",
+              "image/bmp",
+              "image/gif",
+              "image/heic",
+              "image/heif",
+              "image/jpeg",
+              "image/png",
+              "image/svg+xml",
+              "image/tiff",
+              "image/webp",
+              "text/css",
+              "text/csv",
+              "text/html",
+              "text/markdown",
+              "text/plain"
+            ],
+            "type": "string",
+            "description": "The file's media type. It must match the file's contents."
+          },
+          "x-harness-upload-name": {
+            "type": "string",
+            "description": "Original filename. AIPP percent-encodes it."
+          },
+          "body": {
+            "type": "string",
+            "description": "Base64-encoded file bytes."
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "mimeType",
+          "x-harness-upload-name",
+          "body"
+        ]
+      }
+    },
+    {
+      "name": "delete_gamma",
+      "description": "Delete a Gamma. Deletes a Gamma document. Requires workspace admin role on the workspace the API key belongs to. The Gamma is auto-archived first if not already archived, so a single call handles the full archive-then-delete transition. The Gamma becomes immediately inaccessible and is removed from all workspace views. After deletion, the Gamma is no longer addressable via the API; subsequent requests for the same ID return the same response as for a non-existent Gamma.",
+      "method": "DELETE",
+      "path": "/v1.0/gammas/{gammaId}",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "gammaId": {
+            "type": "string",
+            "description": "The unique ID of the Gamma to delete"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "gammaId"
+        ]
+      }
+    },
+    {
+      "name": "edit_gamma",
+      "description": "Edit an existing Gamma. Creates an asynchronous AI edit of an existing Gamma from a natural-language `prompt`. The edit changes the target page unless the prompt names another page of the Gamma, and it can add, duplicate, reorder, rename, and archive pages when the prompt asks for it. It never archives the target page. Returns an edit ID to poll with `GET /v1.0/agent/edits/{editId}`. Requires at least edit permission on the Gamma. Only one edit runs on a Gamma at a time.",
+      "method": "POST",
+      "path": "/v1.0/agent/gammas/{gammaId}/edits",
+      "body": "json",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "gammaId": {
+            "type": "string",
+            "description": "The Gamma to edit: a gamma (file) ID, or a page ID (the id in a\ngamma.app/docs/<id> URL). The ID sets the edit's target page: a file ID\ntargets the Gamma's main page, a page ID that page. A prompt that names no\npage edits the target page; one that names another page of the Gamma, by\ntitle or position, edits that page."
+          },
+          "body": {
+            "type": "object",
+            "properties": {
+              "prompt": {
+                "type": "string",
+                "description": "Natural-language instruction describing the edit.",
+                "maxLength": 10000
+              },
+              "quality": {
+                "type": "string",
+                "description": "How much model effort the edit runs with, matching the quality tiers in the\nGamma agent UI. `max` requires a plan that includes it and can use more\ncredits. Omitting the field uses the API default, capped at what the\nplan includes.",
+                "enum": [
+                  "lite",
+                  "max",
+                  "standard"
+                ]
+              },
+              "disableConnectors": {
+                "type": "boolean",
+                "description": "Opt this edit out of workspace connector access (e.g. Notion, Slack)."
+              }
+            },
+            "required": [
+              "prompt"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "gammaId",
+          "body"
+        ]
+      }
+    },
+    {
+      "name": "export_gamma",
+      "description": "Export an existing Gamma. Creates an asynchronous export job for an existing Gamma in the requested format. Returns an export ID to poll for the download URL.",
+      "method": "POST",
+      "path": "/v1.0/gammas/{gammaId}/export",
+      "body": "json",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "gammaId": {
+            "type": "string",
+            "description": "The ID of the Gamma to export — accepts a gamma (file) ID or a page/doc ID (the id in a gamma.app/docs/<id> URL)."
+          },
+          "body": {
+            "type": "object",
+            "properties": {
+              "exportAs": {
+                "description": "File format to export the Gamma to.",
+                "enum": [
+                  "pdf",
+                  "png",
+                  "pptx"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "exportAs"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "gammaId",
+          "body"
+        ]
+      }
+    },
+    {
+      "name": "get_agent_generation_status",
+      "description": "Get agent generation status. Retrieves the current status of an agent generation. Poll this endpoint until `status` is \"completed\" or \"failed\". The `gamma` object can appear on a pending generation once the document has been created.",
+      "method": "GET",
+      "path": "/v1.0/agent/generations/{generationId}",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "generationId": {
+            "maxLength": 128,
+            "pattern": "^gen_[A-Za-z0-9]+$",
+            "type": "string",
+            "description": "The generation id returned by `POST /v1.0/agent/generations`.\nAgent generation ids are prefixed `gen_`."
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "generationId"
+        ]
+      }
+    },
+    {
+      "name": "get_edit_status",
+      "description": "Get edit status. Retrieves the current status of an edit job. Poll this endpoint until `status` is \"completed\" or \"failed\".",
+      "method": "GET",
+      "path": "/v1.0/agent/edits/{editId}",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "editId": {
+            "type": "string",
+            "description": "The edit ID returned by `POST /v1.0/agent/gammas/{gammaId}/edits`."
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "editId"
+        ]
+      }
+    },
+    {
+      "name": "get_export_status",
+      "description": "Get export status. Retrieves the current status of an export job. Poll this endpoint until status is \"completed\" or \"failed\".",
+      "method": "GET",
+      "path": "/v1.0/exports/{id}",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique export ID returned from the export endpoint"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "id"
+        ]
+      }
+    },
+    {
+      "name": "get_gamma_analytics",
+      "description": "Get Gamma analytics. Returns doc-level engagement metrics for a Gamma: total views, unique viewers/editors, card count, last opened time, and a 30-day daily unique-viewer breakdown. Requires at least edit permission on the Gamma. When the API key's user has manage permission the metrics cover all viewers (`scope: \"all\"`); otherwise they cover only that user's own activity (`scope: \"self\"`). Data is eventually consistent (~hourly).",
+      "method": "GET",
+      "path": "/v1.0/gammas/{gammaId}/analytics",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "gammaId": {
+            "type": "string",
+            "description": "The ID of the Gamma — accepts a gamma (file) ID or a page/doc ID (the ID in a gamma.app/docs/<id> URL)."
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "gammaId"
+        ]
+      }
+    },
+    {
+      "name": "get_gamma_card_analytics",
+      "description": "Get per-card analytics. Returns per-card engagement data for a Gamma: view time (absolute seconds) and viewer reach (percentage) per card. Requires at least edit permission on the Gamma. When the API key's user has manage permission the data covers all viewers (`scope: \"all\"`); otherwise it covers only that user's own activity (`scope: \"self\"`). Data is eventually consistent (~hourly).",
+      "method": "GET",
+      "path": "/v1.0/gammas/{gammaId}/analytics/cards",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "gammaId": {
+            "type": "string",
+            "description": "The ID of the Gamma — accepts a gamma (file) ID or a page/doc ID (the ID in a gamma.app/docs/<id> URL)."
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "gammaId"
+        ]
+      }
+    },
+    {
+      "name": "list_gamma_comments",
+      "description": "List comments on a Gamma. Returns comment threads on a Gamma, cursor-paginated. Supports an updatedSince filter for efficient delta polling.",
+      "method": "GET",
+      "path": "/v1.0/gammas/{gammaId}/comments",
+      "query": [
+        "limit",
+        "after",
+        "updatedSince",
+        "includeArchived"
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "gammaId": {
+            "type": "string",
+            "description": "The ID of the Gamma to list comments for"
+          },
+          "limit": {
+            "minimum": 1,
+            "maximum": 50,
+            "type": "number",
+            "description": "Maximum number of comments to return per page"
+          },
+          "after": {
+            "type": "string",
+            "description": "Cursor for pagination (from previous response's nextCursor)"
+          },
+          "updatedSince": {
+            "type": "string",
+            "description": "ISO-8601 timestamp cursor. When provided, only comment threads with\nactivity (including new replies) after this timestamp are returned —\nenabling efficient delta polling."
+          },
+          "includeArchived": {
+            "type": "boolean",
+            "description": "When true, archived (deleted) comments and replies are included in the\nresponse, each carrying an `archived` flag. Defaults to false."
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "gammaId"
+        ]
+      }
+    },
+    {
+      "name": "get_gamma_viewer_analytics",
+      "description": "Get per-viewer analytics. Returns paginated per-viewer engagement data for a Gamma. Requires at least edit permission on the Gamma. When the API key's user has manage permission the list covers all viewers (`scope: \"all\"`); otherwise it contains at most that user's own row (`scope: \"self\"`). Viewers are capped at 500. Data is eventually consistent (~hourly).",
+      "method": "GET",
+      "path": "/v1.0/gammas/{gammaId}/analytics/viewers",
+      "query": [
+        "limit",
+        "after",
+        "sortDirection"
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "gammaId": {
+            "type": "string",
+            "description": "The ID of the Gamma — accepts a gamma (file) ID or a page/doc ID (the ID in a gamma.app/docs/<id> URL)."
+          },
+          "limit": {
+            "minimum": 1,
+            "maximum": 50,
+            "type": "number",
+            "description": "Maximum number of viewers to return"
+          },
+          "after": {
+            "type": "string",
+            "description": "Cursor for pagination (from a previous response's nextCursor)"
+          },
+          "sortDirection": {
+            "type": "string",
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "description": "Sort direction, applied to the viewer's most recent open time"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "gammaId"
+        ]
+      }
+    },
+    {
+      "name": "get_gamma_viewer_detail_analytics",
+      "description": "Get single-viewer analytics. Returns one viewer's engagement with a Gamma: display name, email, last-opened time, cards viewed, and the relative time spent on each card (percentage of that viewer's total view time). Only authenticated viewers are addressable. Requires at least edit permission on the Gamma. When the API key's user has manage permission any viewer is addressable (`scope: \"all\"`); otherwise only the API key user's own activity is addressable (`scope: \"self\"`). Data is eventually consistent (~hourly).",
+      "method": "GET",
+      "path": "/v1.0/gammas/{gammaId}/analytics/viewers/{userId}",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "gammaId": {
+            "type": "string",
+            "description": "The ID of the Gamma — accepts a gamma (file) ID or a page/doc ID (the ID in a gamma.app/docs/<id> URL)."
+          },
+          "userId": {
+            "type": "string",
+            "description": "The viewer's user ID — the viewerId returned by the viewers list endpoint for authenticated viewers."
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "gammaId",
+          "userId"
+        ]
+      }
+    },
+    {
+      "name": "get_gamma",
+      "description": "Get gamma metadata. Returns metadata for a single gamma. Accepts either a file ID or the doc ID from a gamma.app/docs/... URL. Designed for link-preview integrations (Atlassian Smart Links, Notion Link Previews).",
+      "method": "GET",
+      "path": "/v1.0/gammas/{gammaId}",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "gammaId": {
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "type": "string",
+            "description": "The gamma file ID or the doc ID from the gamma.app/docs/... URL"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "gammaId"
+        ]
+      }
+    },
+    {
+      "name": "get_generation_status",
+      "description": "Get generation status. Retrieves the current status of a generation job. Poll this endpoint until status is \"completed\" or \"failed\".",
+      "method": "GET",
+      "path": "/v1.0/generations/{id}",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique generation ID returned from the create endpoint"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "id"
+        ]
+      }
+    },
+    {
+      "name": "get_image_generation_status",
+      "description": "Get image generation status. Retrieves the current status of an image generation job. Poll this endpoint until status is \"completed\" or \"failed\".",
+      "method": "GET",
+      "path": "/v1.0/images/{id}",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique image generation ID returned from the create endpoint"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "id"
+        ]
+      }
+    },
+    {
+      "name": "list_folders",
+      "description": "List folders. Lists the folders the authenticated user can access within the workspace. Some may be view-only. Using a folder as folderId requires edit or full access.",
+      "method": "GET",
+      "path": "/v1.0/folders",
+      "query": [
+        "query",
+        "limit",
+        "after"
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Search query to filter folders by name"
+          },
+          "limit": {
+            "minimum": 1,
+            "maximum": 50,
+            "type": "number",
+            "description": "Maximum number of folders to return"
+          },
+          "after": {
+            "type": "string",
+            "description": "Cursor for pagination (from previous response's nextCursor)"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "list_themes",
+      "description": "List themes. Lists all themes available to the workspace, including standard themes and custom workspace themes.",
+      "method": "GET",
+      "path": "/v1.0/themes",
+      "query": [
+        "query",
+        "limit",
+        "after",
+        "type"
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Search query to filter themes by name"
+          },
+          "limit": {
+            "minimum": 1,
+            "maximum": 50,
+            "type": "number",
+            "description": "Maximum number of themes to return"
+          },
+          "after": {
+            "type": "string",
+            "description": "Cursor for pagination (from previous response's nextCursor)"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "custom",
+              "standard"
+            ],
+            "description": "Filter by theme type: \"standard\" for built-in themes, \"custom\" for workspace-created themes. Must be kept consistent across paginated requests; changing it mid-pagination will yield inconsistent results."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "search_gammas",
+      "description": "Search gammas. Full-text search over the gammas the caller can access, matched against titles and body text. When a query is provided, results are relevance-ranked. When no query is provided (an empty query with at least one filter), results are ordered by last-updated descending.",
+      "method": "GET",
+      "path": "/v1.0/gammas/search",
+      "query": [
+        "q",
+        "createdBy",
+        "updatedAfter",
+        "updatedBefore",
+        "includeArchived",
+        "limit"
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "q": {
+            "type": "string",
+            "description": "Full-text search query matched against gamma titles and body text.\nOptional when at least one filter (createdBy, updatedAfter, updatedBefore)\nis set."
+          },
+          "createdBy": {
+            "type": "string",
+            "description": "Restrict results to gammas created by this user: 'me', an email address,\nor a user ID."
+          },
+          "updatedAfter": {
+            "type": "string",
+            "description": "ISO-8601 lower bound (inclusive) on the gamma's last-updated time."
+          },
+          "updatedBefore": {
+            "type": "string",
+            "description": "ISO-8601 upper bound (inclusive) on the gamma's last-updated time."
+          },
+          "includeArchived": {
+            "type": "boolean",
+            "description": "When true, archived gammas are included in results. Defaults to false."
+          },
+          "limit": {
+            "minimum": 1,
+            "maximum": 25,
+            "type": "number",
+            "description": "Maximum number of hits to return (1-25)"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "search_templates",
+      "description": "Search templates. Search the caller's workspace templates and the official Gamma explore templates. Returns two lists. With a query, workspace templates use best-effort relevance ranking against title and body text and may fall back to last-edited browse order, while explore templates use their best-effort ranking. An empty query returns both lists in browse order. Workspace browse results use last-edited order, most recent first. Workspace template IDs can be passed as the gammaId to generate-from-template, which validates eligibility at generation time and may reject some templates, such as multi-page or site-bound ones. Explore templates (the official Gamma templates) are not accepted as the gammaId for generate-from-template.",
+      "method": "GET",
+      "path": "/v1.0/templates/search",
+      "query": [
+        "q",
+        "limit"
+      ],
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "q": {
+            "maxLength": 2000,
+            "type": "string",
+            "description": "Search query. Workspace templates use best-effort relevance ranking against title and body text and may fall back to last-edited browse order. Explore templates use their ranked search. When omitted, both lists are a browse."
+          },
+          "limit": {
+            "minimum": 1,
+            "maximum": 25,
+            "type": "number",
+            "description": "Maximum number of hits to return per list (1-25)"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  ]
+}

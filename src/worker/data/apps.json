@@ -1,7 +1,39 @@
 {
   "schema_version": 1,
-  "version": "2026-11-17.1",
+  "version": "2026-11-17.2",
   "apps": [
+    {
+      "id": "gamma-api",
+      "version": "1",
+      "name": "Gamma · API Key",
+      "publisher": "Gamma",
+      "category": "创意工具",
+      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/gamma.svg",
+      "description": "使用个人额度生成图片、PPTX 和 PDF，管理 Gamma 工作区作品。",
+      "notice": "生成与编辑会使用工作区额度。删除作品需要工作区管理员权限。",
+      "homepage": "https://developers.gamma.app/",
+      "platforms": [
+        "windows",
+        "macos",
+        "linux"
+      ],
+      "connection": {
+        "transport": "http_api",
+        "url": "https://public-api.gamma.app",
+        "auth": "fields"
+      },
+      "fields": [
+        {
+          "key": "api_key",
+          "label": "Gamma API Key",
+          "kind": "password",
+          "secret": true,
+          "required": true,
+          "header": "X-API-KEY"
+        }
+      ],
+      "skill_ids": []
+    },
     {
       "id": "gamma",
       "version": "1",

@@ -1,0 +1,357 @@
+[
+  {
+    "tool": "get_me",
+    "wire": "GET /v1.0/me",
+    "args": {},
+    "reply": {
+      "creditsRemaining": 200
+    }
+  },
+  {
+    "tool": "create_image_generation",
+    "wire": "POST /v1.0/images",
+    "args": {
+      "body": {
+        "prompt": "Draw a mountain",
+        "sizePreset": "slide"
+      }
+    },
+    "reply": {
+      "imageGenerationId": "img-1"
+    }
+  },
+  {
+    "tool": "get_image_generation_status",
+    "wire": "GET /v1.0/images/img-1",
+    "args": {
+      "id": "img-1"
+    },
+    "reply": {
+      "status": "completed",
+      "imageGenerationId": "img-1",
+      "image": {
+        "url": "https://files.example/image.png",
+        "width": 1024,
+        "height": 576,
+        "format": "png",
+        "mimeType": "image/png",
+        "savedMediaId": "media-1"
+      }
+    }
+  },
+  {
+    "tool": "create_generation",
+    "wire": "POST /v1.0/generations",
+    "args": {
+      "body": {
+        "inputText": "Quarterly review",
+        "textMode": "generate",
+        "format": "presentation",
+        "exportAs": "pptx"
+      }
+    },
+    "reply": {
+      "generationId": "gen-1"
+    }
+  },
+  {
+    "tool": "get_generation_status",
+    "wire": "GET /v1.0/generations/gen-1",
+    "args": {
+      "id": "gen-1"
+    },
+    "reply": {
+      "status": "completed",
+      "gammaId": "doc-1",
+      "exportUrl": "https://files.example/review.pptx",
+      "generationId": "gen-1"
+    }
+  },
+  {
+    "tool": "export_gamma",
+    "wire": "POST /v1.0/gammas/doc-1/export",
+    "args": {
+      "gammaId": "doc-1",
+      "body": {
+        "exportAs": "pptx"
+      }
+    },
+    "reply": {
+      "exportId": "export-pptx"
+    }
+  },
+  {
+    "tool": "get_export_status",
+    "wire": "GET /v1.0/exports/export-pptx",
+    "args": {
+      "id": "export-pptx"
+    },
+    "reply": {
+      "status": "completed",
+      "exportUrl": "https://files.example/review.pptx",
+      "exportId": "export-pptx",
+      "gammaId": "doc-1",
+      "exportAs": "pptx"
+    }
+  },
+  {
+    "tool": "export_gamma",
+    "wire": "POST /v1.0/gammas/doc-1/export",
+    "args": {
+      "gammaId": "doc-1",
+      "body": {
+        "exportAs": "pdf"
+      }
+    },
+    "reply": {
+      "exportId": "export-pdf"
+    }
+  },
+  {
+    "tool": "get_export_status",
+    "wire": "GET /v1.0/exports/export-pdf",
+    "args": {
+      "id": "export-pdf"
+    },
+    "reply": {
+      "status": "completed",
+      "exportUrl": "https://files.example/review.pdf",
+      "exportId": "export-pdf",
+      "gammaId": "doc-1",
+      "exportAs": "pdf"
+    }
+  },
+  {
+    "tool": "create_upload",
+    "wire": "POST /v1.0/uploads?mimeType=text%2Fplain",
+    "args": {
+      "mimeType": "text/plain",
+      "x-harness-upload-name": "会议 note.txt",
+      "body": "bWVldGluZw=="
+    },
+    "reply": {
+      "uploadId": "u1",
+      "filename": "upload.txt",
+      "name": "会议 note.txt",
+      "mimeType": "text/plain",
+      "size": 7
+    },
+    "bytes": "meeting",
+    "headers": {
+      "x-harness-upload-name": "%E4%BC%9A%E8%AE%AE%20note.txt"
+    }
+  },
+  {
+    "tool": "create_agent_generation",
+    "wire": "POST /v1.0/agent/generations",
+    "args": {
+      "body": {
+        "prompt": "Prepare a brief"
+      }
+    },
+    "reply": {
+      "generationId": "a1"
+    }
+  },
+  {
+    "tool": "get_agent_generation_status",
+    "wire": "GET /v1.0/agent/generations/a1",
+    "args": {
+      "generationId": "a1"
+    },
+    "reply": {
+      "status": "completed"
+    }
+  },
+  {
+    "tool": "edit_gamma",
+    "wire": "POST /v1.0/agent/gammas/doc-1/edits",
+    "args": {
+      "gammaId": "doc-1",
+      "body": {
+        "prompt": "Update the title"
+      }
+    },
+    "reply": {
+      "editId": "e1",
+      "gammaUrl": "https://gamma.app/docs/doc-1"
+    }
+  },
+  {
+    "tool": "get_edit_status",
+    "wire": "GET /v1.0/agent/edits/e1",
+    "args": {
+      "editId": "e1"
+    },
+    "reply": {
+      "status": "completed"
+    }
+  },
+  {
+    "tool": "create_from_template_generation",
+    "wire": "POST /v1.0/generations/from-template",
+    "args": {
+      "body": {
+        "prompt": "Prepare a report",
+        "gammaId": "doc-1"
+      }
+    },
+    "reply": {
+      "generationId": "gen-2"
+    }
+  },
+  {
+    "tool": "list_folders",
+    "wire": "GET /v1.0/folders?limit=2",
+    "args": {
+      "limit": 2
+    },
+    "reply": {
+      "data": [],
+      "hasMore": false,
+      "nextCursor": null
+    }
+  },
+  {
+    "tool": "list_themes",
+    "wire": "GET /v1.0/themes?query=light",
+    "args": {
+      "query": "light"
+    },
+    "reply": {
+      "data": [],
+      "hasMore": false,
+      "nextCursor": null
+    }
+  },
+  {
+    "tool": "search_gammas",
+    "wire": "GET /v1.0/gammas/search?q=A%26B&includeArchived=false",
+    "args": {
+      "q": "A&B",
+      "includeArchived": false
+    },
+    "reply": {
+      "hits": []
+    }
+  },
+  {
+    "tool": "search_templates",
+    "wire": "GET /v1.0/templates/search?q=report",
+    "args": {
+      "q": "report"
+    },
+    "reply": {
+      "workspaceTemplates": [],
+      "exploreTemplates": []
+    }
+  },
+  {
+    "tool": "get_gamma",
+    "wire": "GET /v1.0/gammas/doc-1",
+    "args": {
+      "gammaId": "doc-1"
+    },
+    "reply": {
+      "gammaId": "doc-1"
+    }
+  },
+  {
+    "tool": "list_gamma_comments",
+    "wire": "GET /v1.0/gammas/doc-1/comments",
+    "args": {
+      "gammaId": "doc-1"
+    },
+    "reply": {
+      "data": [],
+      "hasMore": false,
+      "nextCursor": null
+    }
+  },
+  {
+    "tool": "get_gamma_analytics",
+    "wire": "GET /v1.0/gammas/doc-1/analytics",
+    "args": {
+      "gammaId": "doc-1"
+    },
+    "reply": {
+      "data": []
+    }
+  },
+  {
+    "tool": "get_gamma_card_analytics",
+    "wire": "GET /v1.0/gammas/doc-1/analytics/cards",
+    "args": {
+      "gammaId": "doc-1"
+    },
+    "reply": {
+      "data": []
+    }
+  },
+  {
+    "tool": "get_gamma_viewer_analytics",
+    "wire": "GET /v1.0/gammas/doc-1/analytics/viewers",
+    "args": {
+      "gammaId": "doc-1"
+    },
+    "reply": {
+      "data": []
+    }
+  },
+  {
+    "tool": "get_gamma_viewer_detail_analytics",
+    "wire": "GET /v1.0/gammas/doc-1/analytics/viewers/viewer-1",
+    "args": {
+      "gammaId": "doc-1",
+      "userId": "viewer-1"
+    },
+    "reply": {
+      "userId": "viewer-1"
+    }
+  },
+  {
+    "tool": "archive_image",
+    "wire": "POST /v1.0/images/media/media-1/archive",
+    "args": {
+      "savedMediaId": "media-1"
+    },
+    "reply": {
+      "savedMediaId": "media-1",
+      "archived": true
+    }
+  },
+  {
+    "tool": "archive_gamma",
+    "wire": "POST /v1.0/gammas/doc-1/archive",
+    "args": {
+      "gammaId": "doc-1"
+    },
+    "reply": {
+      "gammaId": "doc-1",
+      "archived": true
+    }
+  },
+  {
+    "tool": "delete_gamma",
+    "wire": "DELETE /v1.0/gammas/doc-1",
+    "args": {
+      "gammaId": "doc-1"
+    },
+    "reply": {
+      "status": "deleted",
+      "gammaId": "doc-1",
+      "message": "Deleted"
+    }
+  },
+  {
+    "tool": "delete_gamma",
+    "wire": "DELETE /v1.0/gammas/doc-1",
+    "args": {
+      "gammaId": "doc-1"
+    },
+    "reply": {
+      "error": "denied mock-secret"
+    },
+    "status": 403
+  }
+]

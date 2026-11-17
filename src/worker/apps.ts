@@ -6,7 +6,7 @@ import translations from "./data/plugin-descriptions.zh-CN.json";
 const groups = [
     ["productivity", "效率与协作", "Productivity", "notion airtable atlassian-rovo clickup dropbox gmail google-calendar google-drive granola linear monday-com outlook-calendar outlook-email sharepoint slack teams zoom"],
     ["development", "开发工具", "Developer tools", "github simular-box build-ios-apps build-macos-apps build-web-apps circleci cloudflare coderabbit codex-security datadog expo lovable nvidia openai-developers plugin-eval sentry supabase superpowers temporal test-android-apps twilio-developer-kit vercel"],
-    ["creative", "设计与创作", "Design and media", "runway gamma adobe canva chatcut creative-production figma game-studio higgsfield hyperframes magicpath product-design remotion"],
+    ["creative", "设计与创作", "Design and media", "runway gamma gamma-api adobe canva chatcut creative-production figma game-studio higgsfield hyperframes magicpath product-design remotion"],
     ["research", "数据与研究", "Data and research", "boltz-api-cli build-web-data-visualization consensus data-analytics life-science-research mixpanel-headless ngs-analysis posthog public-equity-investing zotero"],
     ["commerce", "商务与营销", "Commerce", "openai-ads-conversions shopify stripe"],
     ["other", "其他", "Other", ""],
@@ -17,6 +17,7 @@ const english: Record<string, string> = {
     notion: "Search, read, and edit pages in your Notion workspace.",
     github: "Explore repositories and manage issues and pull requests.",
     "simular-box": "Give your AI a cloud Linux desktop to use Chrome and desktop apps, run commands, and work with files.",
+    "gamma-api": "Generate images, PPTX and PDF files and manage your Gamma workspace with your own API key.",
     gamma: "Generate images, presentations, documents, and webpages with Gamma workspace credits. Export to PDF, PPTX, or PNG.",
     runway: "Generate images and videos with Runway in your conversation.",
 };
@@ -44,7 +45,7 @@ function index(language: Lang, nativeOnly: boolean) {
 const indexes = new Map(["zh-CN","en"].flatMap(l=>[false,true].map(native=>{
     const data=index(l as Lang,native);
     const featured = new Set(data.home.categories.flatMap(g=>g.items.map(i=>i.id)));
-    const legacyBody = JSON.stringify({...data.home,schema_version:1,apps:catalog.apps.filter(a=>featured.has(a.id))});
+    const legacyBody = JSON.stringify({...data.home,schema_version:1,apps:catalog.apps.filter(a=>featured.has(a.id) && a.connection.transport !== "http_api")});
     const searchText = new Map(data.entries.map(e=>[e.id,(e.name+" "+e.description+" "+e.publisher).toLowerCase()]));
     return [l+native,{...data,body:JSON.stringify(data.home),legacyBody,searchText}] as const;
 })));
@@ -93,6 +94,7 @@ appsApi.get("/:id", async c => {
         notion:"Authorize your workspace in the browser. Notion determines permissions, billing, and quotas.",
         github:"Connect with a personal access token. Its permissions and organization policies determine the available resources.",
         "simular-box": "Sign in to Simular in your browser. Watch or take over at box.simular.ai/box. Model calls use account credits. After 14 consecutive days asleep, the computer, files and saves are deleted.",
+        "gamma-api": "Generating and editing consume workspace credits. Deleting a Gamma requires workspace admin access.",
         gamma: "Gamma must approve the AIPP desktop redirect URI before connection. Choose a workspace when signing in. Generation and editing use its credits. Exporting is free.",
         runway:"Sign in to Runway in your browser. Generations, retries and regenerations consume credits."
     };
@@ -100,6 +102,12 @@ appsApi.get("/:id", async c => {
     const asset = await c.env.ASSETS.fetch(new Request(new URL(`/app-tool-summaries/${entry.id}/${language}.json`, c.req.url)));
     if (!asset.ok && asset.status !== 404) return c.json({error:"tool_summaries_unavailable"},503);
     const tools = asset.ok ? await asset.json<Record<string,string>>() : {};
-    return c.json({schema_version:1,app:{...entry,...(language==="en"?{category:groups.find(g=>g[0]===classification.get(entry.id))?.[2] ?? entry.category, notice:englishNotices[entry.id] ?? entry.notice}:{}),description:language==="en"?english[entry.id]??entry.description:entry.description,
+    let connection = entry.connection;
+    if (connection.transport === "http_api") {
+        const definition = await c.env.ASSETS.fetch(new Request(new URL(`/app-http-definitions/${entry.id}.json`, c.req.url)));
+        if (!definition.ok) return c.json({error:"http_definition_unavailable"}, 503);
+        connection = Object.assign({}, connection, {http_api: await definition.json()});
+    }
+    return c.json({schema_version:1,app:{...entry,connection,...(language==="en"?{category:groups.find(g=>g[0]===classification.get(entry.id))?.[2] ?? entry.category, notice:englishNotices[entry.id] ?? entry.notice}:{}),description:language==="en"?english[entry.id]??entry.description:entry.description,
         tool_summaries:tools}});
 });
