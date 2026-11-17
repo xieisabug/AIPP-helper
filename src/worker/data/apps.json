@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "version": "2026-11-17.2",
+  "version": "2026-11-17.3",
   "apps": [
     {
       "id": "gamma-api",
@@ -32,34 +32,6 @@
           "header": "X-API-KEY"
         }
       ],
-      "skill_ids": []
-    },
-    {
-      "id": "gamma",
-      "version": "1",
-      "name": "Gamma",
-      "description": "使用 Gamma 工作区额度生成图片、演示文稿、文档和网页，可导出 PDF、PPTX 或逐页 PNG。",
-      "publisher": "Gamma",
-      "category": "创意工具",
-      "icon": "https://aipp-helper.xiejingyang.com/agent-plugin-icons/gamma.svg",
-      "homepage": "https://developers.gamma.app/mcp/gamma-mcp-server",
-      "notice": "连接前需由 Gamma 放行 AIPP 的桌面回调地址。授权时选择工作区，生成和编辑消耗该工作区额度，导出免费。",
-      "platforms": [
-        "windows",
-        "macos",
-        "linux"
-      ],
-      "connection": {
-        "transport": "http",
-        "url": "https://mcp.gamma.app/mcp",
-        "auth": "oauth",
-        "oauth_resource": "https://mcp.gamma.app",
-        "scopes": [
-          "generate",
-          "gamma:read"
-        ]
-      },
-      "fields": [],
       "skill_ids": []
     },
     {

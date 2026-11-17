@@ -1,8 +1,0 @@
-{
-  "generate_image": "Generate a standalone image.",
-  "get_image_generation_status": "Check generation progress and retrieve the image URL.",
-  "generate": "Create a presentation, document, webpage, or social post.",
-  "get_generation_status": "Check generation progress and retrieve the Gamma link.",
-  "export_gamma": "Export to PDF, PPTX, or a ZIP of PNGs.",
-  "get_export_status": "Check export progress and retrieve the download link."
-}
