@@ -28,8 +28,8 @@ export interface Plugin {
     sha256: string;
 }
 
-const PLUGIN_RELEASE_BASE =
-    "https://github.com/xieisabug/AIPP/releases/download/plugins-v0.1.0";
+const PLUGIN_RELEASE_DOWNLOAD = "https://github.com/xieisabug/AIPP/releases/download";
+const DEFAULT_PLUGIN_RELEASE_TAG = "plugins-v0.1.0";
 const PLUGIN_SOURCE_BASE = "https://github.com/xieisabug/AIPP/tree/main/plugin";
 
 function makePlugin(params: {
@@ -44,6 +44,8 @@ function makePlugin(params: {
     version?: string;
     author?: string;
     minAippVersion?: string;
+    /** GitHub release tag hosting the zip; single-plugin releases use `plugin-<code>-v<version>`. */
+    releaseTag?: string;
 }): Plugin {
     const version = params.version ?? "0.1.0";
     return {
@@ -60,9 +62,11 @@ function makePlugin(params: {
         isExperimental: params.isExperimental ?? false,
         source: {
             type: "zip",
-            url: `${PLUGIN_RELEASE_BASE}/${params.code}-${version}.aipp-plugin.zip`,
+            url: `${PLUGIN_RELEASE_DOWNLOAD}/${params.releaseTag ?? DEFAULT_PLUGIN_RELEASE_TAG}/${params.code}-${version}.aipp-plugin.zip`,
         },
-        dirs: [{ from: params.code, to: params.code }],
+        // Zips hold a single top-level `<code>/` folder that the AIPP installer strips,
+        // so the plugin lives at the archive root.
+        dirs: [{ from: ".", to: params.code }],
         sourceUrl: `${PLUGIN_SOURCE_BASE}/${params.code}`,
         sha256: params.sha256,
     };
@@ -169,5 +173,18 @@ export const plugins: Plugin[] = [
         tags: ["official", "theme"],
         sha256:
             "sha256:e202fd12fd4032fb9c77b42be678878f4cfbf30d9c5be3b3e82ef39f85f54532",
+    }),
+    makePlugin({
+        code: "office-preview-plugin",
+        name: "Office 文档预览",
+        description:
+            "在 AIPP 内只读预览 Word (.docx)、Excel (.xlsx)、PowerPoint (.pptx)，基于 BetterOffice 本地离线渲染，内置简中与拉丁开源字体，文档不上传。",
+        pluginTypes: ["interfaceType"],
+        permissions: [],
+        tags: ["official", "interface", "office", "preview"],
+        minAippVersion: "1.6.2",
+        releaseTag: "plugin-office-preview-plugin-v0.1.0",
+        sha256:
+            "sha256:7c2273afacff157865b38272dafddfa1fbdf681e85a571b95f1b603950e27bee",
     }),
 ];
