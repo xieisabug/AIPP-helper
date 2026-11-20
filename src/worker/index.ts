@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { skills } from "./data/skills";
 import { plugins } from "./data/plugins";
+import { AIPP_VERSION_HEADER, pluginsForClient, resolveClientVersion } from "./plugin-version";
 import { appsApi } from "./apps";
 import { agentPluginsApi } from "./agent-plugins";
 
@@ -15,7 +16,13 @@ const app = new Hono<AppEnv>();
 // API 路由
 app.get("/api/", (c) => c.json({ name: "Cloudflare" }));
 app.get("/api/skills", (c) => c.json(skills));
-app.get("/api/plugins", (c) => c.json(plugins));
+// Hide plugins the requesting client cannot install (minAippVersion newer than the client).
+// `?aippVersion=` overrides the header, which helps when inspecting the list in a browser.
+app.get("/api/plugins", (c) => {
+	const clientVersion = resolveClientVersion(c.req.query("aippVersion") ?? c.req.header(AIPP_VERSION_HEADER));
+	c.header("Vary", AIPP_VERSION_HEADER);
+	return c.json(pluginsForClient(plugins, clientVersion));
+});
 app.route("/api/apps", appsApi);
 app.route("/api/agent-plugins", agentPluginsApi);
 
