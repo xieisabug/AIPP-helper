@@ -183,8 +183,9 @@ export const plugins: Plugin[] = [
         permissions: [],
         tags: ["official", "interface", "office", "preview"],
         minAippVersion: "1.6.2",
-        releaseTag: "plugin-office-preview-plugin-v0.1.0",
+        version: "0.1.1",
+        releaseTag: "plugin-office-preview-plugin-v0.1.1",
         sha256:
-            "sha256:7c2273afacff157865b38272dafddfa1fbdf681e85a571b95f1b603950e27bee",
+            "sha256:a0a1abd13db647a316d441d52d51c5ed625e723ae7ff3dd8a8c624ba568a552b",
     }),
 ];
