@@ -178,14 +178,14 @@ export const plugins: Plugin[] = [
         code: "office-preview-plugin",
         name: "Office 文档预览",
         description:
-            "在 AIPP 内只读预览 Word (.docx)、Excel (.xlsx)、PowerPoint (.pptx)，基于 BetterOffice 本地离线渲染，内置简中与拉丁开源字体，文档不上传。",
+            "在 AIPP 内预览、简单编辑 Word (.docx)、Excel (.xlsx)、PowerPoint (.pptx)，支持选中内容交给 AI 修改（结果另存副本），基于 BetterOffice 本地离线渲染，内置简中与拉丁开源字体，文档不上传。",
         pluginTypes: ["interfaceType"],
         permissions: [],
         tags: ["official", "interface", "office", "preview"],
         minAippVersion: "1.6.2",
-        version: "0.1.1",
-        releaseTag: "plugin-office-preview-plugin-v0.1.1",
+        version: "0.2.0",
+        releaseTag: "plugin-office-preview-plugin-v0.2.0",
         sha256:
-            "sha256:a0a1abd13db647a316d441d52d51c5ed625e723ae7ff3dd8a8c624ba568a552b",
+            "sha256:c501e53cd18be5eb9182c0c4bc813b04a5a28457b00d3c58cbf74f769266eb68",
     }),
 ];
