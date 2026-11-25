@@ -1,0 +1,377 @@
+[
+  {
+    "id": "benchmark-plugin",
+    "code": "benchmark-plugin",
+    "name": "问答评测",
+    "description": "管理问答数据集，批量让助手或模型作答并打分，生成排行榜。",
+    "version": "0.2.0",
+    "author": "AIPP",
+    "tags": [
+      "official",
+      "interface",
+      "application",
+      "experimental"
+    ],
+    "pluginTypes": [
+      "interfaceType",
+      "applicationType"
+    ],
+    "permissions": [],
+    "minAippVersion": "0.4.0",
+    "isExperimental": true,
+    "source": {
+      "type": "zip",
+      "url": "https://github.com/xieisabug/AIPP/releases/download/plugins-v0.2.0/benchmark-plugin-0.2.0.aipp-plugin.zip"
+    },
+    "dirs": [
+      {
+        "from": ".",
+        "to": "benchmark-plugin"
+      }
+    ],
+    "sourceUrl": "https://github.com/xieisabug/AIPP/tree/main/plugin/benchmark-plugin",
+    "sha256": "sha256:62eea8afd1a4323205042e9789d6cb1cb06d49b955e02c091c630d82f2917aa0",
+    "previewImages": [
+      "https://aipp-helper.xiejingyang.com/plugin-previews/benchmark-plugin-0.2.0-1.webp"
+    ]
+  },
+  {
+    "id": "cat-avatar-plugin",
+    "code": "cat-avatar-plugin",
+    "name": "小猫形象",
+    "description": "萌系小猫助手形象，附带小鱼干发卡与星星眼镜两件配饰。",
+    "version": "0.1.1",
+    "author": "AIPP",
+    "tags": [
+      "official",
+      "avatar"
+    ],
+    "pluginTypes": [
+      "avatarType"
+    ],
+    "permissions": [],
+    "minAippVersion": "1.6.4",
+    "isExperimental": false,
+    "source": {
+      "type": "zip",
+      "url": "https://github.com/xieisabug/AIPP/releases/download/plugins-v0.2.0/cat-avatar-plugin-0.1.1.aipp-plugin.zip"
+    },
+    "dirs": [
+      {
+        "from": ".",
+        "to": "cat-avatar-plugin"
+      }
+    ],
+    "sourceUrl": "https://github.com/xieisabug/AIPP/tree/main/plugin/cat-avatar-plugin",
+    "sha256": "sha256:2c87c631aea07769ad8b9de5bdf285549e9e0200122d236df00f9f08c7302408",
+    "previewImages": [
+      "https://aipp-helper.xiejingyang.com/plugin-previews/cat-avatar-plugin-0.1.1-1.webp"
+    ]
+  },
+  {
+    "id": "comfyui-image-plugin",
+    "code": "comfyui-image-plugin",
+    "name": "AI 图片生成",
+    "description": "把 AI 回复转成提示词，通过 ComfyUI 或 Kie 出图，并附在原回复下。",
+    "version": "0.1.0",
+    "author": "AIPP",
+    "tags": [
+      "official",
+      "interface",
+      "application"
+    ],
+    "pluginTypes": [
+      "interfaceType",
+      "applicationType"
+    ],
+    "permissions": [
+      "hook.chat.afterResponseCompleted",
+      "conversation.read",
+      "conversation.write",
+      "plugin.storage",
+      "network.comfyui",
+      "network.image-generation"
+    ],
+    "minAippVersion": "1.4.0",
+    "isExperimental": false,
+    "source": {
+      "type": "zip",
+      "url": "https://github.com/xieisabug/AIPP/releases/download/plugins-v0.2.0/comfyui-image-plugin-0.1.0.aipp-plugin.zip"
+    },
+    "dirs": [
+      {
+        "from": ".",
+        "to": "comfyui-image-plugin"
+      }
+    ],
+    "sourceUrl": "https://github.com/xieisabug/AIPP/tree/main/plugin/comfyui-image-plugin",
+    "sha256": "sha256:4dcdee8d6d231aa6302af316720ff7f3c2c2467b7fea3d855f0f98178d08ce05",
+    "previewImages": [
+      "https://aipp-helper.xiejingyang.com/plugin-previews/comfyui-image-plugin-0.1.0-1.webp"
+    ]
+  },
+  {
+    "id": "directory-bang-plugin",
+    "code": "directory-bang-plugin",
+    "name": "目录快捷命令",
+    "description": "在输入框用 !directory 或 !dir 列出指定目录的文件和子目录，结果直接放进提示词。",
+    "version": "0.2.0",
+    "author": "AIPP",
+    "tags": [
+      "official",
+      "tool",
+      "application"
+    ],
+    "pluginTypes": [
+      "toolType",
+      "applicationType"
+    ],
+    "permissions": [
+      "bang.register"
+    ],
+    "minAippVersion": "0.4.0",
+    "isExperimental": false,
+    "source": {
+      "type": "zip",
+      "url": "https://github.com/xieisabug/AIPP/releases/download/plugins-v0.2.0/directory-bang-plugin-0.2.0.aipp-plugin.zip"
+    },
+    "dirs": [
+      {
+        "from": ".",
+        "to": "directory-bang-plugin"
+      }
+    ],
+    "sourceUrl": "https://github.com/xieisabug/AIPP/tree/main/plugin/directory-bang-plugin",
+    "sha256": "sha256:988104e252c31990bf96e45660f1cd18d8271cdfaff796dc6d35a759dee64162",
+    "previewImages": [
+      "https://aipp-helper.xiejingyang.com/plugin-previews/directory-bang-plugin-0.2.0-1.webp"
+    ]
+  },
+  {
+    "id": "guofeng-zhusha-theme-plugin",
+    "code": "guofeng-zhusha-theme-plugin",
+    "name": "国风·朱砂主题",
+    "description": "以朱砂红与象牙白为主色的国风主题，发送按钮换成叶子与折扇。",
+    "version": "0.2.0",
+    "author": "AIPP",
+    "tags": [
+      "official",
+      "theme",
+      "interface",
+      "application"
+    ],
+    "pluginTypes": [
+      "themeType",
+      "interfaceType",
+      "applicationType"
+    ],
+    "permissions": [],
+    "minAippVersion": "1.4.0",
+    "isExperimental": false,
+    "source": {
+      "type": "zip",
+      "url": "https://github.com/xieisabug/AIPP/releases/download/plugins-v0.2.0/guofeng-zhusha-theme-plugin-0.2.0.aipp-plugin.zip"
+    },
+    "dirs": [
+      {
+        "from": ".",
+        "to": "guofeng-zhusha-theme-plugin"
+      }
+    ],
+    "sourceUrl": "https://github.com/xieisabug/AIPP/tree/main/plugin/guofeng-zhusha-theme-plugin",
+    "sha256": "sha256:03d6d771a6e15a26eb1631c4282668a6bcb52d1848cf82d382999ff83f28088f",
+    "previewImages": [
+      "https://aipp-helper.xiejingyang.com/plugin-previews/guofeng-zhusha-theme-plugin-0.2.0-1.webp"
+    ]
+  },
+  {
+    "id": "hidden-first-turn-context-plugin",
+    "code": "hidden-first-turn-context-plugin",
+    "name": "首轮隐藏上下文",
+    "description": "为助手配置一段只在第一轮请求时发给模型的隐藏上下文，聊天界面里看不到。",
+    "version": "0.2.0",
+    "author": "AIPP",
+    "tags": [
+      "official",
+      "application"
+    ],
+    "pluginTypes": [
+      "applicationType"
+    ],
+    "permissions": [
+      "assistant.config",
+      "data.read.conversation",
+      "hook.chat.beforeModelRequest"
+    ],
+    "minAippVersion": "0.4.0",
+    "isExperimental": false,
+    "source": {
+      "type": "zip",
+      "url": "https://github.com/xieisabug/AIPP/releases/download/plugins-v0.2.0/hidden-first-turn-context-plugin-0.2.0.aipp-plugin.zip"
+    },
+    "dirs": [
+      {
+        "from": ".",
+        "to": "hidden-first-turn-context-plugin"
+      }
+    ],
+    "sourceUrl": "https://github.com/xieisabug/AIPP/tree/main/plugin/hidden-first-turn-context-plugin",
+    "sha256": "sha256:6d43eecbca8c3d07669bdc4b20aeb414293787c5ad851753acbe1dbf5a75a009",
+    "previewImages": [
+      "https://aipp-helper.xiejingyang.com/plugin-previews/hidden-first-turn-context-plugin-0.2.0-1.webp"
+    ]
+  },
+  {
+    "id": "prompt-optimizer-plugin",
+    "code": "prompt-optimizer-plugin",
+    "name": "提示词优化",
+    "description": "分析当前对话，让模型审阅助手提示词并给出修改建议，对比差异后再应用。",
+    "version": "0.2.0",
+    "author": "AIPP",
+    "tags": [
+      "official",
+      "interface"
+    ],
+    "pluginTypes": [
+      "interfaceType"
+    ],
+    "permissions": [
+      "assistant.config",
+      "conversation.read",
+      "assistant.read",
+      "assistant.prompt.write"
+    ],
+    "minAippVersion": "0.4.0",
+    "isExperimental": false,
+    "source": {
+      "type": "zip",
+      "url": "https://github.com/xieisabug/AIPP/releases/download/plugins-v0.2.0/prompt-optimizer-plugin-0.2.0.aipp-plugin.zip"
+    },
+    "dirs": [
+      {
+        "from": ".",
+        "to": "prompt-optimizer-plugin"
+      }
+    ],
+    "sourceUrl": "https://github.com/xieisabug/AIPP/tree/main/plugin/prompt-optimizer-plugin",
+    "sha256": "sha256:828fa9a0123bba4b6ed0531465f33f4e601353037b1620bbf0f400015e4cc263",
+    "previewImages": [
+      "https://aipp-helper.xiejingyang.com/plugin-previews/prompt-optimizer-plugin-0.2.0-1.webp"
+    ]
+  },
+  {
+    "id": "run-script-bang-plugin",
+    "code": "run-script-bang-plugin",
+    "name": "脚本快捷命令",
+    "description": "在输入框用 !run_script、!rs 或 !bash 执行 shell 命令，并把输出放进提示词。",
+    "version": "0.2.0",
+    "author": "AIPP",
+    "tags": [
+      "official",
+      "tool",
+      "application",
+      "high-risk"
+    ],
+    "pluginTypes": [
+      "toolType",
+      "applicationType"
+    ],
+    "permissions": [
+      "bang.register"
+    ],
+    "minAippVersion": "0.4.0",
+    "isExperimental": false,
+    "source": {
+      "type": "zip",
+      "url": "https://github.com/xieisabug/AIPP/releases/download/plugins-v0.2.0/run-script-bang-plugin-0.2.0.aipp-plugin.zip"
+    },
+    "dirs": [
+      {
+        "from": ".",
+        "to": "run-script-bang-plugin"
+      }
+    ],
+    "sourceUrl": "https://github.com/xieisabug/AIPP/tree/main/plugin/run-script-bang-plugin",
+    "sha256": "sha256:dbd816d0b075249610ba7032a4c16729dc077c81f003c58f76642c6fe8c4d18c",
+    "previewImages": [
+      "https://aipp-helper.xiejingyang.com/plugin-previews/run-script-bang-plugin-0.2.0-1.webp"
+    ]
+  },
+  {
+    "id": "think-markdown-plugin",
+    "code": "think-markdown-plugin",
+    "name": "思考过程折叠",
+    "description": "把回复里的 <think> 块显示为可展开的「思考过程」，默认收起。",
+    "version": "0.2.0",
+    "author": "AIPP",
+    "tags": [
+      "official",
+      "markdown",
+      "interface"
+    ],
+    "pluginTypes": [
+      "markdownType",
+      "interfaceType"
+    ],
+    "permissions": [
+      "markdown.register"
+    ],
+    "minAippVersion": "0.4.0",
+    "isExperimental": false,
+    "source": {
+      "type": "zip",
+      "url": "https://github.com/xieisabug/AIPP/releases/download/plugins-v0.2.0/think-markdown-plugin-0.2.0.aipp-plugin.zip"
+    },
+    "dirs": [
+      {
+        "from": ".",
+        "to": "think-markdown-plugin"
+      }
+    ],
+    "sourceUrl": "https://github.com/xieisabug/AIPP/tree/main/plugin/think-markdown-plugin",
+    "sha256": "sha256:d920128d5de6fafda763ab27f427694ed842443cd679433d487531f1ceb6c1be",
+    "previewImages": [
+      "https://aipp-helper.xiejingyang.com/plugin-previews/think-markdown-plugin-0.2.0-1.webp"
+    ]
+  },
+  {
+    "id": "usage-dashboard-plugin",
+    "code": "usage-dashboard-plugin",
+    "name": "使用统计",
+    "description": "统计本机会话、消息、模型与助手的使用情况，并生成趋势图。",
+    "version": "0.2.0",
+    "author": "AIPP",
+    "tags": [
+      "official",
+      "interface",
+      "application"
+    ],
+    "pluginTypes": [
+      "interfaceType",
+      "applicationType"
+    ],
+    "permissions": [
+      "data.read.conversation",
+      "data.read.assistant",
+      "data.read.llm",
+      "plugin.storage"
+    ],
+    "minAippVersion": "0.4.0",
+    "isExperimental": false,
+    "source": {
+      "type": "zip",
+      "url": "https://github.com/xieisabug/AIPP/releases/download/plugins-v0.2.0/usage-dashboard-plugin-0.2.0.aipp-plugin.zip"
+    },
+    "dirs": [
+      {
+        "from": ".",
+        "to": "usage-dashboard-plugin"
+      }
+    ],
+    "sourceUrl": "https://github.com/xieisabug/AIPP/tree/main/plugin/usage-dashboard-plugin",
+    "sha256": "sha256:6159f3bd8540283fccef84029d136297ca109798658f7b95bcfd16ed93e7ab72",
+    "previewImages": [
+      "https://aipp-helper.xiejingyang.com/plugin-previews/usage-dashboard-plugin-0.2.0-1.webp"
+    ]
+  }
+]

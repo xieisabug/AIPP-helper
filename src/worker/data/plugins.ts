@@ -1,3 +1,5 @@
+import officialRelease from "./official-plugins.json";
+
 export interface PluginSource {
     type: "zip" | "github";
     url?: string;
@@ -26,6 +28,11 @@ export interface Plugin {
     dirs: PluginDir[];
     sourceUrl: string;
     sha256: string;
+    /**
+     * Market preview images (plugin market clients). Clients only load URLs under
+     * https://aipp-helper.xiejingyang.com/plugin-previews/; older clients ignore the field.
+     */
+    previewImages?: string[];
 }
 
 const PLUGIN_RELEASE_DOWNLOAD = "https://github.com/xieisabug/AIPP/releases/download";
@@ -46,6 +53,7 @@ function makePlugin(params: {
     minAippVersion?: string;
     /** GitHub release tag hosting the zip; single-plugin releases use `plugin-<code>-v<version>`. */
     releaseTag?: string;
+    previewImages?: string[];
 }): Plugin {
     const version = params.version ?? "0.1.0";
     return {
@@ -69,10 +77,15 @@ function makePlugin(params: {
         dirs: [{ from: ".", to: params.code }],
         sourceUrl: `${PLUGIN_SOURCE_BASE}/${params.code}`,
         sha256: params.sha256,
+        ...(params.previewImages?.length ? { previewImages: params.previewImages } : {}),
     };
 }
 
-export const plugins: Plugin[] = [
+/**
+ * plugins-v0.1.0, kept unchanged so clients that cannot run a newer release of the same
+ * plugin still get the version they can install (see `pluginsForClient`). Do not edit.
+ */
+const legacyPlugins: Plugin[] = [
     makePlugin({
         code: "directory-bang-plugin",
         name: "Directory Bang Plugin",
@@ -174,18 +187,32 @@ export const plugins: Plugin[] = [
         sha256:
             "sha256:e202fd12fd4032fb9c77b42be678878f4cfbf30d9c5be3b3e82ef39f85f54532",
     }),
-    makePlugin({
-        code: "office-preview-plugin",
-        name: "Office 文档预览",
-        description:
-            "在 AIPP 内预览、简单编辑 Word (.docx)、Excel (.xlsx)、PowerPoint (.pptx)，支持选中内容交给 AI 修改（结果另存副本），基于 BetterOffice 本地离线渲染，内置简中与拉丁开源字体，文档不上传。",
-        pluginTypes: ["interfaceType"],
-        permissions: [],
-        tags: ["official", "interface", "office", "preview"],
-        minAippVersion: "1.6.2",
-        version: "0.2.0",
-        releaseTag: "plugin-office-preview-plugin-v0.2.0",
-        sha256:
-            "sha256:c501e53cd18be5eb9182c0c4bc813b04a5a28457b00d3c58cbf74f769266eb68",
-    }),
+];
+
+/** Office preview ships from its own `plugin-office-preview-plugin-v*` tag. */
+const officePreviewPlugin = makePlugin({
+    code: "office-preview-plugin",
+    name: "Office 文档预览",
+    description:
+        "在 AIPP 内预览、简单编辑 Word (.docx)、Excel (.xlsx)、PowerPoint (.pptx)，支持选中内容交给 AI 修改（结果另存副本），基于 BetterOffice 本地离线渲染，内置简中与拉丁开源字体，文档不上传。",
+    pluginTypes: ["interfaceType"],
+    permissions: [],
+    tags: ["official", "interface", "office", "preview"],
+    minAippVersion: "1.6.2",
+    version: "0.2.0",
+    releaseTag: "plugin-office-preview-plugin-v0.2.0",
+    sha256:
+        "sha256:c501e53cd18be5eb9182c0c4bc813b04a5a28457b00d3c58cbf74f769266eb68",
+    previewImages: ["https://aipp-helper.xiejingyang.com/plugin-previews/office-preview-plugin-0.2.0-1.webp"],
+});
+
+/**
+ * Every published release. A code may appear more than once; `pluginsForClient` serves each
+ * client the newest release it can run. `official-plugins.json` is the CI output of the latest
+ * `plugins-v*` release, copied verbatim by `scripts/sync-plugin-release.mjs`.
+ */
+export const plugins: Plugin[] = [
+    ...legacyPlugins,
+    ...(officialRelease as Plugin[]),
+    officePreviewPlugin,
 ];

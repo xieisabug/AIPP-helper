@@ -77,3 +77,9 @@ Windows Credential Manager / macOS Keychain / Linux Secret Service 使用 keyrin
 Gamma · API Key 覆盖 [官方 REST 索引](https://developers.gamma.app/llms.txt) 的 26 项操作，连接用 GET /me。出图、生成演示文稿和导出分别提交与查状态，完成后提供文件链接。删除要求工作区管理员权限。每次修改公开定义时应递增应用版本和目录版本。
 
 回归用例在 `tests/fixtures/gamma-api-cases.json`，独立维护每项操作的 HTTP 方法、路径、参数与模拟响应。跨仓库验证时，将已发布详情中的 app 和该文件的数组组装为 `{"app": ..., "cases": [...]}`，设置 `AIPP_HTTP_APP_CONTRACT` 为这个临时 JSON 文件的绝对路径，在 AIPP 运行 `cargo test --manifest-path src-tauri/Cargo.toml --lib mcp::apps::declarative::tests -- --include-ignored`。该测试仅向本机模拟服务发送虚构密钥。
+
+## 官方插件目录（/api/plugins）
+
+`src/worker/data/plugins.ts` 保存每一次发布：plugins-v0.1.0 旧条目（不再修改，sha256 对应已发布 zip）、`official-plugins.json`（最新 `plugins-v*` 的 CI 产物，原样复制）和独立发布的 Office 预览。同一插件可以有多个版本，`pluginsForClient` 按 `X-AIPP-Version` 给每个插件挑客户端能运行的最新一版；不带头的请求按 1.2.0 处理（1.2.0～1.6.1 无法区分）。
+
+发布新一批插件：AIPP 推 `plugins-vX.Y.Z` 标签，等 Package official plugins 完成后执行 `node scripts/sync-plugin-release.mjs plugins-vX.Y.Z`（校验 sha256、来源、dirs、预览图前缀，写入 `official-plugins.json`，预览图写入 `public/plugin-previews/`），再运行 `node --test tests/plugins.test.mjs`、`npm run build` 后部署。预览图只接受 `https://aipp-helper.xiejingyang.com/plugin-previews/` 前缀，客户端会丢弃其他地址。
