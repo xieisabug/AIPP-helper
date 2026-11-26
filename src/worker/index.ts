@@ -1,9 +1,11 @@
 import { Hono } from "hono";
 import { skills } from "./data/skills";
 import { plugins } from "./data/plugins";
-import { AIPP_VERSION_HEADER, pluginsForClient, resolveClientVersion } from "./plugin-version";
+import { AIPP_VERSION_HEADER, compareVersions, pluginsForClient, resolveClientVersion } from "./plugin-version";
 import { appsApi } from "./apps";
 import { agentPluginsApi } from "./agent-plugins";
+import { getPreset, preset, refreshAliases } from "./onboarding";
+
 
 type AppEnv = {
 	Bindings: Env & {
@@ -23,6 +25,15 @@ app.get("/api/plugins", (c) => {
 	c.header("Vary", AIPP_VERSION_HEADER);
 	return c.json(pluginsForClient(plugins, clientVersion));
 });
+app.get("/api/onboarding", async (c) => {
+    const client = resolveClientVersion(c.req.query("aippVersion") ?? c.req.header(AIPP_VERSION_HEADER));
+    c.header("Vary", AIPP_VERSION_HEADER);
+    if (compareVersions(client, resolveClientVersion(preset.minAippVersion)) < 0) {
+        return c.json({ error: "请升级 AIPP 后使用首次引导", minAippVersion: preset.minAippVersion }, 426);
+    }
+    const response = await getPreset();
+    return c.body(await response.text(), 200, Object.fromEntries(response.headers));
+});
 app.route("/api/apps", appsApi);
 app.route("/api/agent-plugins", agentPluginsApi);
 
@@ -32,4 +43,4 @@ app.all("*", async (c) => {
 	return c.env.ASSETS.fetch(url);
 });
 
-export default app;
+export default Object.assign(app, { scheduled: async () => { await refreshAliases(); } });
