@@ -43,6 +43,7 @@ test('serves a compatible preset, caches model aliases, and refreshes them on sc
         assert.equal(data.recommendation_catalog.providers.deepseek.models["deepseek-flash"].input, 0.15);
         const scores = data.recommendation_catalog.benchmarks["deepseek/base"];
         assert.deepEqual(scores.map(row => row.score), [80,63,70]);
+        assert.equal(data.recommendation_catalog.independent_benchmarks["deepseek/base"][0].lowerBetter, true);
         assert.notEqual(scores[1].test, scores[2].test);
         assert.deepEqual(data.recommended_provider.models, {main: "deepseek-flash", light: "deepseek-flash", review: "deepseek-flash"});
         assert.deepEqual(data.model_limits["deepseek/deepseek-flash"], {context: 62000, output: 4096});

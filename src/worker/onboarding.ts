@@ -1,4 +1,5 @@
 import preset from "./data/onboarding.json";
+import external from "./data/onboarding-benchmarks.json";
 
 type CatalogModel = { canonical_model_id?: string; type?: string; tool_call?: boolean; provider?: { api?: string }; cost?: { input?: number; output?: number }; id?: string; name?: string; family?: string; release_date?: string; modalities?: { output?: string[] }; base_model?: string | { id?: string }; limit?: { context?: number; input?: number; output?: number } };
 type Catalog = Record<string, { api?: string; models?: Record<string, CatalogModel> }>;
@@ -82,7 +83,7 @@ export function withModelAliases(catalog: Catalog) {
 }
 
 type Benchmark = { name: string; score: number; metric?: string; dataset?: string; version?: string; harness?: string; variant?: string };
-type ModelCatalog = { providers: Catalog; models: Record<string, { benchmarks?: Benchmark[] }> };
+type ModelCatalog = { providers: Catalog; models: Record<string, { name?: string; family?: string; release_date?: string; benchmarks?: Benchmark[] }> };
 
 const officialEndpoints: Record<string, string[]> = {
     openai: ["https://api.openai.com/v1"], anthropic: ["https://api.anthropic.com", "https://api.anthropic.com/v1"],
@@ -90,7 +91,7 @@ const officialEndpoints: Record<string, string[]> = {
     cohere: ["https://api.cohere.ai/v1"],
 };
 
-// Keep percentages from identifiable, higher-is-better benchmarks. Do not combine Elo, latency or edit distance with accuracy.
+// Each comparison keeps its metric, direction and test conditions.
 const groups: Record<string, string> = {
     "gpqa diamond": "reasoning", "humanity's last exam": "reasoning", "mmlu-pro": "reasoning",
     "terminal-bench": "agent", "swe-bench verified": "agent", "swe-bench pro": "agent",
@@ -100,29 +101,61 @@ const groups: Record<string, string> = {
     "simpleqa-verified": "factual", "chinese simpleqa": "factual",
     "harmbench": "safety", "xstest": "safety", "wildguardtest": "safety",
 };
-function benchmarkRows(rows: Benchmark[]) {
-    const unique = new Map<string, { group: string; test: string; score: number }>();
+function benchmarkRows(rows: Benchmark[], independent: ExternalRow[]) {
+    const unique = new Map<string, ExternalRow>();
     for (const row of rows) {
         const clean = (value?: string) => (value ?? "").trim().toLowerCase();
         const name = clean(row.name);
-        const group = groups[name];
         const metric = clean(row.metric) || "score";
+        const variant = clean(row.variant);
+        const effort = ["low","medium","high","xhigh","max","minimal","none"].includes(variant) ? variant : undefined;
+        if (name === "artificial analysis intelligence index" && row.version && Number.isFinite(row.score)) {
+            // Release metadata can quote AA directly. Prefer the original for the same version/effort.
+            const version = clean(row.version).replace(/^v/, "");
+            const test = "aa:intelligence:" + version;
+            if (!independent.some(b => b.test === test && b.effort === effort))
+                unique.set(test + "/" + variant, {group: "reasoning", test, score: row.score, effort, tolerance: 2});
+            continue;
+        }
+        if (name === "aa-3d" && metric === "elo" && Number.isFinite(row.score)) {
+            unique.set(name, {group: "visual3d", test: JSON.stringify([name, metric, row.version ?? "", variant]), score: row.score});
+            continue;
+        }
+        const rejection = name === "harmbench" && metric === "attack success rate";
+        const falseAllow = metric === "false allow rate" && ["tool approval", "tool safety review"].includes(name);
+        const group = falseAllow ? "unsafeAllowance" : groups[name];
         if (!group || !Number.isFinite(row.score) || row.score < 0 || row.score > 100) continue;
-        if (!["score", "accuracy", "percent", "%", "pass@1", "resolved", "resolve rate", "percent resolved",
+        if (!rejection && !falseAllow && !["score", "accuracy", "percent", "%", "pass@1", "resolved", "resolve rate", "percent resolved",
             "success rate", "pass rate", "strict pass@1", "f1", "balanced accuracy"].includes(metric)) continue;
         // A generic safety score can measure attack success (lower is better).
-        if (group === "safety" && !["accuracy", "balanced accuracy", "f1"].includes(metric)) continue;
+        if (group === "safety" && !rejection && !["accuracy", "balanced accuracy", "f1"].includes(metric)) continue;
         const test = JSON.stringify([name, metric, ...[row.version, row.dataset, row.variant, row.harness].map(clean)]);
         const prior = unique.get(test);
-        if (!prior || prior.score > row.score) unique.set(test, {group, test, score: row.score});
+        const lowerBetter = rejection || falseAllow;
+        if (!prior || (lowerBetter ? prior.score < row.score : prior.score > row.score)) unique.set(test, {group, test, score: row.score,
+            ...(lowerBetter && {lowerBetter: true}),
+            ...(effort && {effort})});
     }
     return [...unique.values()];
 }
 
-export function recommendationCatalog({models, providers}: ModelCatalog) {
+type ExternalRow = {group: string; test: string; score: number; low?: number; high?: number; effort?: string; tolerance?: number; lowerBetter?: boolean};
+type ExternalCatalog = {benchmarks: Record<string, ExternalRow[]>; defaults: Record<string, string>};
+
+export function recommendationCatalog({models, providers}: ModelCatalog, supplement: ExternalCatalog = external) {
     if (!models || !providers) throw new Error("models.dev catalog is missing models or providers");
-    const benchmarks = Object.fromEntries(Object.entries(models).map(([id, m]) =>
-        [id, benchmarkRows(m.benchmarks ?? [])] as const).filter(([, rows]) => rows.length));
+    const benchmarks: Record<string, ExternalRow[]> = {};
+    const independent: Record<string, ExternalRow[]> = {};
+    for (const [id, model] of Object.entries(models)) {
+        const measured = supplement.benchmarks[id] ?? [];
+        for (const row of benchmarkRows(model.benchmarks ?? [], measured)) {
+            // Previous clients only understand unqualified, higher-is-better percentages.
+            const target = row.lowerBetter || row.effort || row.test.startsWith("aa:") || row.group === "visual3d"
+                ? independent : benchmarks;
+            (target[id] ??= []).push(row);
+        }
+        if (measured.length) (independent[id] ??= []).push(...measured);
+    }
     const offers = Object.fromEntries(Object.entries(providers).map(([id, p]) => {
         const endpoints = [...new Set([...(officialEndpoints[id] ?? []), ...(p.api ? [p.api] : [])])];
         const entries = Object.fromEntries(Object.entries(p.models ?? {}).map(([code, m]) => {
@@ -133,9 +166,12 @@ export function recommendationCatalog({models, providers}: ModelCatalog) {
         }));
         return [id, {endpoints, models: entries}];
     }));
-    return { benchmarks, providers: offers };
+    const identities = Object.fromEntries(Object.entries(models).map(([id, model]) => [id, {
+        family: model.family, date: model.release_date, effort: supplement.defaults[id],
+    }]));
+    return { benchmarks, independent_benchmarks: independent, providers: offers, identities, scoring_version: 2, sources: external.sources };
 }
-const aliasCacheKey = "https://aipp-helper.xiejingyang.com/api/onboarding/aliases/" + preset.revision;
+const aliasCacheKey = "https://aipp-helper.xiejingyang.com/api/onboarding/aliases/v2/" + preset.revision;
 
 export async function refreshAliases(): Promise<Response> {
     const upstream = await fetch("https://models.dev/catalog.json", { signal: AbortSignal.timeout(8000) });
