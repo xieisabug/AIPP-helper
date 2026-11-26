@@ -20,8 +20,8 @@ export const skills: Skill[] = [
         id: "aipp-skills",
         name: "AIPP Skills",
         description:
-        "教会助手如何更好的使用AIPP，包含直接读取和操作 AIPP 数据库的能力、使用AIPP Artifacts 的能力。",
-        version: "2026-03-10",
+            "教会助手更好地使用 AIPP：构建 Artifact、查询与维护 AIPP 数据、开发 AIPP 插件，以及在管家模式下通过 SuperAdmin 管理助手、模型、MCP、Skills 与定时任务。",
+        version: "2026-11-26",
         source: {
             type: "github",
             repo: "xieisabug/AIPP-skills",
