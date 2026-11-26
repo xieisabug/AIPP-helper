@@ -156,6 +156,9 @@ export function recommendationCatalog({models, providers}: ModelCatalog, supplem
         }
         if (measured.length) (independent[id] ??= []).push(...measured);
     }
+    for (const [id, rows] of Object.entries(supplement.benchmarks)) {
+        if (id.startsWith("arena-reference:")) independent[id] = rows;
+    }
     const offers = Object.fromEntries(Object.entries(providers).map(([id, p]) => {
         const endpoints = [...new Set([...(officialEndpoints[id] ?? []), ...(p.api ? [p.api] : [])])];
         const entries = Object.fromEntries(Object.entries(p.models ?? {}).map(([code, m]) => {
@@ -169,9 +172,9 @@ export function recommendationCatalog({models, providers}: ModelCatalog, supplem
     const identities = Object.fromEntries(Object.entries(models).map(([id, model]) => [id, {
         family: model.family, date: model.release_date, effort: supplement.defaults[id],
     }]));
-    return { benchmarks, independent_benchmarks: independent, providers: offers, identities, scoring_version: 2, sources: external.sources };
+    return { benchmarks, independent_benchmarks: independent, providers: offers, identities, scoring_version: 3, sources: external.sources };
 }
-const aliasCacheKey = "https://aipp-helper.xiejingyang.com/api/onboarding/aliases/v2/" + preset.revision;
+const aliasCacheKey = "https://aipp-helper.xiejingyang.com/api/onboarding/aliases/v3/" + preset.revision;
 
 export async function refreshAliases(): Promise<Response> {
     const upstream = await fetch("https://models.dev/catalog.json", { signal: AbortSignal.timeout(8000) });
